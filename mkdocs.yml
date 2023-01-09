@@ -249,14 +249,17 @@ theme:
   icon:
     repo: fontawesome/brands/github
   palette:
-    - primary: blue grey
-      accent: green
+    - scheme: default
+      primary: green
+      accent: deep purple
       toggle:
-        icon: material/toggle-switch-off-outline
+        icon: material/lightbulb
         name: Dark mode
     - scheme: slate
+      accent: green
+      primary: deep purple
       toggle:
-        icon: material/toggle-switch
+        icon: material/lightbulb-outline
         name: Light mode
   name: material
   features:
@@ -271,6 +274,12 @@ plugins:
       ignore: ["*/__*.ipynb"]
   - search
   - glightbox
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+        remove_comments: true
 markdown_extensions:
   - meta
   - tables
@@ -312,4 +321,4 @@ extra:
     - icon: fontawesome/brands/google
       link: https://scholar.google.com/citations?user=e1Bif78AAAAJ
 
-copyright: Copyright &copy; 2017 - 2022 Haoda Li
+copyright: Copyright &copy; 2017 - 2023 | Haoda Li
