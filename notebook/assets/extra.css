@@ -1,0 +1,11 @@
+.md-grid {
+  max-width: 1920px;
+}
+
+.jp-OutputArea-prompt {
+  display: none !important;
+}
+
+.jp-InputPrompt {
+  display: none !important;
+}

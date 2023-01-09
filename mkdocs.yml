@@ -1,0 +1,315 @@
+site_name: Notebook
+repo_url: https://github.com/haoda-li/notebook
+edit_uri: blob/master/notebook/
+site_author: Haoda Li
+use_directory_urls: false
+docs_dir: "notebook"
+
+nav:
+  - Courses: index.md
+  - CS - CG & CV:
+    - CSC418/CSC2504 Computer Graphics:
+      - csc418/raster_image.ipynb
+      - csc418/ray_casting.ipynb
+      - csc418/ray_tracing.ipynb
+      - csc418/meshes.ipynb
+      - csc418/bvh.ipynb
+      - csc418/shader_pipeline.ipynb
+      - csc418/kinematics.ipynb
+      - csc418/mass_spring_system.ipynb
+    - CSC417/CSC2549 Physics-based Animation:
+      - csc417/introduction.md
+      - csc417/1d_mass_spring.md
+      - csc417/3d_mass_spring_system.md
+      - csc417/fem.md
+      - csc417/cloth.md
+      - csc417/rigid_bodies.md
+      - csc417/rotations.md
+      - csc417/collision.md
+    - CSC419/CSC2520 Geometry Processing:
+      - csc419/introduction.md
+      - csc419/surface_reconstruction.md
+      - csc419/registration.md
+      - csc419/smoothing.md
+      - csc419/deformation.md
+      - csc419/parameterization.md
+      - csc419/curvature.md
+      - csc419/cubic_stylization.md
+    - CSC320 Intro. Visual Computing:
+      - csc320/camera.md
+      - csc320/matting.md
+      - csc320/hdr.md
+      - csc320/blending.md
+      - csc320/poly_fitting.md
+      - csc320/fourier.md
+      - csc320/wavelet.md
+    - CSC420 Intro. Image Understanding:
+      - csc420/linear_filters.ipynb
+      - csc420/edge_detection.ipynb
+      - csc420/image_pyramids.ipynb
+      - csc420/harris_corner_detector.ipynb
+      - csc420/blob_detection.ipynb
+      - csc420/sift.ipynb
+      - csc420/camera_model.ipynb
+      - csc420/stereo.ipynb
+      - csc420/indexing.ipynb
+    - Research Notes and Paper Readings:
+      - research/sparse_icp.md
+      - research/pointcloud.md
+      - research/nerf.md
+      - research/nerfv.md
+      - research/shl.md
+
+
+  - CS - ML/DL/AI:
+    - CSC412/CSC2506 Probabilistic Learning and Reasoning:
+      - csc412/models.md
+      - csc412/dag.md
+      - csc412/inference.md
+      - csc412/mc.md
+      - csc412/sampling.md
+      - csc412/vi.md
+      - csc412/vae.md
+    - CSC311 Intro. Machine Learning:
+      - csc311/knn.md
+      - csc311/bvd.md
+      - csc311/decision_trees.md
+      - csc311/linear_regression.md
+      - csc311/svm.md
+      - csc311/neural_nets.md
+      - csc311/gradient_descent.md
+      - csc311/classification.md
+      - csc311/probabilistic_models.md
+      - csc311/pca.md
+      - csc311/kM_EM.md
+      - csc311/matrix_factorization.md
+      - csc311/reinforce_learning.md
+    - CSC384 Intro. Artificial Intelligence:
+      - csc384/search.md
+      - csc384/usearch.md
+      - csc384/hsearch.md
+      - csc384/csp.md
+      - csc384/fc_gac.md
+
+  - CS - General:
+    - CSC367 Parallel Programming:
+      - csc367/hie.md
+      - csc367/parallel.md
+      - csc367/pthread.md
+      - csc367/omp.md
+      - csc367/omp_for.md
+      - csc367/omp_sync.md
+      - csc367/mpi.md
+      - csc367/mpi_comm.md
+      - csc367/cuda.md
+      - csc367/cuda_opt.md
+      - csc367/slurm.md
+    - CSC336 Numerical Methods:
+      - csc336/approx_error.md
+      - csc336/arithmetic.md
+      - csc336/arithmetic_examples.md
+      - csc336/norm.md
+      - csc336/matrix_conditioning.md
+      - csc336/lu_decomposition.md
+      - csc336/pivoting.md
+      - csc336/interpolations.md
+      - csc336/non_linear_equations.md
+    - CSC343 Intro. Databases:
+      - csc343/ra.md
+      - csc343/sql_query.md
+      - csc343/sql_def.md
+      - csc343/sql_man.md
+      - csc343/rm.md
+      - csc343/fd.md
+    - CSC373 Algorithms Design, Analysis and Complexity:
+      - csc373/greedy_algorithm.md
+      - csc373/dp.md
+      - csc373/network_flow.md
+      - csc373/lp.md
+      - csc373/p_np.md
+      - csc373/npc.md
+      - csc373/self_reducibility.md
+      - csc373/optimization_approximation.md
+    - CSC265 Enriched Data Structures and Analysis:
+      - csc265/pq.md
+      - csc265/mq.md
+      - csc265/avl.md
+      - csc265/avl_app.md
+      - csc265/hashset.md
+      - csc265/random.md
+      - csc265/amortized.md
+      - csc265/disjoint_set.md
+      - csc265/bfs.md
+      - csc265/dfs.md
+
+  - Mathematics:
+    - MAT337 Intro. Real Analysis:
+      - mat337/real_number_construction.md
+      - mat337/extremum.md
+      - mat337/mct_bwt.md
+      - mat337/topology_reals.md
+      - mat337/normed_space.md
+      - mat337/inner_product_and_fourier.md
+      - mat337/function_convergence.md
+      - mat337/series.md
+      - mat337/AAT.md
+      - mat337/approximations.md
+      - mat337/ODE.md
+      - mat337/swt.md
+    - MAT334 Complex Variables:
+      - mat334/intro.md
+      - mat334/functions.md
+      - mat334/cont_diff.md
+      - mat334/multi_val_func.md
+      - mat334/integration.md
+      - mat334/ct.md
+      - mat334/cie.md
+      - mat334/power_series.md
+      - mat334/residue.md
+      - mat334/jl.md
+      - mat334/pvt.md
+      - mat334/arg.md
+      - mat334/conformal.md
+    - MAT363 Geometry of Curves and Surfaces:
+      - mat363/intro_curves.md
+      - mat363/arc_length.md
+      - mat363/reparam.md
+      - mat363/curvature.md
+      - mat363/plane_curve.md
+      - mat363/space_curves.md
+      - mat363/fvt.md
+      - mat363/iso_ineq.md
+      - mat363/intro_surface.md
+      - mat363/surface_tangent.md
+      - mat363/surface_normals.md
+      - mat363/surface_examples.md
+      - mat363/examples_smooth.md
+      - mat363/fff.md
+      - mat363/isometry.md
+      - mat363/sff.md
+      - mat363/gaussian_curvature.md
+      - mat363/parallel_transport.md
+      - mat363/geodesics.md
+      - mat363/gcme.md
+      - mat363/minimal_surface.md
+      - mat363/gbt.md
+    - APM462 Nonlinear Optimization:
+      - apm462/calculus_review.md
+      - apm462/ufdo.md
+      - apm462/ufdoq.md
+      - apm462/ecfdo.md
+      - apm462/ecfdoq.md
+      - apm462/icfdo.md
+      - apm462/icfdoq.md
+      - apm462/newtons_method_and_steepest_descent.md
+      - apm462/conjugate.md
+      - apm462/conjugateq.md
+      - apm462/uo_functional.md
+      - apm462/uo_functional_q.md
+      - apm462/co_functional.md
+      - apm462/co_functional_q.md
+  - Statistics:
+    - STA303/STA1002 Methods of Data Analysis II:
+      - sta303/Summary.md
+      - sta303/two_way_ANOVA.md
+      - sta303/multi_comparisons.md
+      - sta303/binary_logistic_regression.md
+      - sta303/case_spock.md
+      - sta303/binomial_logistic_regression.md
+      - sta303/poisson_regression.md
+      - sta303/contingency.md
+    - STA347 Probability I:
+      - sta347/probability.md
+      - sta347/distribution.md
+      - sta347/mv_distribution.md
+      - sta347/function_rv.md
+      - sta347/expectations.md
+      - sta347/var.md
+      - sta347/ineq.md
+    - STA355 Theory of Statistical Practice:
+      - sta355/statistical_models.md
+      - sta355/order_statistics.md
+      - sta355/spacings.md
+      - sta355/density_estimation.md
+      - sta355/methods_of_estimation.md
+      - sta355/bayes_inference.md
+    - STA457/STA2202 Time Series Analysis:
+      - sta457/Summary.md
+      - sta457/Introduction.md
+      - sta457/ARMA.md
+      - sta457/ARIMA.md
+      - sta457/Forecasting.md
+      - sta457/VAR.md
+      - sta457/granger_causality_and_cointegration.md
+  - Main: https://haoda-li.github.io/
+
+theme:
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - primary: blue grey
+      accent: green
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Dark mode
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Light mode
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.instant
+
+
+plugins:
+  - mkdocs-jupyter:
+      include: ["*.ipynb"]
+      ignore: ["*/__*.ipynb"]
+  - search
+  - glightbox
+markdown_extensions:
+  - meta
+  - tables
+  - attr_list
+  - admonition
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: ['notebook']
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_css:
+  - https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css
+  - assets/extra.css
+extra_javascript:
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  - assets/extra.js
+  - https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js
+  
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/haoda-li-515b26165/
+    - icon: fontawesome/brands/github
+      link: https://github.com/haoda-li/
+    - icon: fontawesome/brands/google
+      link: https://scholar.google.com/citations?user=e1Bif78AAAAJ
+
+copyright: Copyright &copy; 2017 - 2022 Haoda Li
