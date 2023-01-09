@@ -12,11 +12,11 @@ nav:
       - csc418/raster_image.ipynb
       - csc418/ray_casting.ipynb
       - csc418/ray_tracing.ipynb
-      - csc418/meshes.ipynb
-      - csc418/bvh.ipynb
+      - csc418/meshes.md
+      - csc418/bvh.md
       - csc418/shader_pipeline.ipynb
-      - csc418/kinematics.ipynb
-      - csc418/mass_spring_system.ipynb
+      - csc418/kinematics.md
+      - csc418/mass_spring_system.md
     - CSC417/CSC2549 Physics-based Animation:
       - csc417/introduction.md
       - csc417/1d_mass_spring.md
@@ -51,7 +51,7 @@ nav:
       - csc420/blob_detection.ipynb
       - csc420/sift.ipynb
       - csc420/camera_model.ipynb
-      - csc420/stereo.ipynb
+      - csc420/stereo.md
       - csc420/indexing.ipynb
     - Research Notes and Paper Readings:
       - research/sparse_icp.md

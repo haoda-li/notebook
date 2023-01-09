@@ -1,114 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>three.js webgl - cameras</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-        <style>
-            canvas {
-              height: 100%;
-              width: 100%;
-              position: absolute;
-              top: 0px; 
-              left: 0px;
-              z-index: 1;
-            }
+<head>
+	<title>three.js webgl - Cube mesh</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style>
+		canvas {
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0px; 
+			left: 0px;
+			z-index: 1;
+		}
 
-            #info {
-                position: absolute;
-                top: 0px;
-                z-index: 100;
-                display:block;
-                color: white;
-            }
-            </style>
-	</head>
+		#info {
+			position: absolute;
+			top: 0px;
+			z-index: 100;
+			display:block;
+			color: white;
+		}
+		</style>
+</head>
 
-	<body>
-        <div><canvas id="cube"></canvas></div>
-		<script type="module">
+<body>
+<script type="module">
 
-			import * as THREE from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF';
+	import * as THREE from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF';
+	import { OrbitControls } from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF/examples/jsm/controls/OrbitControls.js';
+	import { OBJLoader } from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF/examples/jsm/loaders/OBJLoader.js';
 
-            import {
-                OrbitControls
-            } from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF/examples/jsm/controls/OrbitControls.js';
+	let SCREEN_WIDTH = window.innerWidth;
+	let SCREEN_HEIGHT = window.innerHeight;
+	let aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
 
-            import { OBJLoader } from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF/examples/jsm/loaders/OBJLoader.js';
-			
+	let container;
+	let camera, scene, renderer, mesh;
+	let cameraRig, activeCamera, activeHelper;
+	let cameraPerspective, cameraOrtho;
+	let cameraPerspectiveHelper, cameraOrthoHelper;
+	let controls;
+	let PI = 3.14159265359;
 
-            const OBJViewer = (canvas, obj_file, texture_img) => {
-                const renderer = new THREE.WebGLRenderer({ canvas });
-                const camera = new THREE.PerspectiveCamera(45, 2, 0.1, 100);
-                camera.position.set(0, 0, 5);
-            
-                const controls = new OrbitControls(camera, canvas);
-                controls.target.set(0, 0, 0);
-                controls.update();
-            
-                const scene = new THREE.Scene();
-                scene.background = new THREE.Color('white');
-            
-                const textureLoader = new THREE.TextureLoader();
-                const texture = textureLoader.load(texture_img)
-            
-                {
-                  const skyColor = 0xB1E1FF;  // light blue
-                  const groundColor = 0xB97A20;  // brownish orange
-                  const intensity = 1;
-                  const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
-                  scene.add(light);
-                }
-            
-                {
-                  const color = 0xFFFFFF;
-                  const intensity = 1;
-                  const light = new THREE.DirectionalLight(color, intensity);
-                  light.position.set(0, 10, 0);
-                  light.target.position.set(-5, 0, 0);
-                  scene.add(light);
-                  scene.add(light.target);
-                }
-            
-            
-                const objLoader = new OBJLoader();
-                objLoader.load(obj_file, (root) => {
-                  root.traverse(function (child) {
-                    if (child.isMesh) child.material.map = texture;
-                  });
-                  scene.add(root);
-                });
-            
-                function resizeRendererToDisplaySize(renderer) {
-                  const canvas = renderer.domElement;
-                  const width = canvas.clientWidth;
-                  const height = canvas.clientHeight;
-                  const needResize = canvas.width !== width || canvas.height !== height;
-                  if (needResize) {
-                    renderer.setSize(width, height, false);
-                  }
-                  return needResize;
-                }
-            
-                function render() {
-            
-                  if (resizeRendererToDisplaySize(renderer)) {
-                    const canvas = renderer.domElement;
-                    camera.aspect = canvas.clientWidth / canvas.clientHeight;
-                    camera.updateProjectionMatrix();
-                  }
-            
-                  renderer.render(scene, camera);
-            
-                  requestAnimationFrame(render);
-                }
-            
-                requestAnimationFrame(render);
-              }
+	const frustumSize = 400;
+	const params = {
+		r: 0,
+		moving: true,
+		fov: 35
+	}
 
-              OBJViewer(document.querySelector("#cube"), "./sphere.obj", "./earth-square.png");
+	init();
+	animate();
 
-		</script>
+	function init() {
+		container = document.createElement( 'div' );
+		document.body.appendChild( container );
+
+		camera = new THREE.PerspectiveCamera( 45, aspect, 1, 200 );
+		camera.position.z=6;
+
+		scene = new THREE.Scene();
+
+		const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+		scene.add( ambientLight );
+
+		const pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+		camera.add( pointLight );
+		scene.add( camera );
+
+		const texture = new THREE.TextureLoader().load( './earth-square.png' );
+		const objLoader = new OBJLoader().load("./sphere.obj", (root) => {
+			root.traverse(function (child) {
+				if (child.isMesh) {
+					child.material.map = texture;
+				}
+			});
+			root.position.set(0, 0, 0);
+			scene.add(root);
+		});
+
+		const axesHelper = new THREE.AxesHelper( 3 );
+		scene.add( axesHelper );
+		
+
+		renderer = new THREE.WebGLRenderer( { antialias: true } );
+		renderer.setPixelRatio( window.devicePixelRatio );
+		renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+		container.appendChild( renderer.domElement );
+		renderer.autoClear = false;
+		controls = new OrbitControls( camera, renderer.domElement );
+		window.addEventListener( 'resize', onWindowResize );
+
+	}
+
+	function onWindowResize() {
+		SCREEN_WIDTH = window.innerWidth;
+		SCREEN_HEIGHT = window.innerHeight;
+		aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+
+		renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+
+		camera.aspect = aspect;
+		camera.updateProjectionMatrix();
+	}
+	function animate() {
+		requestAnimationFrame( animate );
+		render();
+	}
+
+	function render() {
+		renderer.render( scene, camera );
+	}
+
+
+
+
+</script>
 
 	</body>
 </html>
