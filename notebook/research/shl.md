@@ -102,42 +102,9 @@ There are some good property of ALP, which makes it easy to recurse.
 where $n!! = n\times (n-2)\times (n-4) \times ... \times 1\text{ or }0$ where $1,0$ depends on whether $n$ is odd or even. 
 
 
-```python
-def ALP(m, l, x):
-    if l == 0: return np.ones_like(x)
-    # first, raise to p^m_m term by eq2
-    pmm = 1
-    if m > 0:
-        somx2 = ((1.- x) * (1. + x)) ** .5
-        fact = 1
-        for _ in range(1, m+1):
-            pmm *= -fact * somx2
-            fact += 2.
-    if l == m: 
-        return pmm
-    # p^m_{m+1} term by eq3
-    pmmp1 = x * (2. * m + 1.) * pmm
-    if l == m + 1:
-        return pmmp1
-    # start to raise l  by eq1
-    pll = 0
-    for ll in range(m+2, l+1):
-        pll = ((2. * ll - 1.) * x * pmmp1 - (ll + m - 1.) * pmm) / (ll - m)
-        pmm = pmmp1
-        pmmp1 = pll
-    return pll
+```js title="ALP"
+--8<-- "research/assets/sh.html:71:97"
 ```
-
-
-```python
-x = np.linspace(-1, 1, 100)
-plt.figure(figsize=(8,6))
-for l in range(4):
-    for m in range(l+1):
-        plt.plot(x, ALP(m,l,x), label=fr"$P_{l}^{m}$")
-plt.legend();
-```
-
 
     
 ![png](assets/shl_7_0.png)
@@ -164,30 +131,11 @@ $$K_l^m = \sqrt{\frac{(2l+1)(l-|m|)!}{4\pi(l+|m|)!}}$$
 [Wiki for the visualizations and analytic formulas](https://en.wikipedia.org/wiki/Table_of_spherical_harmonics)
 
 
-```python
-from math import factorial
-
-def SH(m, l, theta, phi):
-    K = (2. * l + 1) * factorial(l-abs(m)) / (4. * np.pi * factorial(l+abs(m)))
-    K = np.sqrt(K)
-    if m == 0:
-        return K * ALP(0, l, np.cos(theta))
-    elif m > 0:
-        return np.sqrt(2) * K * np.cos(m * phi) * ALP(m, l, np.cos(theta))
-    else:
-        return np.sqrt(2) * K * np.sin(-m * phi) * ALP(-m, l, np.cos(theta))
-
-theta, phi = uniform_sphere(10000)
-x, y, z = sphere2xyz(theta, phi)
-sh_c = SH(1, 2, theta, phi)
-fig = go.Figure(data=[go.Scatter3d(
-    x=x, y=y, z=z, mode='markers', 
-    marker={'size': 2, 'color': sh_c, 'showscale': True})])
-fig.update_layout(height=480, width=480, margin=dict(l=0, r=0, b=0, t=0))
-Image(fig.to_image(format="png"))
+```js title="SH"
+--8<-- "research/assets/sh.html:99:111"
 ```
 
-![png](assets/shl_9_0.png)
+<iframe src="./assets/sh.html" height=480 width="100%" />
 
 
 ### SH Projection

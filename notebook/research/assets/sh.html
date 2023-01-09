@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - sphere sampling</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <style>
+            canvas {
+              height: 100%;
+              width: 100%;
+              position: absolute;
+              top: 0px; 
+              left: 0px;
+              z-index: 1;
+            }
+
+            #info {
+                position: absolute;
+                top: 0px;
+                z-index: 100;
+                display:block;
+                color: white;
+            }
+            </style>
+	</head>
+
+	<body>
+	<script type="module">
+
+	import * as THREE from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF';
+
+	import { OrbitControls } from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF/examples/jsm/controls/OrbitControls.js';
+	import { GUI } from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF/examples/jsm/libs/lil-gui.module.min.js';
+
+	let SCREEN_WIDTH = window.innerWidth;
+	let SCREEN_HEIGHT = window.innerHeight;
+	let aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+
+	let container;
+	let camera, scene, renderer, mesh;
+	let controls;
+	let spheregeometry;
+	let panel;
+
+	let PI = 3.14159265359;
+	const thetaSegments = 32;
+
+	const SHcoefs = {
+		m: 0,
+		l: 0
+	}
+
+
+	const f = [1, 1];
+	let i = 2;
+	function factorial(n)
+	{
+		if (typeof f[n] != 'undefined')
+			return f[n];
+		let result = f[i-1];
+		for (; i <= n; i++)
+			f[i] = result = result * i;
+		return result;
+	}
+	
+
+	init();
+	animate();
+
+
+function ALP(m, l, x) {
+	if (l == 0) 
+		return 1.;
+	let pmm = 1.;
+	if (m > 0) {
+		const somx2 = Math.sqrt((1. - x) * (1. + x));
+		let fact = 1;
+		for (let i = 0; i < m + 1; i++) {
+			pmm *= -fact * somx2;
+			fact += 2;
+		}
+	}
+	if (l == m) 
+		return pmm;
+	// p^m_{m+1} term by eq3
+	let pmmp1 = x * (2. * m + 1.) * pmm
+	if (l == m + 1)
+		return pmmp1
+	// start to raise l  by eq1
+	let pll = 0;
+	for (let ll = m + 2; ll < l + 1; ll++) {
+		pll = ((2. * ll - 1.) * x * pmmp1 - (ll + m - 1.) * pmm) / (ll - m);
+		pmm = pmmp1;
+		pmmp1 = pll;
+	}
+	return pll;
+}
+
+function SH(m, l, theta, phi) {
+	const sqrt2 = 1.41421356237;
+	const mabs = m > 0 ? m : -m;
+	let K = Math.sqrt(
+		(2. * l + 1) * factorial(l-mabs) / (4. * PI * factorial(l+mabs))
+	);
+	if (m == 0)
+		return K * ALP(0, l, Math.cos(theta));
+	else if (m > 0)
+		return sqrt2 * K * Math.cos(m * phi) * ALP(m, l, Math.cos(theta));
+	else
+		return sqrt2 * K * Math.sin(-m * phi) * ALP(-m, l, Math.cos(theta));
+}
+
+	function init() {
+		container = document.createElement( 'div' );
+		document.body.appendChild( container );
+
+		
+
+		camera = new THREE.PerspectiveCamera( 45, aspect, 1, 200 );
+		camera.position.z=3;
+
+		scene = new THREE.Scene();
+		scene.background = new THREE.Color( 0xffffff );
+
+		const ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+		scene.add( ambientLight );
+
+		const pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+		camera.add( pointLight );
+		scene.add( camera );
+
+		
+		spheregeometry = new THREE.SphereGeometry( 1, 2 * thetaSegments, thetaSegments );
+
+		const onCoefChange = () => {
+			const sphereVertices = spheregeometry.getAttribute("position").array;
+			const colors = new Float32Array(sphereVertices.length);
+			let polar = new THREE.Spherical();
+			for (let i = 0; i < sphereVertices.length / 3; i++) {
+				polar.setFromCartesianCoords(
+					sphereVertices[3 * i],
+					sphereVertices[3 * i + 1],
+					sphereVertices[3 * i + 2]
+				)
+				let sh_c = SH(SHcoefs.l, SHcoefs.m, polar.theta, polar.phi);
+				colors[3 * i] = sh_c;
+				colors[3 * i + 1] = 0.3;
+				colors[3 * i + 2] = 1 - sh_c;
+			}
+			spheregeometry.setAttribute('color', new THREE.BufferAttribute( colors, 3 ));
+		}
+
+		onCoefChange()
+
+		mesh = new THREE.Mesh(
+			spheregeometry,
+			new THREE.MeshBasicMaterial( { vertexColors: true } )
+		);
+		mesh.position.set(0, 0, 0);
+		scene.add( mesh );
+
+	
+
+		renderer = new THREE.WebGLRenderer( { antialias: true } );
+		renderer.setPixelRatio( window.devicePixelRatio );
+		renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+		container.appendChild( renderer.domElement );
+
+		renderer.autoClear = false;
+
+		controls = new OrbitControls( camera, renderer.domElement );
+
+
+		const gui = new GUI( { width: 200 } );
+		gui.add(SHcoefs, 'm', 0, 9, 1).onChange(onCoefChange);
+		gui.add(SHcoefs, 'l', -9, 9, 1).onChange(onCoefChange);
+		
+
+		window.addEventListener( 'resize', onWindowResize );
+
+	}
+
+	function onWindowResize() {
+		SCREEN_WIDTH = window.innerWidth;
+		SCREEN_HEIGHT = window.innerHeight;
+		aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+
+		renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+
+		camera.aspect = aspect;
+		camera.updateProjectionMatrix();
+	}
+	function animate() {
+		requestAnimationFrame( animate );
+		render();
+	}
+
+	function render() {
+		renderer.render( scene, camera );
+	}
+
+
+
+
+	</script>
+
+	</body>
+</html>
