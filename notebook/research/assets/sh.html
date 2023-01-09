@@ -142,7 +142,7 @@ function SH(m, l, theta, phi) {
 					sphereVertices[3 * i + 1],
 					sphereVertices[3 * i + 2]
 				)
-				let sh_c = SH(SHcoefs.l, SHcoefs.m, polar.theta, polar.phi);
+				let sh_c = SH(SHcoefs.m, SHcoefs.l, polar.theta, polar.phi);
 				colors[3 * i] = sh_c;
 				colors[3 * i + 1] = 0.3;
 				colors[3 * i + 2] = 1 - sh_c;
@@ -172,8 +172,8 @@ function SH(m, l, theta, phi) {
 
 
 		const gui = new GUI( { width: 200 } );
-		gui.add(SHcoefs, 'm', 0, 9, 1).onChange(onCoefChange);
-		gui.add(SHcoefs, 'l', -9, 9, 1).onChange(onCoefChange);
+		gui.add(SHcoefs, 'l', 0, 9, 1).onChange(onCoefChange);
+		gui.add(SHcoefs, 'm', -9, 9, 1).onChange(onCoefChange);
 		
 
 		window.addEventListener( 'resize', onWindowResize );
