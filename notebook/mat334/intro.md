@@ -40,6 +40,7 @@ Note that $\theta$ is periodic with period $\pi$, which means it's multivalued.
 
 ## Geometry of Arithmetic
 Using the complex plane, we can better understand the "addition" and "multiplication". Let $z, w$ be two complex variables. Then, addition is the addition of their vectors in the complex plane. 
+
 ![addition complex number](assets/add_complex.png)
 
 Multiple $z$ by $i$ will rotate $z$ counterclockwise by 90 degrees.
@@ -57,6 +58,7 @@ Multiple $z=a+bi, w=c+di\in\mathbb C$ gives
 $$zw = (a+bi)w = aw+biw$$
 
 Geometrically, it scales $z$ by $|w|$ and rotates from $w$ counterclockwise for $\theta$. 
+
 ![multiply z w](assets/multi_zw_complex.png)
 
 ## Polar Exponential

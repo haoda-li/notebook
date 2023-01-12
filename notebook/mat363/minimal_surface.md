@@ -160,12 +160,6 @@ Take $v = 0, \gamma(u) = (u-\sin u, 1-cos u, 0)$ is a cycloid, using the geodesi
 
 
 
-<iframe
-    width="720"
-    height="480"
-    src="./assets/catalan.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
+```plotly
+{"file_path": "mat363/assets/catalan.json"}
+```

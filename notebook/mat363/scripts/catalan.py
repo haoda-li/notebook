@@ -1,7 +1,7 @@
 import plotly.graph_objects as go
 from numpy import sin, cos, sinh, cosh, pi, mgrid
 
-u, v = mgrid[-pi:pi:50j, -pi:pi:50j]
+u, v = mgrid[-2 * pi: 2 * pi:20j, -0.5*pi:0.5*pi:10j]
 
 fig = go.Figure(data=[go.Surface(
     x=u - sin(u) * cosh(v), 
@@ -10,4 +10,6 @@ fig = go.Figure(data=[go.Surface(
     )])
 fig.update_traces(showscale=False)
 fig.update_layout(margin=dict(l=0, r=0, b=0, t=0))
-fig.write_html("../assets/catalan.html",full_html=False, auto_open=False, include_plotlyjs="cdn", auto_play=False)
+
+with open("../assets/catalan.json", "w") as f:
+    f.write(fig.to_json())

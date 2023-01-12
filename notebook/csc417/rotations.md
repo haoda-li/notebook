@@ -43,14 +43,9 @@ $$v = ad=\dot\theta\|x\|\frac{\vec a\times x}{\|x\|} = (\dot\theta \vec a) \time
 Therefore, we obtain the angular velocity $\omega$, which includes the velocity of angle and the rotation direction.
 
 
-<iframe
-    width="100%"
-    height="480"
-    src="./assets/rotation.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+```plotly
+{"file_path": "csc417/assets/rotation.json"}
+```
 
 
 ## Rotation Matrix

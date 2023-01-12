@@ -108,13 +108,9 @@ $$(1 + 4u^2)du^2 + 8uv dudv + (1+4v^2)dv^2$$
     --8<-- "mat363/scripts/fff.py"
     ```
 
-<iframe
-    width="720"
-    height="720"
-    src="./assets/fff.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
+```plotly
+{"file_path": "mat363/assets/fff.json"}
+```
 
 
 

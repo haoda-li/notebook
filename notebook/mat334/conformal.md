@@ -5,6 +5,7 @@ For some function $f:\mathbb C\rightarrow \mathbb C$, $f$ is __conformal at__ $z
 Equivalently, a complex function $f$ is __conformal__ IFF $f$ is analytic with non-zero derivative.
 
 Definition of conformal on $\infty$
+
 - $f(\infty)$ is __conformal at__ $\infty$ if $g(z) = f(1/z)$ is conformal at 0.
 - If $f(z_0) = \infty$, then $f$ is __conformal at__ $z_0$ if $f(z_0)^{-1}$ is conformal at $z_0$. 
 - Combine the two above, if $f(\infty) = \infty$, then $f$ is conformal at $\infty$ if $\frac{1}{f(1/z)}$ is conformal at $0$. 

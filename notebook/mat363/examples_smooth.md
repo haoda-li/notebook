@@ -78,15 +78,9 @@ We can easily verify that for each domain, the vectors are linearly independent.
     ```
 
 
-
-
-<iframe
-    width="720"
-    height="480"
-    src="./assets/torus.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
+```plotly
+{"file_path": "mat363/assets/torus.json"}
+```
 
 
 
@@ -116,13 +110,9 @@ $$\hat N = \frac{N}{\|N\|} = \frac{1}{\sqrt{\lambda^2 + v^2}} (-\lambda \sin u, 
     ```
 
 
-<iframe
-    width="720"
-    height="480"
-    src="./assets/helicoid.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
+```plotly
+{"file_path": "mat363/assets/helicoid.json"}
+```
 
 
 
@@ -200,13 +190,9 @@ Note that we need at least 2 patches $t\in\mathbb R, \theta\in (0,2\pi)$ or $\th
 
 
 
-<iframe
-    width="720"
-    height="480"
-    src="./assets/catenoid.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
+```plotly
+{"file_path": "mat363/assets/catenoid.json"}
+```
 
 
 

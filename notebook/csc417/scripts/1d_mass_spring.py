@@ -74,6 +74,8 @@ dt = 0.01
 q0 = 1
 v0 = 1
 
+STEPS=75
+
 # --8<-- [start:fe]
 class ForwardEuler(TimeIntegration):
     def one_step(self):
@@ -83,7 +85,7 @@ class ForwardEuler(TimeIntegration):
         self.trajectory_q.append(q_t + self.dt * v_t)
 # --8<-- [end:fe]
 fe = ForwardEuler(mass, stiffness, dt, q0, v0)
-fe.plot(100, "../assets/1d_mass_spring_fe.html")
+fe.plot(STEPS, "../assets/1d_mass_spring_fe.html")
 
 # --8<-- [start:rk4]
 class RK4(TimeIntegration):
@@ -108,7 +110,7 @@ class RK4(TimeIntegration):
         self.trajectory_v.append(v_t + self.dt / 6 * np.dot(kappa[:, 1], weights))
 # --8<-- [end:rk4]        
 rk4 = RK4(mass, stiffness, dt, q0, v0)
-rk4.plot(100, "../assets/1d_mass_spring_rk4.html")
+rk4.plot(STEPS, "../assets/1d_mass_spring_rk4.html")
 
 # --8<-- [start:be]
 class BackwardEuler(TimeIntegration):
@@ -121,7 +123,7 @@ class BackwardEuler(TimeIntegration):
         self.trajectory_q.append(q_t + self.dt * v)
 # --8<-- [end:be]
 be = BackwardEuler(mass, stiffness, dt, q0, v0)
-be.plot(100, "../assets/1d_mass_spring_be.html")
+be.plot(STEPS, "../assets/1d_mass_spring_be.html")
 
 
 # --8<-- [start:sc]
@@ -134,4 +136,4 @@ class Symplectic(TimeIntegration):
         self.trajectory_q.append(q_t + self.dt * v)
 # --8<-- [end:sc]       
 sc = Symplectic(mass, stiffness, dt, q0, v0)
-sc.plot(100, "../assets/1d_mass_spring_sc.html")
+sc.plot(STEPS, "../assets/1d_mass_spring_sc.html")

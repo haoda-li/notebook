@@ -146,13 +146,9 @@ point $z= x +i y$ on the complex plane corresponds uniquely to a point $P$ on th
 surface of the sphere. This construction is called __stereographic projection__. The extended complex plane is sometimes referred as the __compactified (closed)__ complex plane. 
 
 
-<iframe
-    width="100%"
-    height="520"
-    src="assets/stere_proj.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
+```plotly
+{"file_path": "mat334/assets/stere_proj.json"}
+```
 
 
 
@@ -176,12 +172,7 @@ __Example__ Consider the line $Re z = x = 0$, the projected line on the sphere i
 $$X = 0, Y = \frac{4y}{y^2 + 4}, Z = \frac{2y^2}{y^2+4}$$
 
 
-<iframe
-    width="100%"
-    height="520"
-    src="assets/stere_proj_2.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+```plotly
+{"file_path": "mat334/assets/stere_proj_2.json"}
+```
 

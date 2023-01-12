@@ -9,7 +9,7 @@ def stereographic_proj(z):
     Z = 2 * z_len_sq / (z_len_sq + 4)
     return np.array([X, Y, Z])
 
-n = 50
+n = 20
 
 #just a sphere
 theta = np.linspace(0,2*np.pi,n)
@@ -36,7 +36,8 @@ line = go.Scatter3d(
 
 data = [sphere, line]
 layout = go.Layout(
-    title='stereographic projection',
+    height=480,
+    margin=dict(l=0,r=0,b=0,t=0,pad=0),
     scene = dict(
         zaxis = dict(
             backgroundcolor="rgb(213, 232, 212)",
@@ -47,8 +48,8 @@ layout = go.Layout(
     )
 )
 fig = go.Figure(data=data, layout=layout)
-fig.write_html("../assets/stere_proj.html", full_html=False, auto_open=False, include_plotlyjs="cdn", auto_play=False)
-
+with open("../assets/stere_proj.json", "w") as f:
+    f.write(fig.to_json())
 
 values = np.hstack((-np.exp(np.linspace(-10, 10, n//2)), 0, np.exp(np.linspace(-10, 10, n//2 - 1))))
 z1 = np.stack((np.zeros(n), values, np.zeros(n)))
@@ -74,8 +75,10 @@ scatter2 = go.Scatter3d(
 
 data = [sphere, scatter1, scatter2]
 layout = go.Layout(
-    title='stereographic projection',
+    height=480,
+    margin=dict(l=20,r=0,b=0,t=0,pad=0),
     scene = dict(
+        aspectmode = 'cube',
         xaxis={'range': [-3, 3]},
         yaxis={'range': [-3, 3]},
         zaxis = dict(
@@ -88,6 +91,5 @@ layout = go.Layout(
     )
 )
 fig = go.Figure(data=data, layout=layout)
-fig.update_layout(scene_aspectmode='manual',
-                  scene_aspectratio=dict(x=1, y=1, z=1))
-fig.write_html("../assets/stere_proj_2.html", full_html=False, auto_open=False, include_plotlyjs="cdn", auto_play=False)
+with open("../assets/stere_proj_2.json", "w") as f:
+    f.write(fig.to_json())

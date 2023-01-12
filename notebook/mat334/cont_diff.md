@@ -70,6 +70,7 @@ Similarly, if we approach only from the imaginary line, we have
 \lim_{t\rightarrow 0}\frac{f(z_0+it) - f(z_0)}{it} &= \lim_{t\rightarrow 0}-i\frac{f(z_0+it) - f(z_0)}{t}\\
 &= \lim_{t\rightarrow 0} \frac{v(z_0+it) - v(z_0)}t - i\frac{u(z_0+it) - u(z_0)}t
 \end{align*}
+
 So that 
 
 $$(\partial_y\tilde v, - \partial_y\tilde u) = (a, b)$$

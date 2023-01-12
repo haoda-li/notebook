@@ -200,13 +200,9 @@ i&j&k\\
 
 
 
-<iframe
-    width="720"
-    height="480"
-    src="./assets/curvature.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
+```plotly
+{"file_path": "./mat363/assets/curvature.json"}
+```
 
 
 

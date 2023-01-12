@@ -37,8 +37,8 @@ def plot(output_file):
     fig.update_layout(margin=dict(l=0, r=0, b=0, t=0), 
                       scene_aspectmode='cube',
                       legend=dict(x=0, y=0))
-    fig.write_html(output_file, full_html=False, auto_open=False, include_plotlyjs="cdn", auto_play=False)
+    with open(output_file, "w") as f:
+        f.write(fig.to_json())
 
-
-output_file = "../assets/rotation.html"
+output_file = "../assets/rotation.json"
 plot(output_file)

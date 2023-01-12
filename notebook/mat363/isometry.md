@@ -219,15 +219,9 @@ and we have the conclusion.
     ```
 
 
-<iframe
-    width="720"
-    height="480"
-    src="./assets/isometry.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
+```plotly
+{"file_path": "mat363/assets/isometry.json"}
+```
 
 ### Example: Enneper's Surface
 Parameterize the surface as 

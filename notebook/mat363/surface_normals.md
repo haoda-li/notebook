@@ -46,13 +46,9 @@ around its midpoint $p$ at the same time as $p$ moves around a circle $C$.
 
 
 
-<iframe
-    width="720"
-    height="480"
-    src="./assets/mobius.html"
-    frameborder="0"
-    allowfullscreen
-></iframe>
+```plotly
+{"file_path": "mat363/assets/mobius.json"}
+```
 
 
 
