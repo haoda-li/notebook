@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>three.js webgl - sphere sampling</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<style>
+    canvas {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0px; 
+        left: 0px;
+        z-index: 1;
+    }
+    #full-screen {
+        position: absolute;
+        top: 0px; 
+        left: 0px;
+        z-index: 2;
+    }
+    </style>
+</head>
+
+<body>
+<div id="full-screen">
+    <a href="./shaders.html" target="_blank" style="color: white">Open in full screen</a>
+</div>
+</script>
+<script type="x-shader/x-vertex" id="fragmentShader">
+</script>
+<script type="module">
+import * as THREE from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF';
+import { OrbitControls } from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF/examples/jsm/controls/OrbitControls.js';
+import { GUI } from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF/examples/jsm/libs/lil-gui.module.min.js';
+import { vertexShaders, fragmentShaders } from './shaders.js'
+
+let SCREEN_WIDTH = window.innerWidth;
+let SCREEN_HEIGHT = window.innerHeight;
+let aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+let container;
+let camera, scene, renderer;
+let time = 0;
+
+let earth, moon;
+
+const materials = {
+    wireframe: new THREE.MeshBasicMaterial({wireframe: true}),
+    earthPhong: new THREE.ShaderMaterial({
+        uniforms: {is_moon: {value: 0.0}},
+        vertexShader: vertexShaders.simpleVertexShader,
+        fragmentShader: fragmentShaders.phongFragmentShader
+    }),
+    moonPhong:  new THREE.ShaderMaterial({
+        uniforms: {is_moon: {value: 1.0}},
+        vertexShader: vertexShaders.simpleVertexShader,
+        fragmentShader: fragmentShaders.phongFragmentShader
+    }),
+    normal: new THREE.ShaderMaterial({
+        vertexShader:vertexShaders.simpleVertexShader,
+        fragmentShader: fragmentShaders.normalFragmentShader
+    }),
+    position: new THREE.ShaderMaterial({
+        vertexShader: vertexShaders.simpleVertexShader,
+        fragmentShader: fragmentShaders.posFragmentShader
+    }),
+    depth: new THREE.ShaderMaterial({
+        vertexShader: vertexShaders.simpleVertexShader,
+        fragmentShader: fragmentShaders.depthFragmentShader
+    }),
+    earthPerlin: new THREE.ShaderMaterial({
+        uniforms: {is_moon: {value: 0.0}},
+        vertexShader: vertexShaders.simpleVertexShader,
+        fragmentShader: fragmentShaders.perlinFragmentShader
+    }),
+    moonPerlin: new THREE.ShaderMaterial({
+        uniforms: {is_moon: {value: 1.0}},
+        vertexShader: vertexShaders.simpleVertexShader,
+        fragmentShader: fragmentShaders.perlinFragmentShader
+    }),
+    earthBump: new THREE.ShaderMaterial({
+        uniforms: {is_moon: {value: 0.0}},
+        vertexShader: vertexShaders.simpleVertexShader,
+        fragmentShader: fragmentShaders.bumpFragmentShader
+    }),
+    moonBump: new THREE.ShaderMaterial({
+        uniforms: {is_moon: {value: 1.0}},
+        vertexShader: vertexShaders.simpleVertexShader,
+        fragmentShader: fragmentShaders.bumpFragmentShader
+    })
+}
+
+const earthMaterialNames = [
+    'earthBump',
+    'earthPerlin',
+    'earthPhong',
+    'wireframe',
+    'normal', 
+    'position',
+    'depth'
+]
+
+const moonMaterialNames = [
+    'moonBump',
+    'moonPerlin',
+    'moonPhong',
+    'wireframe',
+    'normal', 
+    'position',
+    'depth'
+]
+
+const data = {
+    tessLevel: 5,
+    moonRadius: 0.2,
+    moonTrackRadius: 2,
+    earthRadius: 1,
+    earthMaterial: "earthPhong",
+    moonMaterial: "moonPhong"
+}
+
+const pos = [];
+
+const updateTessLevel = () => {
+    earth.geometry.dispose();
+    earth.geometry = new THREE.IcosahedronGeometry( data.earthRadius, data.tessLevel );
+    moon.geometry.dispose();
+    moon.geometry = new THREE.IcosahedronGeometry( data.moonRadius, data.tessLevel );
+}
+
+init();
+animate();
+
+function init() {
+    container = document.createElement( 'div' );
+    document.body.appendChild( container );
+
+    camera = new THREE.PerspectiveCamera( 45, aspect, 0.01, 100 );
+    camera.position.z=-6;
+    scene = new THREE.Scene();
+
+    earth = new THREE.Mesh(
+        new THREE.IcosahedronGeometry( data.earthRadius, data.tessLevel ),
+        materials[data.earthMaterial]
+    );
+    earth.position.set(0, 0, 0);
+    scene.add( earth );
+
+    moon = new THREE.Mesh(
+        new THREE.IcosahedronGeometry( data.moonRadius, data.tessLevel ),
+        materials[data.moonMaterial]
+    );
+    moon.position.set(data.moonTrackRadius, 0, 0);
+    scene.add( moon );
+
+    renderer = new THREE.WebGLRenderer( { antialias: true } );
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+    container.appendChild( renderer.domElement );
+
+    new OrbitControls( camera, renderer.domElement );
+    const gui = new GUI( { width: 200 } );
+    gui.add(data, 'tessLevel', 0, 5, 1).onChange(updateTessLevel);
+    gui.add(data, 'earthMaterial', earthMaterialNames).onChange(
+        () => earth.material = materials[data.earthMaterial]);
+    gui.add(data, 'moonMaterial', moonMaterialNames).onChange(
+        () => moon.material = materials[data.moonMaterial]);
+
+    window.addEventListener( 'resize', onWindowResize );
+
+}
+
+function onWindowResize() {
+    SCREEN_WIDTH = window.innerWidth;
+    SCREEN_HEIGHT = window.innerHeight;
+    aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+
+    renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+
+    camera.aspect = aspect;
+    camera.updateProjectionMatrix();
+}
+
+function animate() {
+    requestAnimationFrame( animate );
+    time += 0.01;
+    moon.position.x = Math.cos(time) * data.moonTrackRadius;
+    moon.position.z = Math.sin(time) * data.moonTrackRadius; 
+    earth.rotation.y = time / 2;
+    moon.rotation.y = time / 2;
+    render();
+}
+
+function render() {
+    renderer.render( scene, camera );
+}
+</script>
+
+</body>
+</html>

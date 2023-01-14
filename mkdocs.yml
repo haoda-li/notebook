@@ -8,13 +8,11 @@ docs_dir: "notebook"
 nav:
   - Courses: index.md
   - CS - CG & CV:
-    - CSC418/CSC2504 Computer Graphics:
-      - csc418/raster_image.ipynb
-      - csc418/ray_casting.ipynb
-      - csc418/ray_tracing.ipynb
+    - CSC418 Computer Graphics:
+      - csc418/raster_image.md
       - csc418/meshes.md
       - csc418/bvh.md
-      - csc418/shader_pipeline.ipynb
+      - csc418/shader_pipeline.md
       - csc418/kinematics.md
       - csc418/mass_spring_system.md
     - CSC417/CSC2549 Physics-based Animation:
@@ -44,15 +42,15 @@ nav:
       - csc320/fourier.md
       - csc320/wavelet.md
     - CSC420 Intro. Image Understanding:
-      - csc420/linear_filters.ipynb
-      - csc420/edge_detection.ipynb
-      - csc420/image_pyramids.ipynb
-      - csc420/harris_corner_detector.ipynb
-      - csc420/blob_detection.ipynb
-      - csc420/sift.ipynb
-      - csc420/camera_model.ipynb
+      - csc420/linear_filters.md
+      - csc420/edge_detection.md
+      - csc420/image_pyramids.md
+      - csc420/harris_corner_detector.md
+      - csc420/blob_detection.md
+      - csc420/sift.md
+      - csc420/camera_model.md
       - csc420/stereo.md
-      - csc420/indexing.ipynb
+      - csc420/indexing.md
     - Research Notes and Paper Readings:
       - research/sparse_icp.md
       - research/pointcloud.md
@@ -269,9 +267,6 @@ theme:
 
 
 plugins:
-  - mkdocs-jupyter:
-      include: ["*.ipynb"]
-      ignore: ["*/__*.ipynb"]
   - search
   - glightbox
   - plotly:
