@@ -6,8 +6,8 @@ This is the note repo for the some courses I've taken UofT (Undergrad), UC Berke
 
 ## Installation
 ```py
-pip install mkdocs-material=="9.*" mkdocs-minify-plugin mkdocs-jupyter mkdocs-glightbox
+pip install mkdocs-material=="9.*" mkdocs-minify-plugin mkdocs-plotly-plugin mkdocs-glightbox
 ```
 
 ## Acknowledgement
-This repo is developed based on [Jupyter](https://jupyter.org/) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
+This repo is developed based on [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)
