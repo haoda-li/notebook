@@ -57,6 +57,7 @@ nav:
       - research/nerf.md
       - research/nerfv.md
       - research/shl.md
+      - research/sdf_nerf.md
 
 
   - CS - ML/DL/AI:
@@ -90,8 +91,9 @@ nav:
       - csc384/fc_gac.md
 
   - CS - General:
-    - CSC367 Parallel Programming:
+    - CS267&CSC367 Parallel Programming:
       - csc367/hie.md
+      - csc367/matrix.md
       - csc367/parallel.md
       - csc367/pthread.md
       - csc367/omp.md
@@ -269,8 +271,7 @@ theme:
 plugins:
   - search
   - glightbox
-  - plotly:
-      enable_template: false
+  - plotly
   - minify:
       minify_html: true
       minify_js: true
@@ -297,7 +298,7 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
         - name: plotly
-          class: plotly
+          class: mkdocs-plotly
           format: !!python/name:mkdocs_plotly_plugin.fences.fence_plotly
   - pymdownx.arithmatex:
       generic: true

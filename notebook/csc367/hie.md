@@ -5,7 +5,7 @@ We know that the processor executes machine codes (e.x. `Assembly`) and a compil
 
 |                      | Variables                                            | Operations                        | Control flow                  |
 | -------------------- | ---------------------------------------------------- | --------------------------------- | ----------------------------- |
-| program              | typed variables (int, float, pointer, array, struct) | arithmetic ops, logical ops, etc. | if, for, function calls       |
+| program              | typed variables (`int, float, pointer, array, struct`) | arithmetic ops, logical ops, etc. | if, for, function calls       |
 | Assembly (Processor) | move bytes between memory and register               | arithmetic instructions (ALU)     | jump/branch instructions (CU) |
 
 Ideally, assuming control, save, load are free, arithmetic operations all have the same cost.
@@ -46,77 +46,25 @@ Since cache has significantly smaller latency, we want to store previously acces
  - __Temporal locality__: reuse data already in cache
  - __Spatial locality__: Operate on data that are stored close in memory, so that the data can be brought into cache all together. 
 
+## Single Processor Parallelism
 
-## Performance Model
-Consider a simplified memory model, where we only have the cache (fast memory) and slow memory. All data are initially in slow memory, and the fast memory is empty. 
+### Single Instruction Multiple Data (SIMD)
+__SIMD__ (single instruction, multiple data) can execute one arithmetic instruction (one clock cycle) on multiple scalars. 
 
-Let $m$ be the number of elements moved between fast and slow, $t_m$ be the time per memory save/load.   
-Let $f$ be the number of arithmetic ops (flops), $t_f$ be the time per flop.  
-Let $q = f/m$ be the average #flops per slow memory access.   
-Assuming that $t_f << t_m$. 
+For example `AVX-512` do arithmetic operations on 512 bits (aka 8 double precision / 16 single precision operations) at a time.  
 
-The actual time taken is 
+Some restriction on SIMD includes: expose parallelism to the compiler (flags/pragma to the compiler), data needs to be contiguous in memory and cache aligned. 
 
-$$f \cdot t_f + m \cdot t_m = f \cdot t_f \cdot (1 + \frac{t_m}{t_f} \times \frac{1}{q})$$
+### Memory Alignment and Strides
+Note that cache line is loaded from memory to cache at one time, which means contiguous memory accesses cannot be done in parallel (otherwise very easy to cause data conflicts). However, non-contiguous memory access can be done in parallel. 
 
-$t_m/t_f$ is called the machine balance, which is hardware specific and constant (to us programmer).  
-$q\geq t_m/t_f$ means that we can get at least half of peak speed ($f\cdot t_f$, or the time taken if all data in cache). 
-
-## Matrix Multiplication
-For the following examples, all matrices are $n\times n$, and vectors are $n\times 1$. Matrices and vectors are stored in contiguous row-major arrays (of arrays) of floats. Thus `A[i][j]` is the ith row, jth col. 
-
-### Naive Matrix-Matrix Multiplication
-Consider the following implementation for matrix-vector mult. `y += A * x`
+Memory alignment is a common technique, instead of writing data in contiguous blocks, align them on cache line boundaries. For example, if the cache line is 32 bytes, we can store data in 
 
 ```c
-// assume cache size = cn, 3 < c << n
-__load(x, n);
-__load(y, n);
-for (int i = 0; i < n; i++) {
-    __load(A[i], n);
-    for (int j = 0; i < n; j++) {
-        y[i] += A[i][j] * x[j];
-    }
-}
-__save(y, n);
+double x[]; // each double is 8 bytes
+x[0], x[4], x[8] // stride for 32 / 8 = 4 doubles 
 ```
 
-$m = 3n + n^2, f = 2n^2, q \approx 2$
+### Fused Multiply Add (FMA)
+FMA refers to operations like $x = y + c \cdot z$, which is very common for matrix multiplication. With FMA support, such operation can be done as one instruction instead of two. Also, only one rounding is performed, hence rounding error won't accumulate and is smaller. 
 
-Similarly, consider matrix-matrix multiplication `C += A * B`. The most naive matrix-matrix multi. will be $n$ matrix-vector multiplication so that $m = 3n^2+n^3, f = 2n^3$. Then, we will still have $q\approx 2$. 
-
-### Blocked (Tiled) Matrix Multiplication
-
-Suppose that the cache is large enough to fit all 3 matrices. Then, we only need $3n^2$ loads and $n^2$ saves so that $m = 4n^2, f = 3n^3$. In this case, $q \in O(n)$. 
-
-Thus, if we subdivide a matrices into smaller blocks, each of size $b\times b$ and load each block at a time, we can have $q\in O(b)$ performance. More specifically,
-
-``` c title="blocked matrix multiplication"
-// assume that n divides b for simplicity
-// assume __block_load/save loads/saves the b * b sub-matrices 
-// given the top-left corner
-for (int i = 0; i < n; i += b) {
-    for (int j = 0; j < n; j += b) {
-        __block_load(C[i][j], b);
-        for (int k = 0; k < n; k += b) {
-            __block_load(A[i, k], b);
-            __block_load(B[k, j], b);
-            // assume this computes C += A*B given the top-left corner
-            // and size of matrix
-            matrix_matrix_multiplication(
-                C[i][j], 
-                A[i][k], 
-                B[k][j],
-                b
-            )
-        }
-        __block_save(C[i][j], b);
-    }
-}
-```
-
-Each for loop will execute $N = n/b$ times so that 
-
-$$
-m = 2N^2b^2 + 2N^3b^2 = 2n^2 + 2n^3/b, q = f/m = \frac{2n^3}{2n^2 + 2n^3/b} \approx b
-$$
