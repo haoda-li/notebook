@@ -73,3 +73,52 @@ Each for loop will execute $N = n/b$ times so that
 $$
 m = 2N^2b^2 + 2N^3b^2 = 2n^2 + 2n^3/b, q = f/m = \frac{2n^3}{2n^2 + 2n^3/b} \approx b
 $$
+
+Knowing the cache size $M$, we can then find calculate $b \leq \sqrt{M / 3}$. 
+
+Also, in practice a memory hierarchy system has more than two levels of cache, and the algorithm is possible for further subdividing into smaller blocks according to cache levels.
+
+### Recursive Matrix Multiplication
+Another approach is to do blocking recursively, instead of using a fixed block size. 
+
+```c title="Recursive matrix multiplication"
+RMM(A, B, n) {
+    // base case: when n is sufficiently small
+    // for naive MM
+    if (n == 1) {
+        return A * B;
+    }
+    // recursive steps
+    else {
+        A00, A01, A10, A11 = subdivide(A);
+        B00, B01, B10, B11 = subdivide(B);
+        C00 = RMM(A00, B00, n/2) + RMM(A01, B10, n/2);
+        C01 = RMM(A00, B01, n/2) + RMM(A01, B11, n/2);
+        C10 = RMM(A11, B00, n/2) + RMM(A11, B10, n/2);
+        C11 = RMM(A11, B01, n/2) + RMM(A11, B11, n/2);
+        C = assemble(C00, C01, C10, C11);
+        return C;
+    }
+}
+```
+
+arithmetic computational cost is 
+
+$$T(n) = 8T(\frac n2) + 4(\frac{n}{2})^2$$
+
+By master's theorem, we get $2n^3 - n^2 \in O(n^3)$
+
+data movement cost is similar
+
+$$T_m(n) = \begin{cases}8T_m(\frac n2) + 4\times 3(\frac{n}{2})^2&3n^2 > M\\3n^2\end{cases}$$
+
+RMM has the same asymptotic bound as BMM, but does not need to know the cache sizes. However, because of the cost of function stack allocation, RMM is generally a bit smaller than BMM. 
+
+## Data Layouts
+Consider the existence of cache line, to maximize spatial locality, the data layout can be further optimized according to the algorithm. 
+
+For BMM, instead of save the whole matrices in row-major or col-major. We can do blocked-row major/col-major. Therefore, each block will be in contiguous memory. 
+
+For RMM, we can use Z-Morton order, i.e. the matrix is recursively subdivided into 4 blocks, until the matrix is sufficiently small. However, Z-Morton order can be very hard for matrix indexing. 
+
+

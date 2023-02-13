@@ -8,6 +8,10 @@ docs_dir: "notebook"
 nav:
   - Courses: index.md
   - CS - CG & CV:
+    - CS284A Computer Graphics and Imaging:
+      - cs284/sampling.md
+      - cs284/transforms.md
+      - cs284/texture.md
     - CSC418 Computer Graphics:
       - csc418/raster_image.md
       - csc418/meshes.md
@@ -51,6 +55,8 @@ nav:
       - csc420/camera_model.md
       - csc420/stereo.md
       - csc420/indexing.md
+    - CS294-173 Learning for 3D Vision:
+      - cs294173/draft.md
     - Research Notes and Paper Readings:
       - research/sparse_icp.md
       - research/pointcloud.md

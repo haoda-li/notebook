@@ -8,7 +8,7 @@ $u$ is the distance of the image plane
 
 __Thin lens law__ $f^{-1} = u^{-1} + d^{-1}$
 
-## Depth of Field <a href="https://en.wikipedia.org/wiki/Depth_of_field" target="_blank">wiki</a>
+## [Depth of Field](https://en.wikipedia.org/wiki/Depth_of_field)
 Range of distances where blur < 1 sensor pixel. 
 
 $DOF \approx \frac{2u^2 NC}{f^2}$ where  

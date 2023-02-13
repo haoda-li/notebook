@@ -68,3 +68,23 @@ x[0], x[4], x[8] // stride for 32 / 8 = 4 doubles
 ### Fused Multiply Add (FMA)
 FMA refers to operations like $x = y + c \cdot z$, which is very common for matrix multiplication. With FMA support, such operation can be done as one instruction instead of two. Also, only one rounding is performed, hence rounding error won't accumulate and is smaller. 
 
+
+## Roofline Model
+[Roofline: an insightful visual performance model for multicore architectures](https://people.eecs.berkeley.edu/~kubitron/cs252/handouts/papers/RooflineVyNoYellow.pdf)
+
+The idea is that applications are measured by 
+
+| factor | unit | level |
+| --- | --- | --- |
+| arithmetic performance | FLOPs/s | machine |
+| memory bandwidth | bytes/s | machine |
+| computational intensity | FLOPs/byte | application | 
+
+Then, consider a task of $N$ FLOPs or arithmetic operations and $M$ bytes of data movement. Assuming a cold start (all data initially resides in DRAM) and each byte of data will be moved exactly once. Then we have that 
+
+```
+time = max(N / (Peak FLOPS per sec), M / Peak Bandwidth)
+N / time = min(Peak FLOPS per sec, (N / M) * Peak Bandwidth)
+```
+
+Thus, we can get the roofline performance model, where x-axis is the FLOPs / data ratio (N/M) and y-axis is the speed FLOPs / sec. 

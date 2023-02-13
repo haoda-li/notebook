@@ -9,7 +9,7 @@ import cv2
 
 ## Fourier Transformation
 
-#### sin
+### sin
 
 $$y(x) = A\sin(wx+\phi)$$
 
@@ -165,6 +165,7 @@ Given sampling of an $2\pi\times 2\pi$ image, with $2N\times 2M$ samples. Then, 
 Consider its Fourier Transform domain  
 
 $$\mathcal F(S) = \sum_{k=-N}^N\sum_{l=-M}^M\int_{-\pi}^\pi\int_{-\pi}^\pi \delta(x-\frac{\pi k}{N})\delta(y-\frac{\pi l}{m})e^{-i(xn+ym)}dxdy$$
+
 Sampling distance in spatial domain is inversely proportional to Fourier domain. 
 
 #### Region of support
