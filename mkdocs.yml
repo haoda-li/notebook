@@ -12,6 +12,8 @@ nav:
       - cs284/sampling.md
       - cs284/transforms.md
       - cs284/texture.md
+      - cs284/splines.md
+      - cs284/mesh.md
     - CSC418 Computer Graphics:
       - csc418/raster_image.md
       - csc418/meshes.md
@@ -55,8 +57,6 @@ nav:
       - csc420/camera_model.md
       - csc420/stereo.md
       - csc420/indexing.md
-    - CS294-173 Learning for 3D Vision:
-      - cs294173/draft.md
     - Research Notes and Paper Readings:
       - research/sparse_icp.md
       - research/pointcloud.md
@@ -97,9 +97,13 @@ nav:
       - csc384/fc_gac.md
 
   - CS - General:
-    - CS267&CSC367 Parallel Programming:
+    - CS267C Applications of Parallel Computers:
+      - cs267/communication.md
+      - cs267/distributed.md
+    - CSC367 Parallel Programming:
       - csc367/hie.md
       - csc367/matrix.md
+      - csc367/simd.md
       - csc367/parallel.md
       - csc367/pthread.md
       - csc367/omp.md

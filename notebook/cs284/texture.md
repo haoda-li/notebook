@@ -85,5 +85,32 @@ L &= \max(\|\partial_xu + \partial_xv\|, \|\partial_yu + \partial_yv\|)\\
 D &= \log_2 L
 \end{align*}
 
-Then, we can use bilinear interpolation to sample from level $\text{round(D)$, or average from level $\lfloor D\rfloor, \lceil D\rceil$ (Trilinear).
+Then, we can use bilinear interpolation to sample from level $\text{round(D)}$, or average from level $\lfloor D\rfloor, \lceil D\rceil$ (Trilinear).
 
+
+## Visibility
+
+When we move from 2D to 3D, one issue to consider is the visibility, or depth. In the simplest case, we can sort each object (triangles essentially) from far to near, and then paint from back to front and at each time overwrite the frame buffer (__painter's algorithm__). The problem is that object-based depth order does not always exist. 
+
+![painters algorithm](./assets/painters_algorithm.jpg)
+
+### Z-buffer
+
+Store current minimum $z$-value for each sample position in an additional buffer (__z-buffer__), which is often a float/double array. 
+
+```py title="z-buffer"
+for tri in triangles:
+  for x, y, z in tri.samples():
+    if z < zbuffer[x, y]:
+      framebuffer[x, y] = tri.color(x, y, z)
+      zbuffer[x, y] = z
+```
+
+The running time for z-buffer based rasterization is linear to the number of triangles, and we can accelerate it by hierarchical data structure. Also, it can be well paralleled over samples. 
+
+### Alpha-buffer for transparency
+Z-buffer cannot well handle transparency because alpha-blending requires correct ordering. 
+
+$$aC_{\text{front}} + (1-a)C_{\text{back}} \neq (1-a)C_{\text{front}} + aC_{\text{back}}$$
+
+One solution is to draw things in two passes, i.e. draw opaque things using z-buffer first, and then color the partially transparent objects. Another solution is to use $\alpha$-buffer instead of z-buffer, i.e. a linked list of RGB-z-$\alpha$ at each pixel, and finally draw everything from front to end (stops at the first opaque pixel).
