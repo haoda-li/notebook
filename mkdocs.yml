@@ -100,6 +100,7 @@ nav:
     - CS267C Applications of Parallel Computers:
       - cs267/communication.md
       - cs267/distributed.md
+      - cs267/dataparallel.md
     - CSC367 Parallel Programming:
       - csc367/hie.md
       - csc367/matrix.md
