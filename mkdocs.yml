@@ -7,13 +7,17 @@ docs_dir: "notebook"
 
 nav:
   - Courses: index.md
-  - CS - CG & CV:
+  - CS - VCCG:
+    - CS294-173 Learning for 3D Seminar:
+      - cs294173/intro.md
+      - cs294173/optical_flow.md
     - CS284A Computer Graphics and Imaging:
       - cs284/sampling.md
       - cs284/transforms.md
       - cs284/texture.md
       - cs284/splines.md
       - cs284/mesh.md
+      - cs284/raytracing.md
     - CSC418 Computer Graphics:
       - csc418/raster_image.md
       - csc418/meshes.md
