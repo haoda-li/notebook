@@ -27,7 +27,7 @@ $$F_\Theta(\mathbf x, \mathbf d) \rightarrow (\mathbf c,\sigma)$$
 ### MLP Architecture
  $\Theta$ is the set of parameters for MLP. The arch of the MLP is very simple: 8 fully connected layers to process $\mathbf x$ and outputs $\sigma$ and a $256$-dim feature vector, and then concat with $\mathbf d$, to through another fully-connected layer to produce $\mathbf c$. In this case, the volume density $\sigma$ open depends on position, and is not dependent on viewing angles. 
 
-### Volume Rendering with Radian Fields
+### Volume Rendering with Radiance Fields
 For classical volume rendering, given a ray $\mathbf r(t) = \mathbf e + t\mathbf d$, the color of a ray is seen as an accumulation of colors near $t_n$ and far $t_f$ bounds, i.e. an integral 
 
 $$C(\mathbf r) = \int_{t_n}^{t_f} T(t)\sigma(\mathbf r(t)) \mathbf c(\mathbf r(t), \mathbf d)dt, T(t) = \exp(-\int_{t_n}^t \sigma(\mathbf r(s))ds)$$

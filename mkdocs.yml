@@ -105,6 +105,7 @@ nav:
       - cs267/communication.md
       - cs267/distributed.md
       - cs267/dataparallel.md
+      - cs267/la.md
     - CSC367 Parallel Programming:
       - csc367/hie.md
       - csc367/matrix.md
