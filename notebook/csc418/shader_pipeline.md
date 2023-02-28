@@ -12,8 +12,6 @@ The viewing transformations inputs a canonical coordinate $(x, y, z)$ to some $(
 
 ## [Shader Pipeline (OpenGL)](https://www.khronos.org/opengl/wiki/Rendering_Pipeline_Overview)
 
-<iframe src="./assets/camera_model.html" width="100%" height=480 />
-
 __Vertex specification__  
 Set up Vertex Array Object (VAO), which contains one or more Vertex BUffer Objects (VBO), each VBO stores some information about each vertex. For example, if we load a .obj file, then VAO (the object) may end up having several VBOs, for example, one VBO stores vertex positions, one VBO stores vertex colors, and another one stores vertex normals.
 

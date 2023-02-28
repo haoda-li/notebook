@@ -11,6 +11,7 @@ nav:
     - CS294-173 Learning for 3D Seminar:
       - cs294173/intro.md
       - cs294173/optical_flow.md
+      - cs294173/nerf.md
     - CS284A Computer Graphics and Imaging:
       - cs284/sampling.md
       - cs284/transforms.md
@@ -18,6 +19,8 @@ nav:
       - cs284/splines.md
       - cs284/mesh.md
       - cs284/raytracing.md
+      - cs284/rad.md
+      - cs284/mcintegral.md
     - CSC418 Computer Graphics:
       - csc418/raster_image.md
       - csc418/meshes.md
