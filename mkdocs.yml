@@ -19,8 +19,8 @@ nav:
       - cs284/splines.md
       - cs284/mesh.md
       - cs284/raytracing.md
-      - cs284/rad.md
       - cs284/mcintegral.md
+      - cs284/pathtracing.md
     - CSC418 Computer Graphics:
       - csc418/raster_image.md
       - csc418/meshes.md
@@ -109,6 +109,8 @@ nav:
       - cs267/distributed.md
       - cs267/dataparallel.md
       - cs267/la.md
+      - cs267/random.md
+      - cs267/upcxx.md
     - CSC367 Parallel Programming:
       - csc367/hie.md
       - csc367/matrix.md

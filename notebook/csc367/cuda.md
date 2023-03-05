@@ -39,9 +39,9 @@ Download CUDA Toolkit, which includes the compiler `nvcc`, profiling tool `nvpro
 ### Communicate between host and device
 The program need to transform data between host and device, since they have different memory system. 
 
-```c++
+```cu
 // allocate memory on the device, similar to how malloc is used
-__host____device__
+__host__ __device__
 cudaError_t cudaMalloc(
     void** devPtr, 
     size_t size
@@ -62,7 +62,7 @@ cudaMemcpyDefault; // inferred from src and dst pointer
 ```
 
 The most basic routine is similar to how we use heap memory.
-```c++
+```cuda
 int input_cpu[N];
 int output_cpu[N];
 // init variable for GPU
@@ -118,7 +118,7 @@ kernel_name<<< n_blocks, n_threads[, shared_mem_size] >>>(args);
 `grid` (`<<<>>>` notation) is the collection of blocks, which can be organized in 1D, 2D, 3D. 
 
 #### Starting a kernel given grid layout
-```c++
+```cu
 /* for 1D, use integer type */
 // starts a kernel with 32 threads per block, 
 // 64 blocks per grid
@@ -141,7 +141,7 @@ kernel_name<<<blocks, threadsPerBlock>>>(args);
 
 #### Indexing a grid
 Within kernels, we can use build-in notations to get the index 
-```c++
+```cu
 dim3 threadIdx; // thread idx within its block
 dim3 blockDim; // size of a block
 dim3 blockIdx; // block Index in the grid
@@ -163,7 +163,7 @@ In the case of __divergent execution__, a warp will take 2x time steps. First ru
 
 ### Basic Example
 GPU implementation to fill an array with `range(N)`;
-```c++
+```cu
 __global__ void fill_range(int32_t *arr, int32_t N) {
     int32_t i = blockIdx.x*blockDim.x + threadIdx.x;
     if (i < N) arr[i] = i;

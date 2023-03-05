@@ -12,7 +12,7 @@ The basic idea is to
 2. each thread reduce two elements and so on, until one thread left.
 3. write the shared memory back to global memory.
 
-```c++
+```cu
 __global__ void dot_product0(float *g_idata, float *g_odata) {
     // for dynamic sized shared memory
     extern __shared__ int sdata[];
@@ -49,7 +49,7 @@ int main() {
 ## Divergence Execution
 Adjacent threads will run different if-branch, causing divergent execution. Although we don't have the else branch, the threads running the else branch, since within the same warp, are waiting for the then branch. Instead of scheduling new work. 
 
-```c++
+```cu
 /* 
 if (tid % (2*s) == 0)  sdata[tid] += sdata[tid + s]; 
 */
@@ -64,7 +64,7 @@ Thus, we are doing the same interleave addressing, but the adjacent threads are 
 Note that shared memory are managed in 4 Byte banks. Thus in each time step, the same bank (eg. `shmem[0], shmem[32], ...`) are accessed by different threads in the same warp, causing bank conflict. 
 
 To avoid bank conflict, reverse fop loop and threadID-based indexing as 
-```c++
+```cu
 /*
 for(unsigned int s = 1; s < blockDim.x; s*=2){
      int idx = 2 * s * tid;
@@ -85,7 +85,7 @@ for (unsigned int s = blockDim.x/2; s > 0; s >>= 1) {
 ## Unroll First Iteration
 Consider the kernel, note that half of the thread will only execute the read part and idle. Thus, we can unroll the first iteration of the for loop to reduce idle time. 
 
-```c++
+```cu
 /*
 sdata[tid] = g_idata1[i];
 */
@@ -95,7 +95,7 @@ sdata[tid] = g_idata[i] + g_idata1[i+blockDim.x];
 ```
 Note that we can even take steps further by unroll first few iterations, so that fewer threads get idled. 
 
-```c++
+```cu
 /*
 sdata[tid] = g_idata1[i];
 */
@@ -111,7 +111,7 @@ while (i < n) {
 ```
 ## Unroll the Warp
 Using the property that _instructions are synced within a warp_. We can save more instructions and `__syncthreads()`. Now, we can end the loop at 32 for all threads, and only one warp will run the unrolled warp code. 
-```c++
+```cu
 /*
 for (unsigned int s = blockDim.x/2; s > 0; s >>= 1) { ... }
 */
@@ -134,7 +134,7 @@ if (tid < 32) {
 ## Complete Unrolling using template
 Note that we call the kernel with a given `blockSize`, and we know that each block can have a max of 1024 threads. Thus we know the block size at compile time. We can use C++ template to complete unroll the for loop, when we call the kernel, we can save the `for` loop test conditions and indexer. 
 
-```c++
+```cu
 template <unsigned int blockSize>
 __global__ void reduceSum(float *g_data1, float *g_odata)
 {
