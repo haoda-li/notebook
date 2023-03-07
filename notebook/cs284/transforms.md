@@ -13,6 +13,20 @@ Multiply its inverse will reverse the transformation (since $T^{-1}Tx = (T^{-1}T
 
 Transformation order matters, since matrix multiplications are not communitive. 
 
+### Common 2D Transformations
+
+$T$ translation, $R$ rotation ==counterclockwise==, $S$ scale / reflection (when $s_x=-1$ or $s_y = -1$)
+
+$$T(x, y) = \begin{bmatrix}
+1&0&x\\0&1&y\\0&0&1
+\end{bmatrix},
+R(\theta) = \begin{bmatrix}
+\cos\theta&-\sin\theta&0\\\sin\theta&\cos\theta&0\\0&0&1
+\end{bmatrix},
+S(s_x, s_y) = \begin{bmatrix}
+s_x&0&0\\0&s_y&0\\0&0&1
+\end{bmatrix}$$
+
 ### Decomposing Transformations 
 
 Since multiple transformations can be composed into one transformation, we can then decompose the matrix. 
@@ -44,7 +58,7 @@ $$S = \begin{bmatrix}s_x&0&0&0\\0&s_y&0&0\\0&0&s_z&0\\0&0&0&1\end{bmatrix}$$
 For reverse transformation (inverse matrices). 
 ## Coordinate Systems
 
-In general, a 3D coordinate system is defined by three vectors $\mathbf u, \mathbf v, \mathbf w$ and one origin point $\mathbf o$. Any transformation can be understood as transform a point/vector relative to the coordinate system. Alternatively, a transformation can be seen as a reverse transformation of the coordinate system relative to the point. 
+In general, a 3D coordinate system is defined by three ==normalized== vectors $\mathbf u, \mathbf v, \mathbf w$ and one origin point $\mathbf o$. Any transformation can be understood as transform a point/vector relative to the coordinate system. Alternatively, a transformation can be seen as a reverse transformation of the coordinate system relative to the point. 
 
 The frame to world transformation is written as $\begin{bmatrix}\mathbf u & \mathbf v & \mathbf w & \mathbf o\\0&0&0&1\end{bmatrix}$ which transforms objects from the world coordinate system $[\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3, \mathbf 0]$ to the defined coordinate system.
 
@@ -72,7 +86,7 @@ $$R_x(a) = \begin{bmatrix}
 0&0&0&1
 \end{bmatrix}$$
 
-Then, any rotation can be represented by $R = R_z(c)R_y(b)R_x(a)$, which is called __Euler angle__. The __rotation order matters__. 
+Then, any rotation can be represented by $R = R_z(c)R_y(b)R_x(a)$, which is called __Euler angle__. ==The rotation order matters==. 
 
 Euler angle is not a good representation because the same rotation cannot be uniquely defined. Also, there's gimbal lock problem, in which we lose degree of free when two rotation axis align. Also, the manifold is very ugly. 
 

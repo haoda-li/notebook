@@ -11,7 +11,11 @@ nav:
     - CS294-173 Learning for 3D Seminar:
       - cs294173/intro.md
       - cs294173/optical_flow.md
+      - cs294173/supervised3d.md
+      - cs294173/pointcloud.md
       - cs294173/nerf.md
+      - cs294173/shl.md
+      - cs294173/sdf_nerf.md
     - CS284A Computer Graphics and Imaging:
       - cs284/sampling.md
       - cs284/transforms.md
@@ -41,6 +45,7 @@ nav:
       - csc419/introduction.md
       - csc419/surface_reconstruction.md
       - csc419/registration.md
+      - csc419/sparse_icp.md
       - csc419/smoothing.md
       - csc419/deformation.md
       - csc419/parameterization.md
@@ -64,16 +69,8 @@ nav:
       - csc420/camera_model.md
       - csc420/stereo.md
       - csc420/indexing.md
-    - Research Notes and Paper Readings:
-      - research/sparse_icp.md
-      - research/pointcloud.md
-      - research/nerf.md
-      - research/nerfv.md
-      - research/shl.md
-      - research/sdf_nerf.md
 
-
-  - CS - ML/DL/AI:
+  - CS - AIML:
     - CSC412/CSC2506 Probabilistic Learning and Reasoning:
       - csc412/models.md
       - csc412/dag.md
@@ -304,6 +301,7 @@ markdown_extensions:
   - tables
   - attr_list
   - admonition
+  - pymdownx.mark
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg

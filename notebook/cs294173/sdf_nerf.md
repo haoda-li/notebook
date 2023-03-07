@@ -1,4 +1,4 @@
-# Surface Extraction Using Neural Volume Rendering
+# Surface based Volume Rendering
 
 [SDF Studio Github Repo](https://github.com/autonomousvision/sdfstudio) is a unified framework for SDF-based volume rendering. 
 
