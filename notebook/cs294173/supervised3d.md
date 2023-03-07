@@ -58,3 +58,39 @@ $$\mathcal L_{reproject}^{i,j}(x) = \mathcal L_j(\mathbf c_{i\rightarrow j}(x), 
 where $x$ is the 3D point in frame $i$, $\mathbf c_{i\rightarrow j}$ is the feature of the reprojection in frame $j$, and $f$ is the optical flow from $i$ to $j$. 
 
 The reprojection mentioned above requires camera poses. However, direct optimization of the camera pose is hard for CNN. Instead, RCVD uses a depth deformation model to align the depth. Instead of given full 6D freedom, RCVD replaces the depth scale coefficient with a spatially varying bilinear spline so that the optimization can be smoothed. 
+
+## 3D Representations 
+
+Similar to depth scale ambiguity issue, we need to consider which coordinate system to use for learning 3D. Camera coordinate system is not generally a good choice since the same object can be seen from infinitely many camera coordinates. Instead, we use a "canonical" coordinate system, centered at the object. Generally, we assume that for objects in the same category, they should have a similar shape structure, hence similar distribution of directions (canonical coordinates) and similar distribution of the volume (center of the object). 
+
+Therefore, for the learning, the supervision will be ==3D object representations in the canonical coordinate system==. For image-based input, we need to recover the transformations (from camera space to the object space) and the object representation.
+
+### Voxels
+Voxel representation is a uniform 3D grid $V(x,y,z)\in \in \{0, 1\}$. In general, it can be seen as a 3D mask hence we can seen the problem as a voxel-wise classification problem. The 3D supervision will be another voxel volume representation, and the supervision loss is simply cross entropy loss at each voxel location. 
+
+Earlier attempts ([Learning a Predictable and Generative
+Vector Representation for Objects](https://arxiv.org/abs/1603.08637), [Pix2vox](https://arxiv.org/abs/1901.11153)) uses an encoder-decoder structure to encode 2D images and decode to 3D voxel volumes. Following works uses octrees to allow hierarchical approach to save computations. 
+
+### Implicit Volumetric Representations
+Accounting for the resolution bottleneck on voxel grid, another set of works represents the 3D space as a implicit filed that maps 3D location $\mathbf x$ to a scalar output. The output can be 
+
+- Signed distance ([DeepSDF](https://arxiv.org/abs/1901.05103)), the closest distance to the surface. positive distance means outside of the surface and negative means inside. Surface at 0-level..
+- Occupancy function or Inside/outside score ([Occupancy Networks](https://arxiv.org/abs/1812.03828), [Learning Implicit Fields for Generative Shape Modeling](https://arxiv.org/abs/1812.02822)), $0$ if outside the shape, $1$ is inside. Surface at $\frac{1}{2}$-level. 
+
+The core idea is similar, encode 2D images to a latent code, and then add position $(x,y,z)$ (possibly with a positional encoding) to the latent code, and final decode them into the scalar value. Given a 3D scalar field, the surface is represented by the level-set. Marching-cubes algorithm is an effective way to extract meshes from 3D scalar field, given the actual level. 
+
+### Parametric surface
+
+[AtlasNet: A Papier-Mache Approach to Learning 3D Surface Generation](https://arxiv.org/abs/1802.05384)
+
+Suppose that a 3D surface can be represented by multiple pieces of manifold surfaces. Each manifold surface is a manifold mapping from $(u,v)$ to $(x,y,z)$ and the 3D surface can be represented by $n$ pieces of manifold with overlapping. 
+
+To allow learning of such manifold, the latent code is padded with randomly sampled point cloud from $[0,1]\times [0, 1]$ sheet and decoded into corresponding point cloud location. Since the point cloud is uniformly sampled from a 2D square, we can increase the resolution by increase the number of samples. If the whole object can be represented by deforming a sphere, then we can also sample from a unit sphere. Note that in this case, the supervision is point cloud sampled from 3D mesh, and the loss is the Chamfer distance loss. 
+
+??? note "Chamfer distance"
+
+    given two point cloud $\mathcal P$ and $\mathcal Q$, the Chamfer distance loss is
+
+    $$L_C(\mathcal P,\mathcal Q) = \sum_{p\in \mathcal P} \min\{d(p, q) | q\in\mathcal Q\} + \sum_{p\in \mathcal P} \min\{d(p, q) | p\in\mathcal P\}$$
+
+    Note that there's no correspondence between point cloud and the points are orderless. In addition, the number of points in two point cloud can be different. 
