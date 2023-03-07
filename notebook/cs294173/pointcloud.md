@@ -56,167 +56,167 @@ weight 0.001) is added to the softmax classification loss to
 make the matrix close to orthogonal.  
 
 
+??? code
+    ```python
+    import torch
+    import torch.nn as nn
+    import torch.nn.functional as F
 
-```python
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-class TNet(nn.Module):
-    
-    def __init__(self, input_dim, output_dim):
-        super(TNet, self).__init__()
-        self.output_dim = output_dim
-
-        self.conv_1 = nn.Conv1d(input_dim, 64, 1)
-        self.conv_2 = nn.Conv1d(64, 128, 1)
-        self.conv_3 = nn.Conv1d(128, 1024, 1)
-
-        self.bn_1 = nn.BatchNorm1d(64)
-        self.bn_2 = nn.BatchNorm1d(128)
-        self.bn_3 = nn.BatchNorm1d(1024)
-        self.bn_4 = nn.BatchNorm1d(512)
-        self.bn_5 = nn.BatchNorm1d(256)
-
-        self.fc_1 = nn.Linear(1024, 512)
-        self.fc_2 = nn.Linear(512, 256)
-        self.fc_3 = nn.Linear(256, self.output_dim*self.output_dim)
+    class TNet(nn.Module):
         
-    def forward(self, x: torch.Tensor):
-        n = x.shape[1]
-        x = x.transpose(2,1)
+        def __init__(self, input_dim, output_dim):
+            super(TNet, self).__init__()
+            self.output_dim = output_dim
+
+            self.conv_1 = nn.Conv1d(input_dim, 64, 1)
+            self.conv_2 = nn.Conv1d(64, 128, 1)
+            self.conv_3 = nn.Conv1d(128, 1024, 1)
+
+            self.bn_1 = nn.BatchNorm1d(64)
+            self.bn_2 = nn.BatchNorm1d(128)
+            self.bn_3 = nn.BatchNorm1d(1024)
+            self.bn_4 = nn.BatchNorm1d(512)
+            self.bn_5 = nn.BatchNorm1d(256)
+
+            self.fc_1 = nn.Linear(1024, 512)
+            self.fc_2 = nn.Linear(512, 256)
+            self.fc_3 = nn.Linear(256, self.output_dim*self.output_dim)
+            
+        def forward(self, x: torch.Tensor):
+            n = x.shape[1]
+            x = x.transpose(2,1)
+            
+            x = F.relu(self.bn_1(self.conv_1(x)))
+            x = F.relu(self.bn_2(self.conv_2(x)))
+            x = F.relu(self.bn_3(self.conv_3(x)))
+
+            x = nn.MaxPool1d(n)(x)
+            x = x.view(-1, 1024)
+
+            x = F.relu(self.bn_4(self.fc_1(x)))
+            x = F.relu(self.bn_5(self.fc_2(x)))
+            x = self.fc_3(x)
+
+            I = torch.eye(self.output_dim)
+            if torch.cuda.is_available():
+                I = I.cuda()
+            return x.view(-1, self.output_dim, self.output_dim) + I
+    ```
+
+
+    ```python
+    class FeatureExtractor(nn.Module):
+        def __init__(self, input_dim, local=False):
+            super(FeatureExtractor, self).__init__()
+            self.local = local
+            self.input_transform = TNet(input_dim=input_dim, output_dim=input_dim)
+            self.feature_transform = TNet(input_dim=64, output_dim=64)
+
+            self.conv_1 = nn.Conv1d(input_dim, 64, 1)
+            self.conv_2 = nn.Conv1d(64, 64, 1)
+            self.conv_3 = nn.Conv1d(64, 64, 1)
+            self.conv_4 = nn.Conv1d(64, 128, 1)
+            self.conv_5 = nn.Conv1d(128, 1024, 1)
+
+            self.bn_1 = nn.BatchNorm1d(64)
+            self.bn_2 = nn.BatchNorm1d(64)
+            self.bn_3 = nn.BatchNorm1d(64)
+            self.bn_4 = nn.BatchNorm1d(128)
+            self.bn_5 = nn.BatchNorm1d(1024)
+
+        def forward(self, x):
+            n = x.shape[1]
+            input_transform = self.input_transform(x)
+            x = torch.bmm(x, input_transform)
+            x = x.transpose(2, 1)
+            x = F.relu(self.bn_1(self.conv_1(x)))
+            x = F.relu(self.bn_2(self.conv_2(x)))
+            x = x.transpose(2, 1)
+            
+            feature_transform = self.feature_transform(x)
+            x = torch.bmm(x, feature_transform)
+            local_point_features = x
+
+            x = x.transpose(2, 1)
+            x = F.relu(self.bn_3(self.conv_3(x)))
+            x = F.relu(self.bn_4(self.conv_4(x)))
+            x = F.relu(self.bn_5(self.conv_5(x)))
+            x = nn.MaxPool1d(n)(x)
+            x = x.view(-1, 1024)
+
+            if self.local:
+                x = x.view(-1, 1024, 1).repeat(1, 1, n)
+                return torch.cat([x.transpose(2, 1), local_point_features], 2), feature_transform
+            else:
+                return x, feature_transform
+    ```
+
+
+    ```python
+    class PointNet_Classification(nn.Module):
+        def __init__(self, num_classes, point_dim=3, dropout=.3):
+            super(PointNet_Classification, self).__init__()
+            self.feature_extract = FeatureExtractor(input_dim=point_dim, local=False)
+            self.fc_1 = nn.Linear(1024, 512)
+            self.fc_2 = nn.Linear(512, 256)
+            self.fc_3 = nn.Linear(256, num_classes)
+
+            self.bn_1 = nn.BatchNorm1d(512)
+            self.bn_2 = nn.BatchNorm1d(256)
+
+            self.dropout_1 = nn.Dropout(dropout)
+            
+        def forward(self, x):
+            x, feature_transform = self.feature_extract(x)
+
+            x = F.relu(self.bn_1(self.fc_1(x)))
+            x = F.relu(self.bn_2(self.fc_2(x)))
+            x = self.dropout_1(x)
+
+            return F.log_softmax(self.fc_3(x), dim=1), feature_transform
         
-        x = F.relu(self.bn_1(self.conv_1(x)))
-        x = F.relu(self.bn_2(self.conv_2(x)))
-        x = F.relu(self.bn_3(self.conv_3(x)))
-
-        x = nn.MaxPool1d(n)(x)
-        x = x.view(-1, 1024)
-
-        x = F.relu(self.bn_4(self.fc_1(x)))
-        x = F.relu(self.bn_5(self.fc_2(x)))
-        x = self.fc_3(x)
-
-        I = torch.eye(self.output_dim)
-        if torch.cuda.is_available():
-            I = I.cuda()
-        return x.view(-1, self.output_dim, self.output_dim) + I
-```
-
-
-```python
-class FeatureExtractor(nn.Module):
-    def __init__(self, input_dim, local=False):
-        super(FeatureExtractor, self).__init__()
-        self.local = local
-        self.input_transform = TNet(input_dim=input_dim, output_dim=input_dim)
-        self.feature_transform = TNet(input_dim=64, output_dim=64)
-
-        self.conv_1 = nn.Conv1d(input_dim, 64, 1)
-        self.conv_2 = nn.Conv1d(64, 64, 1)
-        self.conv_3 = nn.Conv1d(64, 64, 1)
-        self.conv_4 = nn.Conv1d(64, 128, 1)
-        self.conv_5 = nn.Conv1d(128, 1024, 1)
-
-        self.bn_1 = nn.BatchNorm1d(64)
-        self.bn_2 = nn.BatchNorm1d(64)
-        self.bn_3 = nn.BatchNorm1d(64)
-        self.bn_4 = nn.BatchNorm1d(128)
-        self.bn_5 = nn.BatchNorm1d(1024)
-
-    def forward(self, x):
-        n = x.shape[1]
-        input_transform = self.input_transform(x)
-        x = torch.bmm(x, input_transform)
-        x = x.transpose(2, 1)
-        x = F.relu(self.bn_1(self.conv_1(x)))
-        x = F.relu(self.bn_2(self.conv_2(x)))
-        x = x.transpose(2, 1)
+    class PointNet_Segmentation(nn.Module):
         
-        feature_transform = self.feature_transform(x)
-        x = torch.bmm(x, feature_transform)
-        local_point_features = x
+        def __init__(self, num_classes, point_dim=3):
+            super(PointNet_Segmentation, self).__init__()
+            
+            self.feature_extract = FeatureExtractor(input_dim=point_dim, local=True)
 
-        x = x.transpose(2, 1)
-        x = F.relu(self.bn_3(self.conv_3(x)))
-        x = F.relu(self.bn_4(self.conv_4(x)))
-        x = F.relu(self.bn_5(self.conv_5(x)))
-        x = nn.MaxPool1d(n)(x)
-        x = x.view(-1, 1024)
+            self.conv_1 = nn.Conv1d(1088, 512, 1)
+            self.conv_2 = nn.Conv1d(512, 256, 1)
+            self.conv_3 = nn.Conv1d(256, 128, 1)
+            self.conv_4 = nn.Conv1d(128, num_classes, 1)
 
-        if self.local:
-            x = x.view(-1, 1024, 1).repeat(1, 1, n)
-            return torch.cat([x.transpose(2, 1), local_point_features], 2), feature_transform
-        else:
-            return x, feature_transform
-```
+            self.bn_1 = nn.BatchNorm1d(512)
+            self.bn_2 = nn.BatchNorm1d(256)
+            self.bn_3 = nn.BatchNorm1d(128)
 
+        def forward(self, x):
+            x, feature_transform = self.feature_extract(x)
 
-```python
-class PointNet_Classification(nn.Module):
-    def __init__(self, num_classes, point_dim=3, dropout=.3):
-        super(PointNet_Classification, self).__init__()
-        self.feature_extract = FeatureExtractor(input_dim=point_dim, local=False)
-        self.fc_1 = nn.Linear(1024, 512)
-        self.fc_2 = nn.Linear(512, 256)
-        self.fc_3 = nn.Linear(256, num_classes)
+            x = x.transpose(2, 1)
+            x = F.relu(self.bn_1(self.conv_1(x)))
+            x = F.relu(self.bn_2(self.conv_2(x)))
+            x = F.relu(self.bn_3(self.conv_3(x)))
 
-        self.bn_1 = nn.BatchNorm1d(512)
-        self.bn_2 = nn.BatchNorm1d(256)
+            x = self.conv_4(x)
+            x = x.transpose(2, 1)
 
-        self.dropout_1 = nn.Dropout(dropout)
-        
-    def forward(self, x):
-        x, feature_transform = self.feature_extract(x)
-
-        x = F.relu(self.bn_1(self.fc_1(x)))
-        x = F.relu(self.bn_2(self.fc_2(x)))
-        x = self.dropout_1(x)
-
-        return F.log_softmax(self.fc_3(x), dim=1), feature_transform
-    
-class PointNet_Segmentation(nn.Module):
-    
-    def __init__(self, num_classes, point_dim=3):
-        super(PointNet_Segmentation, self).__init__()
-        
-        self.feature_extract = FeatureExtractor(input_dim=point_dim, local=True)
-
-        self.conv_1 = nn.Conv1d(1088, 512, 1)
-        self.conv_2 = nn.Conv1d(512, 256, 1)
-        self.conv_3 = nn.Conv1d(256, 128, 1)
-        self.conv_4 = nn.Conv1d(128, num_classes, 1)
-
-        self.bn_1 = nn.BatchNorm1d(512)
-        self.bn_2 = nn.BatchNorm1d(256)
-        self.bn_3 = nn.BatchNorm1d(128)
-
-    def forward(self, x):
-        x, feature_transform = self.feature_extract(x)
-
-        x = x.transpose(2, 1)
-        x = F.relu(self.bn_1(self.conv_1(x)))
-        x = F.relu(self.bn_2(self.conv_2(x)))
-        x = F.relu(self.bn_3(self.conv_3(x)))
-
-        x = self.conv_4(x)
-        x = x.transpose(2, 1)
-
-        return F.log_softmax(x, dim=-1), feature_transform
-```
+            return F.log_softmax(x, dim=-1), feature_transform
+    ```
 
 
-```python
-# num_classes = 5
-model_cls = PointNet_Classification(5).cuda()
-model_seg = PointNet_Segmentation(5).cuda()
-# input: x: B * n * c
-x = torch.rand(10, 60, 3).cuda()
-# output: y: B * num_classes, A: B * 64 * 64
-class_result, A_class = model_cls(x)
-# output: y: B * n * num_classes, A: B * 64 * 64
-seg_result, A_seg = model_seg(x)
-```
+    ```python
+    # num_classes = 5
+    model_cls = PointNet_Classification(5).cuda()
+    model_seg = PointNet_Segmentation(5).cuda()
+    # input: x: B * n * c
+    x = torch.rand(10, 60, 3).cuda()
+    # output: y: B * num_classes, A: B * 64 * 64
+    class_result, A_class = model_cls(x)
+    # output: y: B * n * num_classes, A: B * 64 * 64
+    seg_result, A_seg = model_seg(x)
+    ```
 
 ## DGCNN
 [Dynamic Graph CNN for Learning on Point Clouds](https://arxiv.org/pdf/1801.07829.pdf)  
@@ -281,44 +281,44 @@ for the name of our architecture, the Dynamic Graph CNN (DGCNN).
 With dynamic graph updates, the receptive field is as large as the
 diameter of the point cloud, while being sparse.
 
+??? code
+    ```python
+    """
+    The EdgeConv operation as implemented by the author
+    https://github.com/WangYueFt/dgcnn/blob/master/pytorch/model.py
+    """
 
-```python
-"""
-The EdgeConv operation as implemented by the author
-https://github.com/WangYueFt/dgcnn/blob/master/pytorch/model.py
-"""
-
-def knn(x, k):
-    inner = -2*torch.matmul(x.transpose(2, 1), x)
-    xx = torch.sum(x**2, dim=1, keepdim=True)
-    pairwise_distance = -xx - inner - xx.transpose(2, 1)
- 
-    idx = pairwise_distance.topk(k=k, dim=-1)[1]   # (batch_size, num_points, k)
-    return idx
-
-
-def get_graph_feature(x, k=20, idx=None):
-    batch_size = x.size(0)
-    num_points = x.size(2)
-    x = x.view(batch_size, -1, num_points)
-    if idx is None:
-        idx = knn(x, k=k)   # (batch_size, num_points, k)
-    device = torch.device('cuda')
-
-    idx_base = torch.arange(0, batch_size, device=device).view(-1, 1, 1)*num_points
-
-    idx = idx + idx_base
-
-    idx = idx.view(-1)
- 
-    _, num_dims, _ = x.size()
-
-    x = x.transpose(2, 1).contiguous()   # (batch_size, num_points, num_dims)  -> (batch_size*num_points, num_dims) #   batch_size * num_points * k + range(0, batch_size*num_points)
-    feature = x.view(batch_size*num_points, -1)[idx, :]
-    feature = feature.view(batch_size, num_points, k, num_dims) 
-    x = x.view(batch_size, num_points, 1, num_dims).repeat(1, 1, k, 1)
+    def knn(x, k):
+        inner = -2*torch.matmul(x.transpose(2, 1), x)
+        xx = torch.sum(x**2, dim=1, keepdim=True)
+        pairwise_distance = -xx - inner - xx.transpose(2, 1)
     
-    feature = torch.cat((feature-x, x), dim=3).permute(0, 3, 1, 2).contiguous()
-  
-    return feature
-```
+        idx = pairwise_distance.topk(k=k, dim=-1)[1]   # (batch_size, num_points, k)
+        return idx
+
+
+    def get_graph_feature(x, k=20, idx=None):
+        batch_size = x.size(0)
+        num_points = x.size(2)
+        x = x.view(batch_size, -1, num_points)
+        if idx is None:
+            idx = knn(x, k=k)   # (batch_size, num_points, k)
+        device = torch.device('cuda')
+
+        idx_base = torch.arange(0, batch_size, device=device).view(-1, 1, 1)*num_points
+
+        idx = idx + idx_base
+
+        idx = idx.view(-1)
+    
+        _, num_dims, _ = x.size()
+
+        x = x.transpose(2, 1).contiguous()   # (batch_size, num_points, num_dims)  -> (batch_size*num_points, num_dims) #   batch_size * num_points * k + range(0, batch_size*num_points)
+        feature = x.view(batch_size*num_points, -1)[idx, :]
+        feature = feature.view(batch_size, num_points, k, num_dims) 
+        x = x.view(batch_size, num_points, 1, num_dims).repeat(1, 1, k, 1)
+        
+        feature = torch.cat((feature-x, x), dim=3).permute(0, 3, 1, 2).contiguous()
+    
+        return feature
+    ```
