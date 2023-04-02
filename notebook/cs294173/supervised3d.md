@@ -85,7 +85,7 @@ The core idea is similar, encode 2D images to a latent code, and then add positi
 
 Suppose that a 3D surface can be represented by multiple pieces of manifold surfaces. Each manifold surface is a manifold mapping from $(u,v)$ to $(x,y,z)$ and the 3D surface can be represented by $n$ pieces of manifold with overlapping. 
 
-To allow learning of such manifold, the latent code is padded with randomly sampled point cloud from $[0,1]\times [0, 1]$ sheet and decoded into corresponding point cloud location. Since the point cloud is uniformly sampled from a 2D square, we can increase the resolution by increase the number of samples. If the whole object can be represented by deforming a sphere, then we can also sample from a unit sphere. Note that in this case, the supervision is point cloud sampled from 3D mesh, and the loss is the Chamfer distance loss. 
+To allow learning of such manifold, the latent code is padded with randomly sampled point cloud from $[0,1]\times [0, 1]$ sheet and decoded into corresponding point cloud location. Since the point cloud is uniformly sampled from a 2D square, we can increase the resolution by increase the number of samples. If the whole object can be represented by deforming a sphere, then we can also sample from a unit sphere. Note that in this case, the supervision is point cloud sampled from 3D mesh, and the loss is3 the Chamfer distance loss. 
 
 ??? note "Chamfer distance"
 

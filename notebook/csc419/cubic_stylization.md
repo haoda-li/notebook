@@ -5,7 +5,7 @@ This tutorial will introduce [Cubic Stylization [Liu & Jacobson 2019]](https://a
 
 ## Problem Setup
 
-Given a triangle mesh as a set of vertices $V\in \mathbb R^{n\times 3} $ and a set of faces $F\in\mathbb R^{m\times 3}$. We want to output a deformed shape $\tilde V$. The output shape will have each sub-component in the style of axis-aligned cubes and will remain the geometric details of the original mesh. 
+Given a triangle mesh as a set of vertices $V\in \mathbb R^{n\times 3}$ and a set of faces $F\in\mathbb R^{m\times 3}$. We want to output a deformed shape $\tilde V$. The output shape will have each sub-component in the style of axis-aligned cubes and will remain the geometric details of the original mesh. 
 
 ## Method
 
