@@ -3,7 +3,7 @@ document$.subscribe(function () {
   tables.forEach(function (table) {
     new Tablesort(table)
   })
-})
+});
 
 
 (function () {

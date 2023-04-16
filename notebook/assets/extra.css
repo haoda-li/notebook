@@ -2,14 +2,6 @@
   max-width: 1920px;
 }
 
-.jp-OutputArea-prompt {
-  display: none !important;
-}
-
-.jp-InputPrompt {
-  display: none !important;
-}
-
 .md-typeset h1 {
   font-weight: 700;
   font-size: 2.5em;

@@ -27,6 +27,8 @@ nav:
       - cs284/pathtracing.md
       - cs284/camera.md
       - cs284/kinematics.md
+      - cs284/simulation.md
+      - cs284/fluids.md
     - CSC418 Computer Graphics:
       - csc418/raster_image.md
       - csc418/meshes.md
@@ -43,6 +45,7 @@ nav:
       - csc417/rigid_bodies.md
       - csc417/rotations.md
       - csc417/collision.md
+      - csc417/fluids.md
     - CSC419/CSC2520 Geometry Processing:
       - csc419/introduction.md
       - csc419/surface_reconstruction.md
@@ -113,6 +116,7 @@ nav:
       - cs267/ml.md
       - cs267/grid.md
       - cs267/sparse_matrix.md
+      - cs267/fft.md
     - CSC367 Parallel Programming:
       - csc367/hie.md
       - csc367/matrix.md
@@ -288,13 +292,16 @@ theme:
   features:
     - navigation.tabs
     - navigation.top
-    - navigation.instant
 
 
 plugins:
   - search
   - glightbox
   - plotly
+  - bibtex:
+      bib_file: "notebook/assets/refs.bib"
+      csl_file: "notebook/assets/acm-siggraph.csl"
+      cite_inline: true
   - minify:
       minify_html: true
       minify_js: true
@@ -305,6 +312,8 @@ markdown_extensions:
   - meta
   - tables
   - attr_list
+  - footnotes
+  - md_in_html
   - admonition
   - pymdownx.mark
   - pymdownx.emoji:
