@@ -29,6 +29,7 @@ nav:
       - cs284/kinematics.md
       - cs284/simulation.md
       - cs284/fluids.md
+      - cs284/color.md
     - CSC418 Computer Graphics:
       - csc418/raster_image.md
       - csc418/meshes.md
@@ -117,6 +118,7 @@ nav:
       - cs267/grid.md
       - cs267/sparse_matrix.md
       - cs267/fft.md
+      - cs267/sort.md
     - CSC367 Parallel Programming:
       - csc367/hie.md
       - csc367/matrix.md
