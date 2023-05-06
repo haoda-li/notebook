@@ -28,7 +28,12 @@ i_{u} &= \lfloor x / dx + 0.5\rfloor, j_{u} = \lfloor y / dy \rfloor\\
 i_{v} &= \lfloor x / dx \rfloor, j_{v}= \lfloor y / dy + 0.5\rfloor
 \end{align*}
 
-![staggered grid](./assets/staggered_grid.jpg)
+
+<figure markdown>
+  ![staggered grid](./assets/staggered_grid.jpg){width="720"}
+  <figcaption>Staggered grid, shift velocity grid by half unit w.r.t position</figcaption>
+</figure>
+
 
 ### Vector Field
 Define several operators on the vector field. 

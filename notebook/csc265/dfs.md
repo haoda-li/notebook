@@ -68,10 +68,9 @@ traversal_order(DFS, g, 0)
 plot_graph(g, ['d', 'f'], layout, "assets/dfs_1.jpg")
 ```
 
-
-    
-![png](assets/dfs_1.jpg)
-    
+<figure markdown>
+  ![png](assets/dfs_1.jpg){width="1080"}
+</figure>
 
 
 ## [+] Topological Sort
@@ -115,10 +114,9 @@ topological_sort(g)
 plot_graph(g, ['order', 'f'], layout, "assets/dfs_2.jpg")
 ```
 
-
-    
-![png](assets/dfs_2.jpg)
-    
+<figure markdown>
+  ![png](assets/dfs_2.jpg){width="1080"}
+</figure>
 
 
 ## Circle Detection

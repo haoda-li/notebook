@@ -17,7 +17,9 @@ $$|\int_{C(R,0,\pi)} f(z)dz| \leq \pi R \frac{\kappa(R)}{R} < \epsilon$$
 ### Example 1
 Compute $\int_{-\infty}^{\infty} (x^2 + 1)^{-1}dx$
 
-![](assets/jordon.svg)
+​<figure markdown>
+![](assets/jordon.jpg){width="480"}
+</figure>
 
 For any $R > 0$, expanding $f$ to the complex domain, and consider 
 

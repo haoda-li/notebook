@@ -76,7 +76,9 @@ plt.scatter(x, y)
 plt.savefig("assets/interpolations_1.jpg")
 ```
 
-![png](assets/interpolations_1.jpg)
+<figure markdown>
+  ![png](assets/interpolations_1.jpg){width="480"}
+</figure> 
 
 ### Conditioning
 Often Vandermonde Matrices are very badly conditioned. When $x_1\neq x_2$ but $x_1\approx x_2$, then first two rows of $A$ are almost identical, resulting close to singular and bad conditioning. 
@@ -150,7 +152,9 @@ plt.scatter(x, y)
 plt.savefig("assets/interpolations_2.jpg")
 ```
 
-![png](assets/interpolations_2.jpg)
+<figure markdown>
+  ![png](assets/interpolations_2.jpg){width="480"}
+</figure> 
     
 Consider the equation $p(x) = \sum l_i(x)c_i$, which the problem becomes the system of equations
 
@@ -256,7 +260,9 @@ plt.plot(x, y)
 plt.savefig("assets/interpolations_3.jpg")
 ```
 
-![png](assets/interpolations_3.jpg)
+<figure markdown>
+  ![png](assets/interpolations_3.jpg){width="480"}
+</figure> 
 
 ## Piece-wise Polynomial Interpolation
 

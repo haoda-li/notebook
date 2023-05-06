@@ -7,7 +7,11 @@ Consider a camera
 - $f$ be its __focal length__, physically speaking, focal length is the distance between lens and the focus. For photography, focal length often refers to the distance between the lens and the sensor when the object is in focus. 
 - $\text{FOV} = 2 \tan^{-1}(\frac{h}{2f})$ field of view is the degree (conventionally vertical degree) of the viewing angles. 
 
-![FoV](./assets/fov.jpg)
+<figure markdown>
+  ![FoV](./assets/fov.jpg){width="1080"}
+</figure>
+
+
 
 Conventionally, most manufactures refers FOV as the diagonal FOV by a full-frame sensor (also called 35mm sensor, but the actual size is $36\times 24$mm). For example, $17$mm focal length wide angle lens is $2\tan^{-1}(\frac{\sqrt{36^2+24^2}}{2\times 17}) \approx 104\degree$.
 
@@ -28,7 +32,11 @@ ISO is just a constant multiplied onto each sensor pixel value, hence it is line
 
 ### F-stop (Aperture)
 
-![aperture](./assets/aperture.jpg)
+<figure markdown>
+  ![aperture](./assets/aperture.jpg){width="720"}
+  <figurecaption>Apetures defined as f-stop</figcaption>
+</figure>
+
 
 The __f-number/f-stop__ of a lens is defined as $f/d$ where $f$ is the focal length and $d$ is the diameter of the aperture. One __stop__ doubles the exposure. 
 
@@ -44,7 +52,13 @@ __Motion blur__ with longer exposure time, the motion in the scene will be integ
 __Rolling shutter effect__ the sensor pixels are not read-out at the same time. In practice, it's a sequential pipeline. The exposure time for each pixel is the same, but starting and ending time is different (each pixel starts with $s_i$ and ends with $e_i+\Delta t$ with $\Delta_t$ is the exposure time, independent of pixels). The difference between the first and last pixel can take $1/30$ sec. The resulting picture will have sheared objects. 
 
 ### Gauss Ray Diagram
-![Gauss ray diagram](./assets/gauss_ray.jpg)
+
+<figure markdown>
+  ![Gauss ray diagram](./assets/gauss_ray.jpg){width="720"}
+  <figurecaption>Gauss Ray Diagram</figcaption>
+</figure>
+
+
 
 By similar triangles we have equations 
 

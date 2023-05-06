@@ -78,8 +78,10 @@ Note that $G(0, \sigma_1)* G(0, \sigma_2) = G(0, \sqrt{\sigma_{1}^2 + \sigma_{2}
 --8<-- "csc420/scripts/sift.py:octave"
 ```
 
-![png](assets/sift_octave.jpg)
-    
+​<figure markdown>
+![png](assets/sift_octave.jpg){width="720"}
+</figure>
+
 
 ## Taking DoG
 Then, for each octave, take DoG by taking the difference between adjacent scales. Note that $k$ is unchanged for each DoG. Then, decide the matching frequency and record the matching. 
@@ -89,7 +91,10 @@ Then, for each octave, take DoG by taking the difference between adjacent scales
 --8<-- "csc420/scripts/sift.py:dog"
 ```
 
-![png](assets/sift_dog.jpg)
+​<figure markdown>
+![png](assets/sift_dog.jpg){width="720"}
+</figure>
+
 
 
 ## Find Local Extrema

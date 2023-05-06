@@ -14,9 +14,9 @@ judge = case0502$Judge
 plot(judge, percent)
 ```
 
-![png](assets/case_spock_2_1.png)
-    
-
+​<figure markdown>
+![png](assets/case_spock_2_1.png){width="480"}
+</figure>
 
 ```R
 summary(percent)
@@ -32,11 +32,9 @@ summary(percent)
 boxplot(percent, horizontal = T)
 ```
 
-
-    
-![png](assets/case_spock_4_0.png)
-    
-
+​<figure markdown>
+![png](assets/case_spock_4_0.png){width="480"}
+</figure>
 
 This looks to be normal, based on Mean vs. Median, and the IQR
 
@@ -73,11 +71,9 @@ qqnorm(percent)
 qqline(percent)
 ```
 
-
-    
-![png](assets/case_spock_8_0.png)
-    
-
+​<figure markdown>
+![png](assets/case_spock_8_0.png){width="480"}
+</figure>
 
 ### Normality Check
 
@@ -170,9 +166,9 @@ groupNS
 boxplot(groupS, groupNS, xlab="JUDGE", names = c("Spock", "Other"))
 ```
 
-![png](assets/case_spock_14_2.png)
-    
-
+​<figure markdown>
+![png](assets/case_spock_14_2.png){width="480"}
+</figure>
 
 **Purpose** to compare two population means <br>
 $H_0$: $\mu_x-\mu_y = D_0 (\text{ commonly }D_0=0)$ <br>
@@ -377,11 +373,9 @@ abline(0, 0)
 plot(model)
 ```
 
-
-    
-![png](assets/case_spock_36_0.png)
-    
-
+​<figure markdown>
+![png](assets/case_spock_36_0.png){width="720"}
+</figure>
 
 Check Assumptions
 - Normality: looks like a little bit right skewed (but they might just be outliers)

@@ -19,7 +19,10 @@ The issue with all existing approach is that the direct supervision is not effec
 
 [RAFT: Recurrent All-Pairs Field Transforms for Optical Flow](https://arxiv.org/pdf/2003.12039.pdf)
 
-![RAFT](./assets/raft.jpg)
+<figure markdown>
+  ![RAFT](./assets/raft.jpg){width="1080"}
+</figure>
+
 
 The input for RAFT is a pair of image, the output is optical flow from image 1 to image 2. 
 

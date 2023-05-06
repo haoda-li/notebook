@@ -61,8 +61,9 @@ par(mfrow=c(2, 2))
 .2 - plot(density(x, bw=.2))
 ```
     
-![png](assets/density_estimation_5_4.png)
-    
+​<figure markdown>
+![png](assets/density_estimation_5_4.png){width="560"}
+</figure>
 
 
 ### Redistribution
@@ -469,7 +470,8 @@ abline(0,1,lty=2,lwd=2)
 ```
 
 
-    
-![png](assets/density_estimation_30_0.png)
+​<figure markdown>
+![png](assets/density_estimation_30_0.png){width="560"}
+</figure>
     
 

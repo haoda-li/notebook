@@ -15,7 +15,10 @@ The estimation of the function is the image based rendering / novel view synthes
 github: https://github.com/bmild/nerf  
 website: https://www.matthewtancik.com/nerf
 
-![overview](./assets/nerf_overview.png)
+<figure markdown>
+  ![overview](./assets/nerf_overview.png){width="1080"}
+</figure>
+
 
 ### NeRF Scene Representation
 The representation can be seen as a funciton 
@@ -173,7 +176,10 @@ After certain steps of training, reduce the ray-marching step size (partition le
 Page (https://pratulsrinivasan.github.io/nerv/)  
 paper(https://pratulsrinivasan.github.io/nerv/)
 
-![nerv factors](./assets/nerv.png)
+<figure markdown>
+  ![nerv factors](./assets/nerv.png){width="1080"}
+</figure>
+
 
 ### Light Model
 
@@ -213,7 +219,10 @@ Paper (https://arxiv.org/pdf/2106.01970.pdf)
 
 The idea and light modelling is similar to NeRV. but NeRFactor provides a more feasible training and evaluating pipeline. Also, replace the Microfacet BRDF with a data-driven MERL-BRDF model, adding much better expressive power. 
 
-![nerfactor](./assets/nerfactor.png)
+<figure markdown>
+  ![nerfactor](./assets/nerfactor.png){width="720"}
+</figure>
+
 
 
 Change plenoptic function from viewing centered to object centered (object emits light instead of eye receiving light) and simplify the problem to 5D (remove wavelength and time). Intuitively, a NeRF can be discretized as a 3D grid, and at each grid location, we have a sphere of colors.  

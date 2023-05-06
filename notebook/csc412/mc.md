@@ -8,7 +8,9 @@ Of course, this definition gives almost no simplifications over the intractable 
 
 ## Stationary Markov Chain
 
-![Markov Chain](./assets/mc.svg)
+​<figure markdown>
+![Markov Chain](./assets/mc.jpg){width="480"}
+</figure>
 
 For a  __k-order Markov chain__, we assume that for each state $x_t$, it only depends on the previous $k$ states, which means 
 
@@ -65,8 +67,10 @@ _proof_. directly perform induction using the above discovery.
 
 In some cases, the observed states of a random variable is not the sequence itself, but a consequence of some hidden states. HMMs hide the temporal dependence by keeping it in the unobserved state. For each observation $x_t$, we associate a corresponding unobserved hidden/latent variable $z_t$.
 
-​
-![HMM](./assets/hmm.svg)
+​<figure markdown>
+   ![HMM](./assets/hmm.jpg){width="480"}
+</figure>
+
 
 
 The joint distribution of the model is 

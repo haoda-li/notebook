@@ -11,7 +11,11 @@ Note that with the definition as $a+bi$, the complex space can be seen as a $\ma
 - $|z| \leq |z + 1|$ not open, closed, unbounded  
 - $0 < |2z-1|\leq 2$ not open, not closed, bounded
 
-![example_sketch](./assets/functions_topo.drawio.svg)
+​<figure markdown>
+![example_sketch](./assets/functions_topo.jpg){width="720"}
+</figure>
+
+
 
 ### Example 2
 determine connectedness and the closure   
@@ -25,7 +29,9 @@ $Re(z-z_0) > 0\land Re(z-z_1) < 0, z_0,z_1 \in \mathbb C$. If $Re(z_0) \leq Re(z
 
 $|z| < 1/2 \land |2z-4| < 2$ note this is $\emptyset$, hence connected and closure is $\emptyset$
 
-![example_sketch](./assets/functions_re_im.drawio.svg)
+​<figure markdown>
+![example_sketch](./assets/functions_re_im.jpg){width="720"}
+</figure>
 
 ## Elementary Functions
 A __function of the complex variable__ is some function that maps to a subset of $\mathbb C$. 

@@ -72,7 +72,10 @@ Since we only move the camera along the x-axis, $(p_l\sim p_r) \parallel (O_l\si
 
 Also, noticing that we are only interested in $Z$, i.e. the depth. Consider the connection between $p_l, p_r, Z$, ignoring $y$ since it is unchanged. Therefore, we can project the image from the y-axis, and see the relationship in 2D $(x,z)$ coordinate. 
 
-![png](./assets/lec13.png)
+​<figure markdown>
+![png](assets/lec13.png){width="400"}
+</figure>
+
 
 Noticing that $\Delta PX_lX_r \sim \Delta PP_lO_r$. so that 
 
@@ -84,7 +87,9 @@ Then, to get $x_r$, we need to match the point in two images. Since we know $y$ 
 
 ### Basic Setting
 
-![png](./assets/lec14.png)
+​<figure markdown>
+![png](assets/lec14.png){width="480"}
+</figure>
 
 __Epipole__ $e_l, e_r$ where line $O_l, O_r$ intersects the image planes  
 __Projective line__ $O_lp_l, O_rp_r$ will project to the right, left image plane. Note that the line will not (necessarily) be horizontal.  

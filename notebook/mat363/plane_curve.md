@@ -29,10 +29,9 @@ Let $\gamma(t) = (\cos t, \sin t), = \gamma'(t) = (-\sin t, \cos t)$.
     ```
 
 
-    
-![png](assets/plane_curve.jpg)
-    
-
+​<figure markdown>
+![png](assets/plane_curve.jpg){width="720"}
+</figure>
 
 ### Claim 1
 If $\gamma$ is a unit-speed plane curve, then $\mathbf n'_s = -\kappa_s \mathbf t$.

@@ -47,8 +47,11 @@ ig.plot(g, target=ax)
 ax.set_axis_off()
 fig.savefig("assets/disjoint_set_1.jpg")
 ```
-    
-![png](assets/disjoint_set_1.jpg)
+
+<figure markdown>
+  ![png](assets/disjoint_set_1.jpg){width="480"}
+</figure>
+
 
 ### Link
 Note that `union(x, y) = if findset(x) != findset(y): link(findset(x), findset(y))`. We use `link` to decompose the `union` operation so that the time analysis is directly related to the number of `link` and `findset`. 
@@ -80,11 +83,10 @@ for e in E:
     ds.union_naive(nodes[e[0]], nodes[e[1]])
 ds.plot(label_fn, "assets/disjoint_set_2.jpg")
 ```
+<figure markdown>
+  ![png](assets/disjoint_set_2.jpg){width="560"}
+</figure>
 
-
-    
-![png](assets/disjoint_set_2.jpg)
-    
 
 
 ## Heuristic 1: Weighted Union
@@ -144,9 +146,9 @@ for e in E:
     ds.union_weighted(nodes[e[0]], nodes[e[1]])
 ds.plot(label_fn, "assets/disjoint_set_4.jpg")
 ```
-
-
-![png](assets/disjoint_set_4.jpg)
+<figure markdown>
+  ![png](assets/disjoint_set_4.jpg){width="560"}
+</figure>
     
 
 
@@ -173,7 +175,9 @@ for e in E:
 ds.plot(label_fn, "assets/disjoint_set_5.jpg")
 ```
     
-![png](assets/disjoint_set_5.jpg)
+<figure markdown>
+  ![png](assets/disjoint_set_5.jpg){width="560"}
+</figure>
 
 ### [+] Time Analysis (log-star)
 
@@ -241,10 +245,9 @@ print("Number of connected components", ds.n)
 #>> Number of connected components 9
 ```
 
-
-    
-![png](assets/disjoint_set_6.jpg)
-    
+<figure markdown>
+  ![png](assets/disjoint_set_6.jpg){width="560"}
+</figure>
 
 
     

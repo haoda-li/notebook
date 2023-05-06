@@ -39,7 +39,10 @@ plot_tree(
 )
 ```
 
-![png](assets/avl_1.jpg)
+<figure markdown>
+  ![png](assets/avl_1.jpg){width="720"}
+</figure>
+
 
 
 ## AVL Tree
@@ -133,9 +136,6 @@ Intuitively, there are 3 cases in the `while` loop
  4  l.right = root
  5  root = l
 ```
-The correctness is shown in the illustration
-![right_rotate](./assets/right_rotate.svg)
-
 
 Given an imbalanced BST with $\pm 2$ BF on root, and $\pm 1, 0$ BF on other nodes. We want a new BST that is balanced. WLOG assume the right subtree is heavier. There are two cases
 
@@ -143,8 +143,9 @@ Given an imbalanced BST with $\pm 2$ BF on root, and $\pm 1, 0$ BF on other node
 
 `right, left` case: if we do a right rotation, then it is still imbalanced. Thus, the idea is first left rotate the right subtree, so that the right subtree's right is heavier. Then, we go back to `right, right` case. 
 
-![right_rotate](./assets/right_rotate_imbalanced.svg)
-
+<figure markdown>
+  ![right_rotate balanced](./assets/right_rotate_imbalanced.jpg){width="720"}
+</figure>
 
 
 ```python
@@ -160,7 +161,10 @@ plot_tree(
 )
 ```
 
-![png](assets/avl_2.jpg)
+<figure markdown>
+  ![png](assets/avl_2.jpg){width="720"}
+</figure>
+
 
 ```python
 right_rotate(root.l)
@@ -170,7 +174,9 @@ plot_tree(
 )
 ```
 
-![png](assets/avl_3.jpg)
+<figure markdown>
+  ![png](assets/avl_3.jpg){width="720"}
+</figure>
 
 ```python
 # a demonstration of BST
@@ -186,7 +192,9 @@ plot_tree(
 # key, height, BF
 ```
 
-![png](assets/avl_4.jpg)
+<figure markdown>
+  ![png](assets/avl_4.jpg){width="720"}
+</figure>
 
 
 ## [+] `delete`
@@ -205,4 +213,7 @@ The correctness and runtime justification is very similar to `insert`.
 ### Fix Imbalance
 Imbalance happens when we delete a node from the lighter subtree, and there are 3 cases to consider. As shown below
 
-![delete case 1, 2](./assets/delete_rotate_1.svg)
+<figure markdown>
+  ![delete case 1, 2](./assets/delete_rotate_1.jpg){width="720"}
+</figure>
+

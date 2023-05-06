@@ -7,7 +7,10 @@ Since the image is discrete in pixels, take first-order forward discrete derivat
 
 $$\frac{\partial f(x,y)}{\partial x} = \lim_{h \rightarrow 0}\frac{f(x+h, y) - f(x,y)}{g}\approx \frac{f(x+1, y) - f(x,y)}{1}$$
 
-![png](assets/edge_detection_1.jpg)
+​<figure markdown>
+![png](assets/edge_detection_1.jpg){width="560"}
+</figure>
+
 
 ## Finite Difference Filters
 Similarly, there are several common filters
@@ -46,7 +49,10 @@ $$M_x = \begin{bmatrix}
 0 & -1
 \end{bmatrix}$$
 
-![png](assets/edge_detection_sobel.jpg)
+​<figure markdown>
+![png](assets/edge_detection_sobel.jpg){width="720"}
+</figure>
+
 
 ### Image Gradient
 The gradient of an image is $\Delta f = [\partial_x f, \partial_y f]$  
@@ -57,10 +63,9 @@ The __edge strength__ is given by the magnitude $\|\Delta f\| = \sqrt{\partial_x
 ## Effect of Noise
 Consider a noisy image $f$, where there are high frequency changes locally
 
-    
-![png](assets/edge_detection_noise.jpg)
-    
-
+​<figure markdown>
+![png](assets/edge_detection_noise.jpg){width="480"}
+</figure>
 
 Therefore, we need to first smooth the image with some filter $h$ and then looks for the peak in $\partial_x (h*f)$
 
@@ -86,15 +91,17 @@ One of the best known classical edge detection algorithm
     - Purpose: since high threshold will wipe out too many edges while small threshold preserves too many unwanted small edges. Hysteresis thresholding will be able to connect stronger edges with thinner edges so that the edges are connected and show the true feature. 
     - Implementation: used two thresholds, high threshold and low threshold, to get two sets of resulted edges. Then, the final result will be the strong edges, plus all thin edges (from low threshold) that are connected between two strong edges (from high threshold).
 
-![png](assets/edge_detection_canny.jpg)
-    
-
+​<figure markdown>
+![png](assets/edge_detection_canny.jpg){width="720"}
+</figure>
 
 ### Laplacian of Gaussians
 
 Using $\partial^2_x h * f$ as the filter, detecting edge by __zero-crossing__ of bottom graph
 
-![png](assets/edge_detection_log.jpg)
+​<figure markdown>
+![png](assets/edge_detection_log.jpg){width="720"}
+</figure>
 
 ???quote "Source code"
 

@@ -41,11 +41,9 @@ for p in (0.1, 0.5, 1, 2):
 plt.legend();
 ```
 
-
-    
-![png](assets/sparse_icp_5_0.png)
-    
-
+​<figure markdown>
+![png](assets/sparse_icp_5_0.png){width="480"}
+</figure>
 
 ## Robust Distance Function
 

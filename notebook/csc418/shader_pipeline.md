@@ -2,7 +2,12 @@
 
 
 ## Viewing Transformations
-![](./assets/view_transformation.png)
+
+<figure markdown>
+  ![](./assets/view_transformation.png){width="720"}
+</figure>
+
+
 The viewing transformations inputs a canonical coordinate $(x, y, z)$ to some $(x, y)$ on the 2D image space. One common system is a sequence of 3 transformations
  - __camera transformation__ $(x, y, z)\rightarrow (x_c, y_c, z_c)$ given $eye$ and orientation $u, v, w$
  - __projection transformation__ $(x_c, y_c, z_c) \rightarrow (x_v, y_v)$, $x_v, y_v\in [-1, 1]$ all the points that  are visible in the camera space given the type of projection desired

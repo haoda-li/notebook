@@ -145,14 +145,17 @@ h = Heap(arr, ascending=True)
 h.plot("./assets/pq_0.jpg")
 ```
 
-![pq_0](assets/pq_0.jpg)
+<figure markdown>
+  ![png](assets/pq_0.jpg){width="560"}
+</figure>
 
 ```python
 h.insert(17)
 h.plot("./assets/pq_1.jpg")
 ```
-
-![pq_1](assets/pq_1.jpg)
+<figure markdown>
+  ![png](assets/pq_1.jpg){width="560"}
+</figure>
 
 ```python
 print(f"{h.pull()}")
@@ -161,7 +164,9 @@ print(f"{h.pull()}")
 h.plot("./assets/pq_2.jpg")
 ```
 
-![pq_1](assets/pq_2.jpg)
+<figure markdown>
+  ![png](assets/pq_2.jpg){width="560"}
+</figure>
 
 ```python
 print(f"> {h.pull()}")
@@ -170,7 +175,9 @@ print(f"> {h.pull()}")
 h.plot("./assets/pq_3.jpg")
 ```
 
-![pq_1](assets/pq_3.jpg)
+<figure markdown>
+  ![png](assets/pq_3.jpg){width="560"}
+</figure>
 
 ```python
 print(f"> {heap_sort(arr)}")

@@ -71,7 +71,9 @@ mq1 =  MergableHeap(arr1, ascending=True)
 mq1.plot("./assets/mq_1.jpg")
 ```
 
-![mq](assets/mq_1.jpg)
+<figure markdown>
+  ![png](assets/mq_1.jpg){width="560"}
+</figure>
 
 ```python
 arr2 = [6, 1, 8, 5, 9, 7, 10]
@@ -79,14 +81,17 @@ mq2 = MergableHeap(arr2, ascending=True)
 mq2.plot("./assets/mq_2.jpg")
 ```
 
-![mq](assets/mq_2.jpg)
+<figure markdown>
+  ![png](assets/mq_2.jpg){width="560"}
+</figure>
 
 ```python
 mq1.union(mq2)
 mq1.plot("./assets/mq_3.jpg")
 ```
-
-![png](assets/mq_3.jpg)
+<figure markdown>
+  ![png](assets/mq_3.jpg){width="560"}
+</figure>
 
 ```python
 print(mq1.pull())
@@ -94,4 +99,6 @@ print(mq1.pull())
 mq1.plot("./assets/mq_4.jpg")
 ```
 
-![png](assets/mq_4.jpg)
+<figure markdown>
+  ![png](assets/mq_4.jpg){width="560"}
+</figure>

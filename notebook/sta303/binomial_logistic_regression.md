@@ -76,20 +76,18 @@ $$\log(\frac{\bar{\pi}_{S,i}}{1 - \bar{\pi}_{S,i}}) = \log(\frac{y_i}{m_i-y_i})$
 ggplot(krunnit, aes(x=Area, y=logitpi)) + geom_point()
 ```
 
-
-    
-![png](assets/binomial_logistic_regression_6_0.png)
-    
-
-
+​<figure markdown>
+![png](assets/binomial_logistic_regression_6_0.png){width="480"}
+</figure>
 
 ```R
 ggplot(krunnit, aes(x=log(Area), y=logitpi)) + geom_point()
 ```
 
 
-    
-![png](assets/binomial_logistic_regression_7_0.png)
+​<figure markdown>
+![png](assets/binomial_logistic_regression_7_0.png){width="480"}
+</figure>
     
 
 
@@ -445,11 +443,9 @@ plot(log(Area), dres)
 
 ```
 
-
-    
-![png](assets/binomial_logistic_regression_30_0.png)
-    
-
+​<figure markdown>
+![png](assets/binomial_logistic_regression_30_0.png){width="480"}
+</figure>
 
 **Pearson vs Deviance Residuals**
 

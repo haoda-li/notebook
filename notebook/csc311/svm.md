@@ -12,10 +12,9 @@ $$z=\vec w^T\vec x + b, y = sign(z)$$
 ### Hinge Loss
 $$\mathcal L_H(z,t) =\max\{0,1-zt\}$$
 
-
-![png](assets/svm_hinge_loss.jpg)
-    
-
+<figure markdown>
+  ![png](assets/svm_hinge_loss.jpg){width="480"}
+</figure> 
 
 If we use a linear classifier and write $z^{(i)}(w,b)=\vec w^T\vec x + b$, then we want to minimize the training loss 
 
@@ -97,11 +96,9 @@ Consider the shape of $\alpha_t$
  - If $err\approx 0, a_t$ high so misclassified examples get more attention
  - If $err\approx 0.5, a_t$ low so misclassified examples are not emphasized 
 
-
-    
-![png](assets/svm_error.jpg)
-    
-
+<figure markdown>
+  ![png](assets/svm_error.jpg){width="480"}
+</figure> 
 
 ## Geometric converge
 Assume that at each iteration of AdaBoost the WeakLearn returns a hypothesis with error $err\leq \frac{1}{2} - \gamma$ for all $t = 1, ..., T$ with $\gamma > 0$. The training error of the output hypothesis 
@@ -136,11 +133,10 @@ Consider a greedy approach to fitting additive models, known as __stagewise trai
 
 Then consider the exponential loss, as a smooth simulation to Hinge loss. 
 
+<figure markdown>
+  ![png](assets/svm_vs.jpg){width="480"}
+</figure> 
     
-![png](assets/svm_vs.jpg)
-    
-
-
 \begin{align*}
 (h_m,a_m)\leftarrow arg\min &\sum_{i=1}^N \exp(-\bigg[H_{m-1}(x^{(i)} + ah(x^{(i)}))\bigg]t^{(i)})\\
 = &\sum_{i=1}^N \exp(-H_{m-1}(x^{(i)}t^{(i)}))\exp(-ah(x^{(i)}t^{(i)}))\\

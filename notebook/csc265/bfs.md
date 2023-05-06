@@ -142,8 +142,10 @@ traversal_order(BFS, g, 0)
 plot_graph(g, ['order', 'distance'], layout, "assets/bfs_1.jpg")
 ```
 
+<figure markdown>
+  ![png](assets/bfs_1.jpg){width="1080"}
+</figure>
 
 
-![png](assets/bfs_1.jpg)
     
 

@@ -46,27 +46,37 @@ library(ggplot2)
 ggplot(data, aes(x=company, y=score, fill=company)) + geom_boxplot()
 ```
     
-![png](assets/two_way_ANOVA_5_0.png)
-    
+​<figure markdown>
+![png](assets/two_way_ANOVA_5_0.png){width="560"}
+</figure>
+
 
 ```R
 ggplot(data, aes(x=treat, y=score, fill=treat))+geom_boxplot()
 ```
 
-![png](assets/two_way_ANOVA_6_0.png)
+​<figure markdown>
+![png](assets/two_way_ANOVA_6_0.png){width="560"}
+</figure>
+
 
 ```R
 interaction.plot(company, treat, score, col=c('blue','red'))
 ```
 
-![png](assets/two_way_ANOVA_7_0.png)
+​<figure markdown>
+![png](assets/two_way_ANOVA_7_0.png){width="560"}
+</figure>
+
 
 ```R
 interaction.plot(treat, company, score, col=c('blue','red','green','purple','black'))
 ```
 
-![png](assets/two_way_ANOVA_8_0.png)
-    
+​<figure markdown>
+![png](assets/two_way_ANOVA_8_0.png){width="560"}
+</figure>
+
 
 
  - Response: score on a test 
@@ -169,10 +179,14 @@ plot(model_i, which=1:2)
       1, 4, 7, 8, 9, 12, 15, 18, 21, 24, 27"
     
     
-![png](assets/two_way_ANOVA_15_1.png)
-    
-    
-![png](assets/two_way_ANOVA_15_2.png)
+​<figure markdown>
+![png](assets/two_way_ANOVA_15_1.png){width="560"}
+</figure>
+
+​<figure markdown>
+![png](assets/two_way_ANOVA_15_2.png){width="560"}
+</figure>
+
     
 
 
@@ -265,7 +279,10 @@ plot(model_a)
 
 
     
-![png](assets/two_way_ANOVA_22_0.png)
+​<figure markdown>
+![png](assets/two_way_ANOVA_22_0.png){width="720"}
+</figure>
+
     
 
 

@@ -128,7 +128,11 @@ The main problem with SpMV is load imbalance and pointer chasing, if we know the
 ### Reordering
 The most ideal structure for parallelized SpMV is block diagonal. In this case, we can partition $y=Ax$ into $p$ processors and we requires no communication except for a final `gather`. 
 
-![Blocked diagonal](assets/blocked_diagonal.jpg)
+<figure markdown>
+  ![Blocked diagonal](assets/blocked_diagonal.jpg){width="480"}
+</figure>
+
+
 
 Of course, this is only a very small class of sparse matrix. However, we can reorder the rows or columns to get close to such format. Then, we can use it for computation and permute things back using a permutation matrix. 
 

@@ -44,7 +44,11 @@ T_{weights} &= \alpha\log(P) + \beta \frac{P-1}{P}|F^iF^i|
 
 ### Pipeline Parallelism
 
-![pipeline parallel](./assets/mlpipeline.jpg)
+<figure markdown>
+  ![pipeline parallel](./assets/mlpipeline.jpg){width="1080"}
+</figure>
+
+
 
 Divides input mini-batch into smaller micro-batches, different GPUs work different micro-batches simultaneously. Gradients are sync at the end. 
 
@@ -148,7 +152,11 @@ The possible parallelism is the large-scale matrix multiplications. Also, depend
 
 For GNN, a graph $(V, E)$ where each node $v$ describes a data point and edge/adjacency $e$ describes its inter-data relationships. Taking one node $v$ and its adjacent relationship (edges) $e_0, e_1, ..., e_{deg(v)}$, we encode the data into its latent representation $\mathbf h$ (often a vector embedding) via a GNN. Then, we are interested in various results by integrating the latent code only, latent code convolving with all adjacency information, and querying inter-nodes relationship given two latent nodes and their connectivity. 
 
-![GNN tasks](./assets/gnn_tasks.jpg)
+<figure markdown>
+  ![GNN tasks](./assets/gnn_tasks.jpg){width="1080"}
+</figure>
+
+
 
 One special case for GNN is CNN, if we consider each pixel as a node, and add edges to all neighboring pixels with distance smaller than half kernel size, and each edge is weighted by the kernel weights. 
 

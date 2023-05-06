@@ -171,8 +171,10 @@ By Lagrange multiplier, take some $\lambda\in\mathbb R$, and we have
     ```
 
 
-    
-![png](assets/ecfdoq.jpg)
+<figure markdown>
+   ![contour](assets/ecfdoq.jpg){width="480"}
+</figure>
+
     
 
 

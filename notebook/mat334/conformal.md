@@ -16,11 +16,9 @@ Definition of conformal on $\infty$
     --8<-- "mat334/scripts/conformal.py"
     ```
 
-
-    
-![png](assets/conformal.jpg)
-    
-
+​<figure markdown>
+![png](assets/conformal.jpg){width="1080"}
+</figure>
 
 ### Theorem 1
 

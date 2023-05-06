@@ -70,9 +70,9 @@ M
 \end{align*}$$
 
 
-
-
-![png](assets/harris_corner_1.jpg)
+​<figure markdown>
+![png](assets/harris_corner_1.jpg){width="720"}
+</figure>
 
 The images are $I, I_x, I_y, I_{x}I_y, I_{x}I_x, I_{y}I_y$
 
@@ -102,7 +102,9 @@ $R > 0$ then corner
 $|R| < \epsilon$ for some small threshold then flat region
 
     
-![png](assets/harris_corner.jpg)
+​<figure markdown>
+![png](assets/harris_corner.jpg){width="720"}
+</figure>
     
 
 

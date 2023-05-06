@@ -42,9 +42,10 @@ A multiplayer network consisting of fully connected layers.
     --8<-- "csc311/scripts/neural_nets.py"
     ```
     
-    
-![png](assets/neural_nets_activations.jpg)
-    
+<figure markdown>
+  ![png](assets/neural_nets_activations.jpg){width="720"}
+  <figurecaption>Examples of activation functions</figurecaption>
+</figure> 
 
 
 Consider the layers,   

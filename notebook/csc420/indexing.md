@@ -10,9 +10,10 @@ For a image matching task, note that in the previous courses we extract local fe
 ```
 The first 20 examples of the dataset includes
 
-![png](assets/indexing_example.jpg)
-    
 
+​<figure markdown>
+![png](assets/indexing_example.jpg){width="720"}
+</figure>
 
 Consider a text documents, an efficient way of find all pages is to use an index, we can build a similar index on the images. 
 
@@ -69,9 +70,9 @@ To verify the result we make some transformation on an arbitray image in the dat
 
 
     
-![png](assets/indexing_demo.jpg)
-    
-
+​<figure markdown>
+![png](assets/indexing_demo.jpg){width="720"}
+</figure>
 
 ## Vocabulary Tree
 

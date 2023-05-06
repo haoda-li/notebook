@@ -28,9 +28,9 @@ plt.plot(a, b)
 plt.savefig("assets/arithmetic_examples_1.jpg")
 ```
     
-![png](assets/arithmetic_examples_1.jpg)
-    
-
+<figure markdown>
+  ![png](assets/arithmetic_examples_1.jpg){width="480"}
+</figure> 
 
 Does $fl(\sqrt{1+x^2}-1)$ always give an accurate result
 
@@ -134,7 +134,9 @@ axs[1].plot(range(1, 25), l);
 fig.savefig("assets/arithmetic_examples_2.jpg")
 ```
     
-![png](assets/arithmetic_examples_2.jpg)
+<figure markdown>
+  ![png](assets/arithmetic_examples_2.jpg){width="720"}
+</figure> 
 
     
 \begin{align*}

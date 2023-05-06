@@ -73,11 +73,9 @@ plt.scatter(x, y)
 plt.plot(x, f);
 ```
 
-
-    
-![png](assets/poly_fitting_7_0.png)
-    
-
+<figure markdown>
+  ![png](assets/poly_fitting_7_0.png){width="480"}
+</figure> 
 
 ### Algorithm 
 Given:  

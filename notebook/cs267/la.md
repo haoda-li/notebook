@@ -131,4 +131,6 @@ for bs in range(1, n - 1, b):
     A[be+1:, be+1:] -= A[be+1:, bs:be] @ A[bs:be:, be+1:] # 3
 ```
 
-![blocked GEPP](./assets/bgepp.jpg)
+<figure markdown>
+  ![blocked GEPP](./assets/bgepp.jpg){width="320"}
+</figure>

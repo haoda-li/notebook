@@ -39,12 +39,10 @@ $$\gamma(t) = (e^{kt}\cos t, e^{kt}\sin t), k\neq 0$$
     --8<-- "mat363/scripts/arc_length.py"
     ```
 
-
+​<figure markdown>
+![png](assets/arc_length.jpg){width="1080"}
+</figure>
     
-![png](assets/arc_length.jpg)
-    
-
-
 Then, we can find its arc length by 
 
 \begin{align*}

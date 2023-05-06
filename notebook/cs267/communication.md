@@ -36,9 +36,10 @@ for (int i = 0; i < N; i += M / 2) {
 
 ## Matrix multiplication
 
-![communications](./assets/commuication.jpg)
-
-We know that tiled / blocked matrix multiplication is an optimized way for `matmul` for a similar reason as the N-body problem.
+<figure markdown>
+  ![communications](./assets/commuication.jpg)
+  <figcaption>We know that tiled / blocked matrix multiplication is an optimized way for `matmul` for a similar reason as the N-body problem.</figcaption>
+</figure>
 
 For $C_{M\times N} = A_{M\times K}\cdot B_{K\times N}$, we have $M\times N\times K$ computations as 
 

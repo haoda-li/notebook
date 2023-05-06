@@ -7,7 +7,12 @@ Object partitioning schemes are to bound objects into a big collection (box, sph
 Space partitioning schemes are to divide the space into subspaces. 
 
 ## Types of Bounding boxes
-![](assets/bvh.png)
+
+
+<figure markdown>
+  ![png](assets/bvh.png){width="720"}
+</figure> 
+
 ### Axis Aligned Bounding Box
 Consider a 2D example, an AABB is defined by 4 lines 
 

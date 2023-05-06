@@ -48,7 +48,9 @@ plt.tight_layout()
 fig.savefig("assets/lu_decomposition_1.jpg")
 ```
 
-![png](assets/lu_decomposition_1.jpg)
+<figure markdown>
+  ![png](assets/lu_decomposition_1.jpg){width="320"}
+</figure> 
 
 ```python
 fig, axs = plt.subplots(D - 1, 2, figsize=(6, D*2.4))
@@ -66,7 +68,9 @@ plt.tight_layout()
 fig.savefig("assets/lu_decomposition_2.jpg")
 ```
 
-![png](assets/lu_decomposition_2.jpg)
+<figure markdown>
+  ![png](assets/lu_decomposition_2.jpg){width="480"}
+</figure> 
     
 ### Total work
 Division: $(n-1) + (n-2) + ... + 1 = \frac{n(n-1)}{2}$  

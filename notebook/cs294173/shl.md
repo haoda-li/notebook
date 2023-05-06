@@ -103,13 +103,12 @@ where $n!! = n\times (n-2)\times (n-4) \times ... \times 1\text{ or }0$ where $1
 
 
 ```js title="ALP"
---8<-- "research/assets/sh.html:71:97"
+--8<-- "cs294173/assets/sh.html:71:97"
 ```
 
-    
-![png](assets/shl_7_0.png)
-    
-
+<figure markdown>
+  ![png](assets/shl_7_0.png){width="480"}
+</figure>
 
 ## Spherical Harmonics
 Using the standard spherical coordinates 
@@ -132,7 +131,7 @@ $$K_l^m = \sqrt{\frac{(2l+1)(l-|m|)!}{4\pi(l+|m|)!}}$$
 
 
 ```js title="SH"
---8<-- "research/assets/sh.html:99:111"
+--8<-- "cs294173/assets/sh.html:99:111"
 ```
 
 <iframe src="./assets/sh.html" height=480 width="100%" />

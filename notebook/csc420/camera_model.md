@@ -16,12 +16,10 @@ is the combination of a linear transformation $\begin{bmatrix}a&b\\c&d\end{bmatr
 - Closed under composition
 - Rectangles go to parallelograms
 
-
+​<figure markdown>
+![png](assets/camera_model.jpg){width="720"}
+</figure>
     
-![png](assets/camera_model.jpg)
-    
-
-
 ## Projective Transformations
 
 $$w\begin{bmatrix}x'\\y'\\1\end{bmatrix} = 

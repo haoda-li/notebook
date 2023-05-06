@@ -108,7 +108,9 @@ do {
 } while (h != v->h);
 ```
 
-![half edge traversal](./assets/halfedge.jpg)
+<figure markdown>
+  ![half edge traversal](./assets/halfedge.jpg){width="1080"}
+</figure>
 
 ### Local operations
 Some local operations that we'd like to support:
@@ -119,7 +121,11 @@ Some local operations that we'd like to support:
 
 Note that half edge is implemented as arrays of struct pointers. Thus, the local operations are just a bunch of pointer re-assignment. 
 
-![half edge flip and split](./assets/halfedge_local.jpg)
+
+<figure markdown>
+  ![half edge flip and split](./assets/halfedge_local.jpg){width="1080"}
+</figure>
+
 
 ## Loop Subdivision
 

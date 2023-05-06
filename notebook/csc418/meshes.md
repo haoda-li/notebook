@@ -110,7 +110,10 @@ l 5 8 1 2 4 9
 --8<-- "csc418/scripts/meshes.py:cube"
 ```
 
-![cube texture](./assets/meshes/rubiks-cube.png)
+<figure markdown>
+  ![cube texture](./assets/meshes/rubiks-cube.png){width="480"}
+</figure> 
+
 
 <iframe src="./assets/meshes/cube.html" width="100%" height=600 />
 
@@ -126,6 +129,8 @@ Therefore, we can sample evenly take $u\times v$ values from the domain
 --8<-- "csc418/scripts/meshes.py:sphere"
 ```
 
-![sphere texture](./assets/meshes/earth-square.png)
+<figure markdown>
+  ![sphere texture](./assets/meshes/earth-square.png){width="480"}
+</figure>
 
 <iframe src="./assets/meshes/sphere.html" width="100%" height=600 />

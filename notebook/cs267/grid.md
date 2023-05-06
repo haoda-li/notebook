@@ -49,7 +49,12 @@ This results in the stencil for 1D Poisson's equation.
 
 
 For 2D (for example, heat transfer one a sheet of metal), the story is similar, the matrix $L$ is still a nearly diagonal matrix. 
-![2D stencil](./assets/stencil_2d.jpg)
+
+<figure markdown>
+  ![2D stencil](./assets/stencil_2d.jpg){width="480"}
+</figure>
+
+
 
 Therefore, we need to solve a system of equations. The most naïve method is to use dense LU, but we can observe that $L$ has special structure (almost diagonal with structured off-diagonal entries), thus we can solve it via a specialized band LU. 
 
@@ -93,7 +98,11 @@ Parallelizing Jacobi's method is very straight forward. For each step, each entr
 
 We can further optimize the communication by doing some extra computations per-proc. The halo area has side length $1$, if we expand it to $k$, then we can do $k$ steps before one communication with $kn/\sqrt{p}$ data.
 
-![communication avoid Jacobi](./assets/jacobi.jpg)
+
+<figure markdown>
+  ![communication avoid Jacobi](./assets/jacobi.jpg){width="1080"}
+</figure>
+
 
 ### Red-black Gauss-Seidel
 

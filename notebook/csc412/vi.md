@@ -62,9 +62,9 @@ First note that when $p\approx q$, $\log(q/p) \approx \log(p/q) \approx \log 1 =
     --8<-- "csc412/scripts/kl_divergence.py"
     ```
     
-![png](assets/vi_1.jpg)
-    
-
+<figure markdown>
+  ![png](assets/vi_1.jpg){width="960"}
+</figure> 
 
 ## Evidence Lower Bound (ELBO)
 

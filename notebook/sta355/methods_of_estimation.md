@@ -67,8 +67,9 @@ plt.xlabel("sample"); plt.ylabel("CI")
 plt.title(r"95% CIs for $\mu$"); plt.legend();
 ```
 
-![png](assets/methods_of_estimation_9_0.png)
-    
+​<figure markdown>
+![png](assets/methods_of_estimation_9_0.png){width="720"}
+</figure>
 
 ### The pivotal method
 Is not that often that we can measure such probability directly. One way to work around is to find a r.v. $g(X_1,...,X_n,\theta)$ whose distribution is independent of $\theta$ and any other unknown params. 

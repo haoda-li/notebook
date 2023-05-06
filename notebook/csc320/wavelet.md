@@ -105,12 +105,10 @@ for steps in range(number_m, 0, -1):
     imshow_labelled(I, axs[number_m - steps][2], "Resulted vector", 10)
 ```
 
-
+<figure markdown>
+  ![png](assets/wavelet_6_0.png){width="720"}
+</figure> 
     
-![png](assets/wavelet_6_0.png)
-    
-
-
 ## Reconstruction of wavelet transform
 Consider the shape of each row in the wavelet transform matrix, note that the product of two distinct row will always be 0, and the same row will be the square sum of the entries. 
 
@@ -138,10 +136,9 @@ recons = haar_wave_matrix.T @ lbd_inv
 imshow_labelled(recons, axs[1], "reconstruction matrix", 1)
 ```
 
-
-    
-![png](assets/wavelet_8_0.png)
-    
+<figure markdown>
+  ![png](assets/wavelet_8_0.png){width="560"}
+</figure> 
 
 
 If we consider $W$ as a basis of $\mathbb R^{2^N}$, so that the transformed image is a decomposition of the basis image decomposed from the original image. 
@@ -161,10 +158,9 @@ wavelet_coef_normalized = haar_wave_matrix_normalized @ image
 imshow_labelled(wavelet_coef_normalized, axs[1], "Normalized Wavelet coefficient", 10)
 ```
 
-
-    
-![png](assets/wavelet_10_0.png)
-    
+<figure markdown>
+  ![png](assets/wavelet_10_0.png){width="560"}
+</figure> 
 
 
 Note that we did a change of basis that is optimal to the reconstruction error, just as PCA. We can sort the coefficients by absolute value and zero-out the coefficients other than some $k2^N$ coefficient, $0<k<1$.

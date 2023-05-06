@@ -5,7 +5,9 @@
 github (author): https://github.com/charlesq34/pointnet  
 github (pytorch implementation): https://github.com/fxia22/pointnet.pytorch
 
-![pointnet_arch](assets/pointnet_arch.png)
+<figure markdown>
+  ![pointnet_arch](assets/pointnet_arch.png){width="1080"}
+</figure>
 
 ## Point cloud
 A point cloud is a set of 3D points $P = \{P_i:i=1, ..., n\}$, where each $P_i = (x_i, y_i, z_i)$ and sometimes extra feature channels like color, normal, etc. The point cloud can often obtained from LIDAR or other 3D scannings. Compare to other object representations (volumetric), it's simple and "raw". 
@@ -222,7 +224,10 @@ make the matrix close to orthogonal.
 [Dynamic Graph CNN for Learning on Point Clouds](https://arxiv.org/pdf/1801.07829.pdf)  
 github (author): https://github.com/WangYueFt/dgcnn
 
-![DGCNN arch](assets/dgcnn_arch.png)
+<figure markdown>
+  ![DGCNN arch](assets/dgcnn_arch.png){width="1080"}
+</figure>
+
 
 PointNet-like models treat points independently to maintain permutation invariance (Conv1D parallel on each point). However, such operations cannot capture local geometric structure. 
 

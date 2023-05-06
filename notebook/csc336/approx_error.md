@@ -113,7 +113,9 @@ plt.title("conditioning number of sin(x)")
 plt.savefig("assets/approx_error_1.jpg")
 ```
 
-![png](assets/approx_error_1.jpg)
+<figure markdown>
+  ![png](assets/approx_error_1.jpg){width="720"}
+</figure> 
 
 ```python
 t = np.arange(-100., 100., 0.2)
@@ -123,8 +125,9 @@ plt.title("conditioning number of sin(x)")
 plt.savefig("assets/approx_error_2.jpg")
 ```
 
-![png](assets/approx_error_2.jpg)
-
+<figure markdown>
+  ![png](assets/approx_error_2.jpg){width="720"}
+</figure> 
 
 ## Stability of Algorithms
 An algorithm is stable if small change to the input results in small change in the output

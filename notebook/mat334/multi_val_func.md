@@ -26,9 +26,9 @@ If we look at another example (fig.2), consider a path traverse through the circ
     --8<-- "mat334/scripts/multi_val_func.py"
     ```
 
-![png](assets/multi_val_func_01.jpg)
-    
-
+​<figure markdown>
+![](assets/multi_val_func_01.jpg){width="1080"}
+</figure>
 
 Note that for the curve traversed by $c(t)= 1.1+e^{it}$, there exists some other definition of $f$ as square root function such that the image of $f$ can be closed. 
 

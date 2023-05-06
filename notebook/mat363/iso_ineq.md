@@ -32,7 +32,9 @@ $$A = \frac{1}{2}(x_1y_2 - x_2y_1)$$
 
 _proof_. 
 
-![](./assets/triangle_area.drawio.svg)
+​<figure markdown>
+![png](assets/triangle_area.jpg){width="560"}
+</figure>
 
 \begin{align*}
 A &= R - T_1 - T_2 -T_3 \\

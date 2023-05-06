@@ -63,9 +63,9 @@ $$\dot\gamma(2\pi/3) = (\sqrt 3/ 2, -3/2)\neq (-\sqrt 3/ 2, -3/2) = \dot\gamma(4
     --8<-- "mat363/scripts/intro_curves.py"
     ```
     
-![png](assets/intro_curves.jpg)
-    
-
+​<figure markdown>
+![png](assets/intro_curves.jpg){width="320"}
+</figure>
 
 ### Example: Foci of ellipse
 Consider the ellipse $\frac{x^2}{p^2}+ \frac{y^2}{q^2} = 1, p > q > 0$, using the parameterization $\gamma(t) = (p\cos t, q\sin t)$.  

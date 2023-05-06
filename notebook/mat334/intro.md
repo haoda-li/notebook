@@ -18,7 +18,9 @@ $$\mathbb C = \{x+iy:x,y\in\mathbb R\}$$
 
 Geometrically, each complex number can be placed on a 2-D coordinate system $(x, y)$, such system is defined as a __complex plane__. 
 
-![complex plane](assets/complex_plane.png)
+​<figure markdown>
+![complex plane](assets/complex_plane.png){width="480"}
+</figure>
 
 Note that $z$ can also be represented by the polar coordinate
 
@@ -41,13 +43,18 @@ Note that $\theta$ is periodic with period $\pi$, which means it's multivalued.
 ## Geometry of Arithmetic
 Using the complex plane, we can better understand the "addition" and "multiplication". Let $z, w$ be two complex variables. Then, addition is the addition of their vectors in the complex plane. 
 
-![addition complex number](assets/add_complex.png)
+​<figure markdown>
+![addition complex number](assets/add_complex.png){width="480"}
+</figure>
+
 
 Multiple $z$ by $i$ will rotate $z$ counterclockwise by 90 degrees.
 
 $$iz = i(a+ib) = -b + ai$$
 
-![multiply i](assets/multi_i_complex.png)
+​<figure markdown>
+![multiply i](assets/multi_i_complex.png){width="480"}
+</figure>
 
 Multiple $z$ by $c\in\mathbb R$ simply scales the vector. 
 
@@ -59,7 +66,10 @@ $$zw = (a+bi)w = aw+biw$$
 
 Geometrically, it scales $z$ by $|w|$ and rotates from $w$ counterclockwise for $\theta$. 
 
-![multiply z w](assets/multi_zw_complex.png)
+​<figure markdown>
+![multiply z w](assets/multi_zw_complex.png){width="480"}
+</figure>
+
 
 ## Polar Exponential
 Define the polar exponential by 

@@ -5,14 +5,19 @@
 ### Initial thought
 To resize of image to $\frac{1}{n}$, resample the image by picking pixel per $n$ pixels
     
-![png](assets/image_downsample.jpg)
+​<figure markdown>
+![png](assets/image_downsample.jpg){width="720"}
+</figure>
+
 
 ### Problem: Aliasing
 Occurs when sampling rate is not high enough to capture the amount of detail in the image. 
 
 Below is an extremum, which we lost half of the important information
-    
-![png](assets/image_downsample_2.jpg)
+
+​<figure markdown>
+![png](assets/image_downsample_2.jpg){width="720"}
+</figure>
 
 ### Nyquist rate 
 To avoid such aliasing issue, one should sample at least $2\times \max{f}$, i.e. at least twice the highest frequency. 
@@ -28,7 +33,9 @@ With twice the frequency, we can make sure the information is caught, while in o
 
 When downsampling, the original image has too high frequencies, results in information loss. The high frequencies are caused by shape edges, hence we can smooth the image to filter out high frequencies, with a low-pass filter
 
-![png](assets/image_downsample_3.jpg)
+​<figure markdown>
+![png](assets/image_downsample_3.jpg){width="480"}
+</figure>
 
 ### Gaussian Pyramids
 A sequence of images created with Gaussian blurring and downsampling is called a __Gaussian pyramid__ or mip map

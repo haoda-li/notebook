@@ -75,10 +75,9 @@ Obviously, the two vectors aren't multiple of each other.
     ```
 
 
-    
-![png](assets/reparam.jpg)
-    
-
+​<figure markdown>
+![png](assets/reparam.jpg){width="480"}
+</figure>
 
 ## Regular point and regular curves
 

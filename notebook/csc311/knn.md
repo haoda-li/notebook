@@ -48,9 +48,9 @@ $$y = arg\max_{t^{(z)}}\sum_{r=1}^k \mathbb I(t^{(z)}, t^{(r)})$$
     --8<-- "csc311/scripts/knn.py"
     ```
     
-![png](assets/knn.jpg)
-    
-
+<figure markdown>
+  ![png](assets/knn.jpg){width="720"}
+</figure> 
 
 ## Pitfalls
 

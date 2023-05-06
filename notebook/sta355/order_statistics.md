@@ -159,15 +159,13 @@ qqnorm(x2)
 ```
 
 
-    
-![png](assets/order_statistics_10_0.png)
-    
+​<figure markdown>
+![png](assets/order_statistics_10_0.png){width="560"}
+</figure>
 
-
-
-    
-![png](assets/order_statistics_10_1.png)
-    
+​<figure markdown>
+![png](assets/order_statistics_10_1.png){width="560"}
+</figure>
 
 
 ## Shapiro-Wilk Test

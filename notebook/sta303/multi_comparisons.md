@@ -156,11 +156,9 @@ hsd
 plot(hsd)
 ```
 
-
-    
-![png](assets/multi_comparisons_13_0.png)
-    
-
+​<figure markdown>
+![png](assets/multi_comparisons_13_0.png){width="480"}
+</figure>
 
 ## Linear Regression Model 
  - $Y_{N\times 1}=X_{N\times(p+1)}\beta_{(p+1)\times 1} + \epsilon_{N\times 1}$, response $Y$ continuous, explanatory $X$ categorical and/or continuous 
@@ -251,13 +249,10 @@ others = subset(jury, judge != "Spock's")
 boxplot(others$Percent~others$Judge, data=others)
 ```
 
+​<figure markdown>
+![png](assets/multi_comparisons_19_0.png){width="480"}
 
-    
-![png](assets/multi_comparisons_19_0.png)
-    
-
-
-
+</figure>
 ```R
 summary(aov(others$Percent~others$Judge))
 ```
@@ -324,10 +319,9 @@ The small p-value may due to the uneven and small group sizes
 boxplot(percent~judge)
 ```
 
-
-    
-![png](assets/multi_comparisons_28_0.png)
-    
+​<figure markdown>
+![png](assets/multi_comparisons_28_0.png){width="480"}
+</figure>
 
 ```R
 summary(aov(percent~judge))
@@ -379,12 +373,9 @@ par(mfrow=c(2,2))
 plot(lm(percent~judge))
 ```
 
-
-    
-![png](assets/multi_comparisons_31_0.png)
-    
-
-
+​<figure markdown>
+![png](assets/multi_comparisons_31_0.png){width="720"}
+</figure>
 
 ```R
 ssa = with(jury, tapply(percent,judge,sd))
@@ -426,4 +417,6 @@ bartlett.test(percent~judge)
 - Normal Q-Q: overall OK
 - Outliers: see Residual vs leverage, not influential point. 
 
-![png](./assets/normalqq.png)
+​<figure markdown>
+![png](assets/normalqq.png){width="720"}
+</figure>

@@ -26,7 +26,9 @@ p.v.\int_{-\infty}^\infty f(x)dx &= \lim_{R\rightarrow\infty}p.v.\int_{-R}^R f(x
 ## Solving Integrals with PVI
 Then, for some real functions, we can extend to complex, and take a way around its undefined point.
  
-![](assets/pvi.svg)
+​<figure markdown>
+![](assets/pvi.jpg){width="320"}
+</figure>
 
 ### Lemma 1
 $\lim_{z\rightarrow z_0}(z-z_0)f(z) = 0\implies \lim_{\epsilon\rightarrow 0^+} \int_{C(\epsilon, \theta_1, \theta_2)_{z_0} }f(z)dz = 0$. 
@@ -115,7 +117,9 @@ $$f_+(r) = r^{1/2}, f_-(r) = -r^{1/2}$$
 ### Example 2 
 evaluate $\int_0^\infty \frac{\sqrt x}{x^3+1}dx$
 
-![](assets/branch_cut_integral.svg)
+​<figure markdown>
+![](assets/branch_cut_integral.jpg){width="320"}
+</figure>
 
 First, note that 
 

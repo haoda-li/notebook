@@ -57,9 +57,9 @@ In this way, $\sigma$ is called an __activation function__
 However, for $z\rightarrow \pm\infty, \sigma(z)\approx 0$
 If the prediction is really wrong, you should be far from a critical point
 
-    
-![png](assets/classification_logistic.jpg)
-    
+<figure markdown>
+  ![png](assets/classification_logistic.jpg){width="480"}
+</figure>    
 
 
 #### Cross-entropy loss (log loss)
@@ -73,9 +73,10 @@ where $t\in\{0,1\}$
 $z = \vec w^T \vec x+b$  
 $y = \sigma(z) = (1+\exp(-z))^{-1}$  
 $\mathcal L_{CE}(y,t) = -t\log(y) - (1-t)\log(1-y)$
-    
-![png](assets/classification_loss.jpg)
-    
+
+<figure markdown>
+  ![png](assets/classification_loss.jpg){width="480"}
+</figure> 
 
 
 ### Gradient Descent

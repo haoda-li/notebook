@@ -23,7 +23,9 @@ plt.tight_layout()
 plt.savefig("assets/non_linear_equations_1.jpg")
 ```
 
-![png](assets/non_linear_equations_1.jpg)
+<figure markdown>
+  ![png](assets/non_linear_equations_1.jpg){width="480"}
+</figure> 
     
 Noting that $f(\pi/2) = (\pi/2)^2 - 4(1) < 0$ and $f(2) = 2^2 - 4\sin(2)>0$, by IVT, $\exists x\in(\pi/2, 2), f(x)=0$
 
@@ -103,8 +105,10 @@ plt.tight_layout()
 plt.savefig("assets/non_linear_equations_2.jpg")
 ```
 
-![png](assets/non_linear_equations_2.jpg)
-    
+<figure markdown>
+  ![png](assets/non_linear_equations_2.jpg){width="480"}
+</figure> 
+
 ## Newton's Method 
 
 Replacing the function $f(x)$ by its tangent line at the current point of approximation $x^{(k)}$, assuming the function is differentiable at $x^{(k)}$, i.e. 
@@ -204,7 +208,9 @@ plt.tight_layout()
 plt.savefig("assets/non_linear_equations_3.jpg")
 ```
 
-![png](assets/non_linear_equations_3.jpg)
+<figure markdown>
+  ![png](assets/non_linear_equations_3.jpg){width="480"}
+</figure> 
 
 
 ## Secant Method
@@ -243,10 +249,8 @@ plt.tight_layout()
 plt.savefig("assets/non_linear_equations_4.jpg")
 ```
 
-
-
-![png](assets/non_linear_equations_4.jpg)
-    
-
+<figure markdown>
+  ![png](assets/non_linear_equations_4.jpg){width="480"}
+</figure> 
 
 It is proven that the rate of convergence is $r = \frac{1+\sqrt 5}{2}\approx 1.618$, so that it is slower than Newton's method. 

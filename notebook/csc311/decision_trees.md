@@ -53,7 +53,10 @@ $$H(X) = -\frac{1}{2}\log_2 \frac{1}{2} - -\frac{1}{2}\log_2 \frac{1}{2} = -\log
     --8<-- "csc311/scripts/decision_trees.py"
     ```
     
-![png](assets/decision_trees.jpg)
+
+<figure markdown>
+  ![png](assets/decision_trees.jpg){width="480"}
+</figure> 
     
 
 

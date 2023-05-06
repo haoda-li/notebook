@@ -103,7 +103,10 @@ plot_tree(
 # key, size, rank
 ```
 
-![png](assets/avl_app_1.jpg)
+<figure markdown>
+  ![png](assets/avl_app_1.jpg){width="720"}
+</figure>
+
 
 ```python
 print([select(root, i) for i in range(1, len(arr) + 1)])

@@ -59,7 +59,12 @@ Note that an image is (mathematically) a continuous 2D function $I(x, y)$, which
 
 In practice, digital images is discrete and we can transform it into frequency domain using discrete Fourier transform.
 
-![constant](./assets/fft.jpg)
+
+<figure markdown>
+  ![constant](./assets/fft.jpg){width="1080"}
+  <figcaption>2D functions in spatial space (left) and Fourier space (right)</figcaption>
+</figure>
+
 
 
 
@@ -71,7 +76,12 @@ Convolution in the spatial domain is equivalent to the multiplication in Fourier
 
 For example, Gaussian filter is a low-pass filter and is equivalent to multiplication in Fourier domain. 
 
-![convolution theorem](./assets/convolution_thrm.jpg)
+<figure markdown>
+  ![convolution theorem](./assets/convolution_thrm.jpg){width="720"}
+  <figcaption>Image in spatial space (top) and Fourier space (bottom)</figcaption>
+</figure>
+
+
 
 As shown in the Gaussian example, larger convolution kernel is equivalent to lower frequencies filter and verse versa. Thus, very large convolution can be implemented as FFT and inverse FFT. 
 

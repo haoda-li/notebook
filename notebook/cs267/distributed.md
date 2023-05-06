@@ -40,7 +40,10 @@ At time t, proc $i$ exchanges (send/receive) all its current data with process p
 
 $$T_{recur} = \alpha \lg P + \beta \frac{n(P-1)}{P}$$
 
-![recursive doubling](./assets/recurdouble.jpg)
+<figure markdown>
+  ![recursive doubling](./assets/recurdouble.jpg){width="1080"}
+</figure>
+
 
 ### Bruck algorithm
 An extension of recursive doubling. At time t, proc $i$ receives all current data from $i+2^t \mod P$ and sends all of its current data to $i-2^t \mod P$. After $\lfloor \lg P\rfloor$ steps, send the top $P - 2^{\lg P}$ entries and do a local shift to get data in correct order. Total time

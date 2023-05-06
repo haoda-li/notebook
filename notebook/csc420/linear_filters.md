@@ -67,9 +67,9 @@ $\begin{bmatrix}
 --8<-- "csc420/scripts/filters.py:shift"
 ```
 
-![png](assets/filter_shift.jpg)
-    
-
+​<figure markdown>
+![png](assets/filter_shift.jpg){width="720"}
+</figure>
 
 ## Sharpening
 $$M1 = \begin{bmatrix}
@@ -108,7 +108,9 @@ J_{5\times 5}$$
 --8<-- "csc420/scripts/filters.py:sharpen"
 ```
 
-![png](assets/filter_sharpen.jpg)
+​<figure markdown>
+![png](assets/filter_sharpen.jpg){width="720"}
+</figure>
     
 
 ## Smoothing
@@ -126,7 +128,9 @@ For example, the following uses $\frac{1}{9}J_{3\times 3}$ and $\frac{1}{25}J_{5
 --8<-- "csc420/scripts/filters.py:average"
 ```
 
-![png](assets/filter_ave.jpg)
+​<figure markdown>
+![png](assets/filter_ave.jpg){width="720"}
+</figure>
     
 
 
@@ -151,7 +155,9 @@ $$h_{\sigma}(u,v)=\frac{1}{2\pi \sigma^2}\exp(-\frac{u^2 + v^2}{\sigma^2})$$
 --8<-- "csc420/scripts/filters.py:gauss"
 ```
 
-![png](assets/filter_gaussian.jpg)
+​<figure markdown>
+![png](assets/filter_gaussian.jpg){width="720"}
+</figure>
 
 
 
@@ -177,7 +183,9 @@ Consider the following image crop
 --8<-- "csc420/scripts/filters.py:match"
 ```
 
-![png](assets/filter_match.jpg)
+​<figure markdown>
+![png](assets/filter_match.jpg){width="720"}
+</figure>
     
 
 
@@ -239,10 +247,9 @@ $$
 --8<-- "csc420/scripts/filters.py:sep"
 ```
 
-![png](assets/filter_sep.jpg)
-    
-    
-
+​<figure markdown>
+![png](assets/filter_sep.jpg){width="720"}
+</figure>
 
 ### How to tell is separable
 __Quickcheck__ it has rank 1 (otherwise it cannot be written as 2 1D array)

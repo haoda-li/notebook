@@ -110,9 +110,9 @@ We can think of this function as a quadratic bowl whose curvature is specified b
 This is evident in the isocontour plots of $f(x)$ for various $A$.
 Let's take a look.
     
-![png](assets/gradient_descent_1.jpg)
-
-
+<figure markdown>
+  ![png](assets/gradient_descent_1.jpg){width="720"}
+</figure> 
 
 Now let's learn how to find the minimal value of $f(x)$. 
 We need to solve the following optimization problem:
@@ -191,7 +191,9 @@ This yields the following `autograd` implementation:
 --8<-- "csc311/scripts/gradient_descent.py:grad"
 ```
     
-![png](assets/gradient_descent_2.jpg)
+<figure markdown>
+  ![png](assets/gradient_descent_2.jpg){width="400"}
+</figure> 
     
 
 
@@ -209,8 +211,9 @@ This yields the following `autograd` implementation:
 ```python title="GD with momentum"
 --8<-- "csc311/scripts/gradient_descent.py:momentum"
 ```
-
-![png](assets/gradient_descent_3.jpg)
+<figure markdown>
+  ![png](assets/gradient_descent_3.jpg){width="400"}
+</figure> 
     
 
 (optional) [Distill](https://distill.pub) is an amazing resource to both learn concepts about machine learning, but also a new format for serious scientific discourse. If you are interested in learning more about why momentum is very effective, [check this out](https://distill.pub/2017/momentum/)

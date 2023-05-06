@@ -178,8 +178,9 @@ solve to be $\theta = \frac{\pi}{4}$ on $0 < \theta < \pi/2$ and is a maximizer.
     ```
 
 
-    
-![png](assets/icfdoq.jpg)
+<figure markdown>
+   ![Ex4](assets/icfdoq.jpg){width="1280"}
+</figure>
     
 !!! question 
 

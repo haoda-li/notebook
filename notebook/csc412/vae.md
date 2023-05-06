@@ -62,15 +62,24 @@ Using the classical MNIST example
 ```
 The training process
 
-![loss](assets/vae_loss.png)
+<figure markdown>
+  ![loss](assets/vae_loss.png){width="480"}
+</figure> 
+
 
 The reconstruction
 
-![loss](assets/vae_recons.png)
+<figure markdown>
+  ![loss](assets/vae_recons.png){width="720"}
+</figure> 
+
 
 Random samples from the hidden vector code
 
-![loss](assets/vae_random.png)
+<figure markdown>
+  ![loss](assets/vae_random.png){width="720"}
+</figure> 
+
 
 ???quote "Source code"
 

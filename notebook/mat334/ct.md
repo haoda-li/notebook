@@ -74,4 +74,7 @@ $$\tilde C = C +\sum_{i=0}-C_i + L_i^1 - L_i^2 = C -\sum_{i=0}C_i$$
 
 Note that $\tilde C$ does not enclose any of $z_o, z_1,...$ so that by Cauchy's Theorem, $\oint_{\tilde C} = 0$, so that $\oint_C = \sum \oint_{C_i}$
 
-![](./assets/deform_contour.png)
+
+​<figure markdown>
+![](./assets/deform_contour.png){width="720"}
+</figure>

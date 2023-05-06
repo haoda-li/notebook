@@ -8,7 +8,11 @@ $$aA + \beta B + \gamma C = (x,y), a,\beta,\gamma > 0, a + \beta + \gamma = 1$$
 
 Geometrically, $\alpha, \beta, \gamma$ is the proportional projective distance of $(x, y)$ to the corners $A, B, C$. 
 
-![barycentric](assets/barycentric.drawio.png)
+<figure markdown>
+  ![barycentric](assets/barycentric.drawio.png){width="480"}
+</figure>
+
+
 
 Consider the orthogonal project from $P = (x, y)$ to line $\overline{AB}$, the distance of the projection is given by 
 
@@ -92,7 +96,12 @@ Then, we can use bilinear interpolation to sample from level $\text{round(D)}$, 
 
 When we move from 2D to 3D, one issue to consider is the visibility, or depth. In the simplest case, we can sort each object (triangles essentially) from far to near, and then paint from back to front and at each time overwrite the frame buffer (__painter's algorithm__). The problem is that object-based depth order does not always exist. 
 
-![painters algorithm](./assets/painters_algorithm.jpg)
+
+<figure markdown>
+  ![painters algorithm](./assets/painters_algorithm.jpg){width="720"}
+  <figcaption>Examples of painter's algorithm</figcaption>
+</figure>
+
 
 ### Z-buffer
 

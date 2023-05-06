@@ -6,7 +6,12 @@ SPD describes the amount of light present at each wavelength, often measured in 
 
 $$s:\mathbb{R}\rightarrow[0, 1]. s(\lambda) = p$$
 
-![SPD example](./assets/spd.png)
+<figure markdown>
+  ![SPD example](./assets/spd.png){width="720"}
+  <figcaption>Examples of SPD</figcaption>
+</figure>
+
+
 
 Note that SPD are linear, i.e. for two light sources $s_1, s_2$, the resulted SPD  $s(\lambda) = s_1(\lambda) + s_2(\lambda)$
 
@@ -75,7 +80,12 @@ $$\begin{bmatrix}X\\Y\\Z\end{bmatrix}=
 
 The resulted projection is a 2D color gamut, 
 
-![color gamut](./assets/gamut.jpg)
+<figure markdown>
+  ![color gamut](./assets/gamut.jpg){width="720"}
+  <figcaption>Color gamut</figcaption>
+</figure>
+
+
 
 ## Color Spaces
 

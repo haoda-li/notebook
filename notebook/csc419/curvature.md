@@ -57,7 +57,9 @@ Note that we can accumulating the "turning", since we are on a closed curve, thi
 ## Discrete Curvature
 To discretize a curve, we need to fit it to a piecewise linear chain of segments. And for each point on the chain, define the discrete curvature as the change in tangent direction
 
-![](./assets/discrete-curvature.svg)
+​<figure markdown>
+![](./assets/discrete-curvature.svg){width="480"}
+</figure>
 
 The turning number still holds in this case, since we will "turning back" eventually, i.e. 
 
@@ -72,7 +74,10 @@ More specifically, we want to find some path/direction/trajectory on the surface
 ### Normal curvature
 The simplest way to extend curvature on the point $\mathbf p\in \mathcal S$ is to "cut" through the surface with a plane $P$ along the normal $\mathbf n(\mathbf p)$. 
 
-![](./assets/normal-curvature.svg)
+​<figure markdown>
+![](./assets/normal-curvature.svg){width="720"}
+</figure>
+
 
 so that we get some curve from the intersection of $P$ and $\mathcal S$. Note that there are infinitely many planes passing $\mathbf p$ and lie parallel to $\mathbf n(\mathbf q)$, as we rotating $P$ around $\mathbf n$ with any angle $\varphi$. Therefore, we can parameterize and define normal curvature for each choice of $\varphi$ as
 

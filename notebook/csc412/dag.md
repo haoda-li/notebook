@@ -31,10 +31,10 @@ Note that a dag is a tree and has a topological order, in which we can always fi
 
 For example, If we allow all possible conditional dependencies, that corresponds to a fully-connected DAG
 
+​<figure markdown>
+![png](assets/dag_1.jpg){width="480"}
+</figure>
 
-    
-![png](assets/dag_1.jpg)
-    
 
 
 And for the graph given below, we have
@@ -43,9 +43,9 @@ And for the graph given below, we have
 
 $$p(x_1, x_2, x_3, x_4, x_5, x_6)=p(x_1)p(x_2|x_1)p(x_3|x_1)p(x_4|x_2)p(x_5|x_3)p(x_6|x_2, x_5)$$
 
-
-![png](assets/dag_2.jpg)
-    
+​<figure markdown>
+![png](assets/dag_2.jpg){width="480"}
+</figure>
 
 
 ## Directed Separation 
@@ -58,7 +58,9 @@ Given a graph, we have that $X_A\perp X_B|X_C$ if every variable in $A$ is d-sep
 
 For a dag, we only need to consider 3 cases as the following 
 
-![png](assets/dag_3.jpg)
+​<figure markdown>
+![D-Separation](assets/dag_3.jpg){width="720"}
+</figure>
 
 
 ### Common Patterns
@@ -86,7 +88,9 @@ $$p(z|x, y) = \frac{p(x)p(z)p(y|x,z)}{p(x)p(y|x)} = \frac{ p(z)p(y|x,z)}{p(y|x)}
 
 With the three patterns defined above, we have the algorithm to determine whether $X\perp Y|Z$ in an arbitray graph model using the rules defined below. 
 
-![Bayes Ball Rules](./assets/bayes_ball.svg)
+​<figure markdown>
+![Bayes Ball Rules](./assets/bayes_ball.jpg){width="720"}
+</figure>
 
 First, we shade all $Z$ variables, and then we follow the rules to see whether a path exists between $X,Y$. If exists, then they are dependent. However, implementing such path finding algorithm is complex. An easier implementation arises from the defined rules, as follows. 
 

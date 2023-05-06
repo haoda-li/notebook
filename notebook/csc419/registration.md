@@ -236,12 +236,14 @@ $$\|x-p\| = \|(x-p) + (p-q)\|$$
 
 Note that $x, q$ is fixed, so that we want to minimize $\|p-q\|$, note that $p,q$ both line on $P$, thus this problem becomes a 2D problem on the plane $P$.
 
-![](./assets/triangle_distance.png)
+​<figure markdown>
+![](./assets/triangle_distance.png){width="320"}
+</figure>
+
 
 Then, to solve the 2D problem. Note that the regions are divided by $s=0, t=0, s+t=1$, we can do it case by case. 
  - 0 => within the triangle, done
  - 1, 3, 5 -> point-line projection, if not on the segment range, then map it to the endpoint
  - 2, 4, 6 -> directly go to the endpoint
 
-An efficient implementation will try to reduce the number of divisions, so that the relative error is small. 
-[Ref.](https://www.geometrictools.com/Documentation/DistancePoint3Triangle3.pdf)
+An efficient implementation will try to reduce the number of divisions, so that the relative error is small  ([See Reference here](https://www.geometrictools.com/Documentation/DistancePoint3Triangle3.pdf))

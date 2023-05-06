@@ -42,12 +42,10 @@ Therefore, it is possible to do __alternating minimization__, i.e. minimize $J$ 
 --8<-- "csc311/scripts/kmeans.py:kmeans"
 ```
 
-
+<figure markdown>
+  ![png](assets/kmeans_1.jpg){width="720"}
+</figure> 
     
-![png](assets/kmeans_1.jpg)
-    
-
-
 ### Convergence 
 Note that $J$ is lower bounded by 0 as a squared distance.  
 Also, consider each assignment step, as $m$ fixed, for each $x^{(n)}$, $r_k^{(n)}$ guarantees $x^{(n)}-m_k$ is minimum.  
@@ -57,10 +55,9 @@ Therefore, by monotone convergence theorem, this will converge.
 
 However, this will not guarantee the global minimum. 
 
-    
-![png](assets/kmeans_2.jpg)
-    
-
+<figure markdown>
+  ![png](assets/kmeans_2.jpg){width="720"}
+</figure> 
 
 ## Soft k-Means
 

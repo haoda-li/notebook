@@ -58,9 +58,9 @@ Note that is too difficult to define the Euler angles for every bone every frame
 --8<-- "csc418/scripts/kinematics.py:catmull"
 ```
 
-    
-![png](assets/catmull_rom_interpolation.png)
-    
+<figure markdown>
+  ![png](assets/catmull_rom_interpolation.png){width="480"}
+</figure> 
 
 ## Inverse Kinematics
 Instead of manually tuning the angles, we want to minimize the distance between the tip of the bone (usually fingers, or the endpoint) to the wanted position $(x, y, z)$. We can consider this as an optimization problem. 

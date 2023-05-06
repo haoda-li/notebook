@@ -125,11 +125,9 @@ lines(r$x,0.3*dnorm(r$x,-2,1)+0.7*dnorm(r$x,2,1),lwd=2,lty=2)
 legend("topleft", c("estimation", "actual GMM"), fill=c("red", "black"))
 ```
 
-
-    
-![png](assets/spacings_7_0.png)
-    
-
+​<figure markdown>
+![png](assets/spacings_7_0.png){width="720"}
+</figure>
 
 ## Hazard Functions
 For $X$ is a positive continuous rv, its hazard function is 

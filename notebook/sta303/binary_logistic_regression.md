@@ -78,10 +78,9 @@ eq <- function(x){exp(x)/(1+exp(x))}
 plot(eq(-10:10), type='l')
 ```
 
-
-    
-![png](assets/binary_logistic_regression_9_0.png)
-    
+​<figure markdown>
+![png](assets/binary_logistic_regression_9_0.png){width="480"}
+</figure>
 
 
 - log-odds $\log(\frac{\pi}{1-\pi})\in(-\infty, \infty)$, is increasing function.
@@ -804,19 +803,15 @@ library(ggplot2)
 ggplot(donner, aes(x=Age, y=Status, color=Sex))+geom_point()
 ```
 
-
-    
-![png](assets/binary_logistic_regression_46_0.png)
-    
-
+​<figure markdown>
+![png](assets/binary_logistic_regression_46_0.png){width="480"}
+</figure>
 
 
 ```R
 ggplot(donner, aes(x=Age, y=phats)) + ylab("Estimated Probablities")+geom_line(aes(color=Sex), size=1)
 ```
 
-
-    
-![png](assets/binary_logistic_regression_47_0.png)
-    
-
+​<figure markdown>
+![png](assets/binary_logistic_regression_47_0.png){width="480"}
+</figure>

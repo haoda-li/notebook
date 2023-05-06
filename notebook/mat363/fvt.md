@@ -52,7 +52,9 @@ $$\|\gamma(s_0) - c_{n_k}\| \geq D - \frac{D-R_\infty}{2} = \frac{D-R_\infty}{2}
 
 Then, by the construction of our sequence, this is a contradiction. 
 
-![](./assets/fvt.drawio.svg)
+​<figure markdown>
+![png](assets/fvt.jpg){width="720"}
+</figure>
 
 ### Claim. uniqueness
 

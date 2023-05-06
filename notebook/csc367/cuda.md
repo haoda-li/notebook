@@ -8,7 +8,11 @@ Each core on GPU makes one thread, even though much slower than a CPU core. but 
 
 The GPU (device) is connected to the CPU (host) through PCIe bus, GPU has its own memory system, which have significantly larger bandwidth (~300GB/sec GDDR6 vs. ~25GB/sec DDR4 3200), but smaller (12GB on RTX3060).
 
-![NVIDIA GPU arch](assets/gpu_arch.png)
+
+<figure markdown>
+   ![NVIDIA GPU arch](assets/gpu_arch.png){width="720"}
+</figure>
+
 
 ### SM: Streaming Multiprocessor
 The core of one GPU is further divided into SMs (28 SMs for RTX3060).  

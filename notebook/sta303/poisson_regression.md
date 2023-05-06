@@ -21,10 +21,10 @@ Matings = elmasu$Matings
 ```R
 plot(Age, Matings)
 ```
-    
-![png](assets/poisson_regression_3_0.png)
-    
 
+​<figure markdown>
+![png](assets/poisson_regression_3_0.png){width="480"}
+</figure>
 
 ### Why not Linear Regression
 - outcome is counts and small numbers
@@ -101,12 +101,9 @@ plot(Age, log(Matings + 1))
 abline(fitllm$coefficients[1], fitllm$coefficients[2])
 ```
 
-
-    
-![png](assets/poisson_regression_9_0.png)
-    
-
-
+​<figure markdown>
+![png](assets/poisson_regression_9_0.png){width="480"}
+</figure>
 
 ```R
 fitllm2 = glm(Matings~Age+I(Age^2), family=poisson)
@@ -222,11 +219,9 @@ plot(Age, dres, main="Deviance Residuals")
 ```
 
 
-    
-![png](assets/poisson_regression_13_0.png)
-    
-
-
+​<figure markdown>
+![png](assets/poisson_regression_13_0.png){width="480"}
+</figure>
 
 ```R
 psihat = sum(pres^2 / fitllm$df.residual)
@@ -323,10 +318,9 @@ plot(fitlm, which=1:2, main="SLR")
 plot(fitlml, which=1:2, main="log trans")
 ```
 
-
-    
-![png](assets/poisson_regression_17_0.png)
-    
+​<figure markdown>
+![png](assets/poisson_regression_17_0.png){width="720"}
+</figure>
 
 
 ## Deviance GOF Test

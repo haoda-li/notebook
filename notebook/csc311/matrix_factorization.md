@@ -54,8 +54,11 @@ $$R = \underset{U}{\begin{bmatrix}u_1^T\\\vdots\\u_N^T\end{bmatrix}}\underset{Z^
     ```python
     --8<-- "csc311/scripts/matrix_factorization.py"
     ```
-    
-![png](assets/matrix_factorization_1.jpg)
+
+<figure markdown>
+  ![png](assets/matrix_factorization_1.jpg){width="720"}
+</figure> 
+
     
 
 

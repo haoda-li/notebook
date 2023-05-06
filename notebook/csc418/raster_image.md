@@ -34,10 +34,9 @@ To demosaic an image, we would like to create a full rgb image without downsampl
 --8<-- "csc418/scripts/raster_image.py:demosaic"
 ```
 
-    
-![png](assets/demosaic.jpg)
-    
-
+<figure markdown>
+  ![png](assets/demosaic.jpg){width="720"}
+</figure>
 
 ## Conversion between RGB and HSV
 
@@ -97,10 +96,9 @@ RGB &= 255(RGB_{raw} + m)
 --8<-- "csc418/scripts/raster_image.py:color"
 ```
 
-
-
-    
-![png](assets/hsv.jpg)
+<figure markdown>
+  ![png](assets/hsv.jpg){width="720"}
+</figure>
     
 
 
@@ -110,11 +108,10 @@ With HSV images, we can easily tune the lightness, hue, and saturation
 ```python
 --8<-- "csc418/scripts/raster_image.py:edit"
 ```
-
     
-![png](assets/edit.jpg)
-    
-
+<figure markdown>
+  ![png](assets/edit.jpg){width="720"}
+</figure>
 
 ## Alpha Compositing
 

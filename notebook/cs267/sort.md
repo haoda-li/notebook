@@ -27,7 +27,12 @@ Based on `quickselect`, but guarantees worst case linear time.
 --8<-- "cs267/scripts/median_of_medians.py:mom"
 ```
 
-![Median of medians](./assets/mom.jpg)
+
+<figure markdown>
+   ![Median of medians](./assets/mom.jpg){width="480"}
+</figure>
+
+
 
 Note that $O(7n/10)$ comes from excluding at least $O(3n/10)$ elements. Therefore, by Master's Theorem, the total time is
 
@@ -116,6 +121,9 @@ Sample sort aims to solve the load imbalance issue with bucket sort.
 4. Gather the $p(p-1)$ samples, sort the pivots array, and select $p$ evenly spaced samples from the pivot list.
 5. Use the $p$ samples as interval to define the buckets. 
 
-![Sample sort](./assets/sample_sort.jpg)
+<figure markdown>
+  ![Sample sort](./assets/sample_sort.jpg){width="720"}
+</figure>
+
 
 We can guarantee that each bucket has at most $2n/p$ elements. 

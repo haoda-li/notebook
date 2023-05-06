@@ -113,7 +113,9 @@ Then, go back to the integral over area,
 
 $$\int_S \nabla \varphi_i\cdot \nabla\varphi_jdA = [A\nabla \varphi_i\cdot \nabla\varphi_i]\mid_{T_a} + [B\nabla \varphi_i\cdot \nabla\varphi_i]\mid_{T_\beta} = -\frac12(\cot a_{ij} + \cot b_{ij})$$
 
-![](./assets/hat-function-gradient.png)
+​<figure markdown>
+![](./assets/hat-function-gradient.png){width="560"}
+</figure>
 
 ### Mass Matrix
 Treated as an operator, the Laplacian matrix $L$ compute the local integral of the Laplacian of $u$. In the energy based formulation this is not an issue. If we used a similar FEM derivation for the data term we should get another sparse matrix $M\in\mathbb R^{n\times n}$
@@ -139,7 +141,11 @@ Note that $\cot$ of a triangle only depends on the edge length, we do not need t
 
 ### Cotangent as a function of only edge length
 Given a triangle $abc$ as shown below,  
-![](./assets/triangle.png)
+
+​<figure markdown>
+![](./assets/triangle.png){width="320"}
+</figure>
+
 
 Note that $A = \frac12 ah_a$, where $h_a$ is the height perpendicular to $a$, hence $h_a = b\sin C$, so that 
 
