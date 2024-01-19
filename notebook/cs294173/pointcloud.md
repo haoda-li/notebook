@@ -1,7 +1,7 @@
 # Deep Learning for 3D Point Clouds
 
 
-[PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation[Qi, Su, Mo, et al 2017]](https://arxiv.org/pdf/1612.00593.pdf)  
+[PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation](https://arxiv.org/pdf/1612.00593.pdf)[@pointnet]  
 github (author): https://github.com/charlesq34/pointnet  
 github (pytorch implementation): https://github.com/fxia22/pointnet.pytorch
 
@@ -221,7 +221,7 @@ make the matrix close to orthogonal.
     ```
 
 ## DGCNN
-[Dynamic Graph CNN for Learning on Point Clouds](https://arxiv.org/pdf/1801.07829.pdf)  
+[Dynamic Graph CNN for Learning on Point Clouds](https://arxiv.org/pdf/1801.07829.pdf)[@dgcnn]  
 github (author): https://github.com/WangYueFt/dgcnn
 
 <figure markdown>

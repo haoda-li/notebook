@@ -9,7 +9,7 @@ The works are aiming to solve the problem that given a set of images $\{I_k\}$ o
 
 ### NeuS
 
-[NeuS: Learning Neural Implicit Surfaces by Volume Rendering for Multi-view Reconstruction](https://lingjie0206.github.io/papers/NeuS/)
+[NeuS: Learning Neural Implicit Surfaces by Volume Rendering for Multi-view Reconstruction](https://lingjie0206.github.io/papers/NeuS/)[@neus]
 
 Represents a scene as SDF field $f_\theta(\mathbf x)$ and radiance field $c(\mathbf x, \mathbf d)$. Both approximated by separate MLPs.
 
@@ -32,7 +32,7 @@ $$\rho(t) = \max(\frac{-d_t\Phi_s(f(\mathbf r(t)))}{\Phi_s(f(\mathbf r(t)))}, 0)
 where $\Phi_s$ is the cdf of logistic distribution. 
 
 ### VolSDF
-[Volume Rendering of Neural Implicit Surfaces](https://lioryariv.github.io/volsdf/)
+[Volume Rendering of Neural Implicit Surfaces](https://lioryariv.github.io/volsdf/)[@volsdf]
 
 In VolSDF, the volume density is represented from SDF as 
 
@@ -48,7 +48,7 @@ Given $\beta$ and a wanted error bound $\epsilon$ (typically $\epsilon = 0.1$) o
 
 ### UniSurf
 
-[UNISURF: Unifying Neural Implicit Surfaces and Radiance Fields for Multi-View Reconstruction](https://moechsle.github.io/unisurf/)
+[UNISURF: Unifying Neural Implicit Surfaces and Radiance Fields for Multi-View Reconstruction](https://moechsle.github.io/unisurf/)[@unisurf]
 
 UniSurf uses occupancy field $o$ s.t. $o(\mathbf x)=0$ when outside of the volume and $o(\mathbf x)=1$ when inside of the volume. Note that the surface normal $\mathbf n(\mathbf x) = \nabla_{\mathbf x} o / \|\nabla_{\mathbf x} o\|$. Then, we replace volume density $\sigma$ with occupancy and estimate color $\mathbf c$ from $\mathbf x, \mathbf d, \mathbf n(\mathbf x)$ and an additional feature vector $\mathbf h(\mathbf x)$. 
 
@@ -72,7 +72,7 @@ $$\mathcal L_{eik} = \sum_{\mathbf x\in\mathcal X}(\|\nabla f_\theta(\mathbf x)\
 
 ### MonoSDF
 
-[MonoSDF: Exploring Monocular Geometric Cues for Neural Implicit Surface Reconstruction](https://niujinshuchong.github.io/monosdf/)
+[MonoSDF: Exploring Monocular Geometric Cues for Neural Implicit Surface Reconstruction](https://niujinshuchong.github.io/monosdf/)[@monosdf]
 
 MonoSDF incorporates deep learning based 2D depth and normal estimation. 2D monocular depth/normal estimation provides dense depth map and is continuous within the image. However, any photometric approach suffers from inconsistency across images. In other words, multiple images of the same scene from different angles cannot be well aligned by projecting the depth. 
 
@@ -92,7 +92,7 @@ where $\hat N(\mathbf r) = \sum_{i} T_ia_i \mathbf n_i$ ($\mathbf n_i$ is given 
 
 ### Manhattan SDF
 
-[Neural 3D Scene Reconstruction with the Manhattan-world Assumption](https://zju3dv.github.io/manhattan_sdf/)
+[Neural 3D Scene Reconstruction with the Manhattan-world Assumption](https://zju3dv.github.io/manhattan_sdf/)[@manhattansdf]
 
 Instead of using normal consistency loss, ManhattanSDF specifically targets at indoor scenes with the Manhattan world assumption. i.e. the floor will always have $\mathbf n_f = (0,0,1)$ and the room will always rectangular so that the walls are perpendicular to the floor, and parallel or perpendicular to other walls. 
 

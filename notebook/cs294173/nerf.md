@@ -10,8 +10,8 @@ Consider some function to describe the set of all things that we can ever see (i
 
 The estimation of the function is the image based rendering / novel view synthesis problem. One classical approach for modeling plenoptic function is Lightfield (1996), which take pictures from many views. The problems are 3D consistency and also assume that the ray shouting out from a pixel is never occluded. Thus only the plenoptic surface.
 
-## NeRF
-[NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis](https://arxiv.org/abs/2003.08934)  
+## NeRF 
+[NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis](https://arxiv.org/abs/2003.08934)[@nerf]  
 github: https://github.com/bmild/nerf  
 website: https://www.matthewtancik.com/nerf
 
@@ -120,7 +120,7 @@ For aliasing, [MipNeRF](https://jonbarron.info/mipnerf360/) samples from a cone 
 
 
 ## Neural Sparse Voxel Fields
-[Neural Sparse Voxel Fields](https://arxiv.org/pdf/2007.11571.pdf)  
+[Neural Sparse Voxel Fields](https://arxiv.org/pdf/2007.11571.pdf)[@nsvf]    
 github: https://github.com/facebookresearch/NSVF  
 website: https://lingjie0206.github.io/papers/NSVF/
 
@@ -173,7 +173,7 @@ After certain steps of training, reduce the ray-marching step size (partition le
 ## NeRV: Neural Reflectance and Visibility Fields for Relighting and View Synthesis
 
 
-Page (https://pratulsrinivasan.github.io/nerv/)  
+Page (https://pratulsrinivasan.github.io/nerv/)[@nerv]  
 paper(https://pratulsrinivasan.github.io/nerv/)
 
 <figure markdown>
