@@ -17,6 +17,7 @@ nav:
       - cs294173/shl.md
       - cs294173/sdf_nerf.md
       - cs294173/3dgaussian.md
+      - cs294173/3dgsmath.md
     - CS284A Computer Graphics and Imaging:
       - cs284/sampling.md
       - cs284/transforms.md
@@ -318,8 +319,8 @@ markdown_extensions:
   - admonition
   - pymdownx.mark
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.details

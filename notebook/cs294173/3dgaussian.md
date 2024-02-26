@@ -4,7 +4,7 @@ Instead of representing the scene as an implicit continuous field; represent it 
 
 ## 3D Gaussian Splatting for Radiance Field Rendering [@3Dgaussians]
 
-[Project Page :fontawesome-solid-link:]((https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/)){ .md-button .md-button--primary }
+[Project Page :fontawesome-solid-link:](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/){ .md-button .md-button--primary }
 [Paper :fontawesome-solid-file-pdf:](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/3d_gaussian_splatting_low.pdf){ .md-button .md-button--primary } 
 
 Combines several ideas of recent works. Including point-based volume rendering, Explicit anisotropic Gaussian splats for real-time rasterization. Efficient initialization from SfM points (sparse recon from COLMAP instead of lengthy dense recon)
