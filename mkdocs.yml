@@ -18,6 +18,7 @@ nav:
       - cs294173/sdf_nerf.md
       - cs294173/3dgaussian.md
       - cs294173/3dgsmath.md
+      - cs294173/rotations.md
     - CS284A Computer Graphics and Imaging:
       - cs284/sampling.md
       - cs284/transforms.md
@@ -310,6 +311,8 @@ plugins:
       minify_css: true
       htmlmin_opts:
         remove_comments: true
+  - git-revision-date-localized:
+      enable_creation_date: true
 markdown_extensions:
   - meta
   - tables

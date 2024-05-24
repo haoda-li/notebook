@@ -14,7 +14,7 @@ Represent the curve as the level set of some function, i.e. for some $C\in\mathb
 Consider a function $f:\mathbb R^2\rightarrow \mathbb R$, the surface is the image of $f$. of a __height field__. However, in this case, we cannot represent a perpendicular surfaces parallel to the z-axis. 
 
 ### Parametric Equation
-Similar to a parametric curve, we can represent a surface as the image of $S:\mathbb R^2 \rightarrow \mathbb R^3$. If we can draw a map from parametric domain to 3D on the small neighborhood of each point (other than the boundary), we call it a __manifold__ (note very topologically definition of the manifold).
+Similar to a parametric curve, we can represent a surface as the image of $S:\mathbb R^2 \rightarrow \mathbb R^3$. If we can draw a map from parametric domain to 3D on the small neighborhood of each point (other than the boundary), we call it a __manifold__ (not very topologically definition of the manifold).
 
 ### Implicit Equation
 Define $g:\mathbb R^3\rightarrow \mathbb R$, then the curve is the level set of $g$, i.e. $\{(x, y, z) \mid g(x, y, z) = C\}$

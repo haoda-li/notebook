@@ -6,7 +6,7 @@ This is the note repo for the some courses I've taken UofT (Undergrad), UC Berke
 
 ## Installation
 ```py
-pip install mkdocs-material=="9.*" mkdocs-minify-plugin mkdocs-plotly-plugin mkdocs-glightbox mkdocs-bibtex
+pip install mkdocs-material=="9.*" mkdocs-minify-plugin mkdocs-plotly-plugin mkdocs-glightbox mkdocs-bibtex mkdocs-git-revision-date-localized-plugin
 conda install pandoc
 ```
 

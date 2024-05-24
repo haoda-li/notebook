@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>three.js webgl - rotations</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <style>
+    canvas {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      z-index: 1;
+    }
+    .lil-gui .controller.disabled {
+      opacity: 1.0;
+    }
+    .lil-gui .controller.disabled input {
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <script type="module">
+
+    import * as THREE from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF';
+    import { OrbitControls } from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF/examples/jsm/controls/OrbitControls.js';
+    import { TransformControls } from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF/examples/jsm/controls/TransformControls.js';
+    import GUI from 'https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm';
+    const container = document.createElement('div');
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 200);
+    camera.position.z = 5;
+    const scene = new THREE.Scene();
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    const camera_control = new OrbitControls(camera, renderer.domElement);
+    camera_control.addEventListener( 'change', render );
+    const transform_control = new TransformControls( camera, renderer.domElement );
+		const rotationDemo = new THREE.Group();
+    transform_control.setMode( 'rotate' );
+    transform_control.addEventListener( 'change', render );
+    transform_control.addEventListener( 'dragging-changed', function ( event ) {
+      camera_control.enabled = ! event.value;
+    });
+    const gui = new GUI();
+
+    const state = {
+      reset: () => {
+        rotationDemo.rotation.x = 0;
+        rotationDemo.rotation.y = 0;
+        rotationDemo.rotation.z = 0;
+        render();
+      },
+      euler: {x: 0, y: 0, z: 0},
+      quaternion: {x:0, y:0, z:0, w:1},
+      matrix: {x: "", y: "", z: ""}
+    }
+
+    init();
+    render();
+
+    function init() {
+      document.body.appendChild(container);
+
+      scene.background = new THREE.Color(0xffffff);
+      scene.add(camera);
+
+
+      const grid = new THREE.GridHelper(10, 50);
+      scene.add(grid);
+
+      const axes = new THREE.AxesHelper(10);
+      scene.add(axes);
+
+      
+      const forwardArrow = new THREE.ArrowHelper(
+        new THREE.Vector3( 0, 0, -1 ),
+        new THREE.Vector3(0, 0, 0),
+        1, 
+        0x0000ff,
+        0.1,
+        0.1
+      )
+
+      const upArrow = new THREE.ArrowHelper(
+        new THREE.Vector3( 0, 1, 0 ),
+        new THREE.Vector3(0, 0, 0),
+        1, 
+        0x00ff00,
+        0.1,
+        0.1
+      )
+
+      const rightArrow = new THREE.ArrowHelper(
+        new THREE.Vector3( 1, 0, 0 ),
+        new THREE.Vector3(0, 0, 0),
+        1, 
+        0xff0000,
+        0.1,
+        0.1
+      )
+
+      rotationDemo.add(forwardArrow);
+      rotationDemo.add(upArrow);
+      rotationDemo.add(rightArrow);
+      scene.add(rotationDemo);
+      transform_control.attach(rotationDemo);
+      scene.add(transform_control);
+      
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      container.appendChild(renderer.domElement);
+
+      
+      window.addEventListener('resize', () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        render();
+      });
+
+      gui.add(state, "reset");
+      const euler = gui.addFolder("XYZ Euler rotation");
+      euler.add(state.euler, "x", -Math.PI, Math.PI).onChange((v) => {
+        rotationDemo.rotation.x = v;
+        render();
+      }).listen().decimals(4);
+      euler.add(state.euler, "y", -Math.PI, Math.PI).onChange((v) => {
+        rotationDemo.rotation.y = v;
+        render();
+      }).listen().decimals(4);
+      euler.add(state.euler, "z",  -Math.PI, Math.PI).onChange((v) => {
+        rotationDemo.rotation.z = v;
+        render();
+      }).listen().decimals(4);
+
+      const quaternion = gui.addFolder("Quaternion");
+      quaternion.add(state.quaternion, "x").listen().decimals(4).disable();
+      quaternion.add(state.quaternion, "y").listen().decimals(4).disable();
+      quaternion.add(state.quaternion, "z").listen().decimals(4).disable();
+      quaternion.add(state.quaternion, "w").listen().decimals(4).disable();
+      
+      const matrix = gui.addFolder("Rotation Matrix");
+      matrix.add(state.matrix, "x").listen().disable();
+      matrix.add(state.matrix, "y").listen().disable();
+      matrix.add(state.matrix, "z").listen().disable();
+    }
+
+    function render() {
+      renderer.render(scene, camera);
+      state.euler.x = rotationDemo.rotation.x;
+      state.euler.y = rotationDemo.rotation.y;
+      state.euler.z = rotationDemo.rotation.z;
+
+      state.quaternion.x = rotationDemo.quaternion.x;
+      state.quaternion.y = rotationDemo.quaternion.y;
+      state.quaternion.z = rotationDemo.quaternion.z;
+      state.quaternion.w = rotationDemo.quaternion.w;
+
+      const matrix = rotationDemo.matrix.elements;
+      state.matrix.x = matrix.slice(0, 3).map(x => x.toFixed(4)).join(",  ");
+      state.matrix.y = matrix.slice(4, 7).map(x => x.toFixed(4)).join(",  ");
+      state.matrix.z = matrix.slice(8, 11).map(x => x.toFixed(4)).join(",  ")
+    }
+  </script>
+
+</body>
+
+</html>
