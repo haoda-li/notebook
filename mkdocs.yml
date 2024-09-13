@@ -301,6 +301,7 @@ plugins:
   - search
   - glightbox
   - plotly
+  - autorefs
   - bibtex:
       bib_file: "notebook/assets/refs.bib"
       csl_file: "notebook/assets/acm-siggraph.csl"
