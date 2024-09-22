@@ -110,10 +110,6 @@ nav:
       - csc384/fc_gac.md
 
   - CS - General:
-    - CSC488/2107 Compilers:
-      - csc488/intro.md
-      - csc488/parsing.md
-      - csc488/topdown_parsing.md
     - CS267C Applications of Parallel Computers:
       - cs267/communication.md
       - cs267/distributed.md
