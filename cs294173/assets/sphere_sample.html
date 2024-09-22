@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>three.js webgl - sphere sampling</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <style>
+    canvas {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      z-index: 1;
+    }
+
+    #info {
+      position: absolute;
+      top: 0px;
+      z-index: 100;
+      display: block;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <script type="module">
+
+    import * as THREE from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF';
+
+    import { OrbitControls } from 'https://cdn.skypack.dev/three@v0.135.0-pjGUcRG9Xt70OdXl97VF/examples/jsm/controls/OrbitControls.js';
+
+
+    let SCREEN_WIDTH = window.innerWidth;
+    let SCREEN_HEIGHT = window.innerHeight;
+    let aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+
+    let container;
+    let camera, scene, renderer, mesh;
+    let cameraRig, activeCamera, activeHelper;
+    let cameraPerspective, cameraOrtho;
+    let cameraPerspectiveHelper, cameraOrthoHelper;
+    let controls;
+    let PI = 3.14159265359;
+
+    const frustumSize = 400;
+    const params = {
+      r: 0,
+      moving: true,
+      fov: 35
+    }
+
+    init();
+    animate();
+
+    function sphere_sample(N) {
+      const positions = new Float32Array(N * 3);
+      for (let i = 0; i < N; i++) {
+        // uniform sample from [0, 1) * [0, 1)
+        const u = Math.random();
+        const v = Math.random();
+        // transform to polar
+        const theta = 2 * PI * u;
+        const phi = 2 * Math.acos(Math.sqrt(1 - v));
+        // transform to xyz
+        positions[3 * i] = Math.cos(theta) * Math.sin(phi);
+        positions[3 * i + 1] = Math.sin(theta) * Math.sin(phi);
+        positions[3 * i + 2] = Math.cos(phi);
+      }
+      return positions;
+    }
+
+    function init() {
+      container = document.createElement('div');
+      document.body.appendChild(container);
+
+
+      camera = new THREE.PerspectiveCamera(45, aspect, 1, 200);
+      camera.position.z = 3;
+
+      scene = new THREE.Scene();
+
+      const ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+      scene.add(ambientLight);
+
+      const pointLight = new THREE.PointLight(0xffffff, 0.8);
+      camera.add(pointLight);
+      scene.add(camera);
+
+      mesh = new THREE.Mesh(
+        new THREE.SphereGeometry(1, 32, 16),
+        new THREE.MeshPhongMaterial({ color: 0xffffff, wireframe: false })
+      );
+      mesh.position.set(0, 0, 0);
+      scene.add(mesh);
+
+      const geometry = new THREE.BufferGeometry();
+      const positions = sphere_sample(2000);
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const material = new THREE.PointsMaterial({ color: 0xff0000, size: 0.05 });
+      const points = new THREE.Points(geometry, material);
+      scene.add(points);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+      container.appendChild(renderer.domElement);
+
+      renderer.autoClear = false;
+
+
+      controls = new OrbitControls(camera, renderer.domElement);
+
+      window.addEventListener('resize', onWindowResize);
+
+    }
+
+    function onWindowResize() {
+      SCREEN_WIDTH = window.innerWidth;
+      SCREEN_HEIGHT = window.innerHeight;
+      aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+
+      renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+      camera.aspect = aspect;
+      camera.updateProjectionMatrix();
+    }
+    function animate() {
+      requestAnimationFrame(animate);
+      render();
+    }
+
+    function render() {
+      renderer.render(scene, camera);
+    }
+
+
+
+
+  </script>
+
+</body>
+
+</html>
