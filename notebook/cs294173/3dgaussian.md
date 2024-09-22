@@ -1,23 +1,21 @@
-# Point-based Spatting for NeRF
-
-Instead of representing the scene as an implicit continuous field; represent it as a unstructured, discrete set of points, augmented with features (either neural features or explicit things). Then, use the differentiable renderer to backprop/optimize over the set of images.  
-
-## 3D Gaussian Splatting for Radiance Field Rendering [@3Dgaussians]
+# Gaussian Splatting
 
 [Project Page :fontawesome-solid-link:](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/){ .md-button .md-button--primary }
 [Paper :fontawesome-solid-file-pdf:](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/3d_gaussian_splatting_low.pdf){ .md-button .md-button--primary } 
 
+Instead of representing the scene as an implicit continuous field; 3DGS [@3Dgaussians] represent it as a unstructured, discrete set of points, augmented with features (either neural features or explicit things). Then, use the differentiable renderer to backprop/optimize over the set of images.  
+
 Combines several ideas of recent works. Including point-based volume rendering, Explicit anisotropic Gaussian splats for real-time rasterization. Efficient initialization from SfM points (sparse recon from COLMAP instead of lengthy dense recon)
 
 
-### Contributions
+## Contributions
 
 - The introduction of anisotropic 3D Gaussians as a high-quality, unstructured representation of radiance fields. 
 - An optimization method of 3D Gaussian properties, interleaved with adaptive density control that creates high-quality representations for captured scenes. 
 - A fast, differentiable rendering approach for the GPU, which is visibility-aware, allows anisotropic splatting and fast backpropagation to achieve high-quality novel view synthesis.
 
 
-### Representation
+## Representation
 3D Gaussians is defined by 
 
 $$\mathbf G(\mathbf x) = \exp(-\frac{1}{2}(\mathbf x-\mathbf p)^T \Sigma^{-1}(\mathbf x-\mathbf p))$$
@@ -36,7 +34,7 @@ $$\Sigma = RSS^TR^T$$
 
 which is the configuration of a 3D ellipsoid, analogous to a 3D Gaussian covariance. In practice, use axis scaling vector $\mathbf s\in\mathbb R^3$ for scaling and (normalized) quaternion $\mathbf q\in\mathbb{R}^4$ to represent rotation.
 
-### Optimizations
+## Optimizations
 
 ![Workflow Overview](./assets/3dgaussian.jpg)
 
@@ -52,6 +50,6 @@ To populate/prune Gaussians, after some iterations
     - If the Gaussian is small (decided by scaling vector), then make a clone and move along the positional gradient. 
     - If the Gaussian is large, then shrink the scale by $\phi = 1.6$ and make a clone and move along the positional gradient. 
 
-### Rendering 
+## Rendering 
 
 Instead of doing pixel-wise ordering / ray-marching, the method pre-order the Gaussian splats for each view. First, split the screen into $16\times 16$ tiles, then only keep Gaussians that's $99\%$ within the view frustum (with a set-up near plane and far plane to avoid extreme cases). Then, simply do z-ordering on the Gaussians. 

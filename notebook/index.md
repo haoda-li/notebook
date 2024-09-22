@@ -164,7 +164,7 @@ hide:
 
         :fontawesome-solid-user-tie: [Faith Ellen](https://www.cs.toronto.edu/~faith/)
 
-        :material-notebook: [Instructor's Notes](http://www.cs.toronto.edu/~vassos/b36-notes/notes.pdf)
+        :material-notebook: [Instructor's Notes (Vassos Hadzilacos)](http://www.cs.toronto.edu/~vassos/b36-notes/notes.pdf)
 
     - [__Databases__](./csc343/ra.md)     
         CSC343 _(2019W)_
