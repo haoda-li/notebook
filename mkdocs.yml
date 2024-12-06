@@ -8,8 +8,6 @@ docs_dir: "notebook"
 nav:
   - Courses: index.md
   - Research Notes:
-    - notes/llama.md
-  - CS - VCCG:
     - CS294-173 Learning for 3D Seminar:
       - cs294173/intro.md
       - cs294173/optical_flow.md
@@ -21,6 +19,8 @@ nav:
       - cs294173/3dgaussian.md
       - cs294173/3dgsmath.md
       - cs294173/rotations.md
+    - notes/llama.md
+  - CS - VCCG:
     - CS284A Computer Graphics and Imaging:
       - cs284/sampling.md
       - cs284/transforms.md
@@ -110,6 +110,10 @@ nav:
       - csc384/fc_gac.md
 
   - CS - General:
+    - CSC488/2107 Compilers:
+      - csc488/intro.md
+      - csc488/parsing.md
+      - csc488/topdown_parsing.md
     - CS267C Applications of Parallel Computers:
       - cs267/communication.md
       - cs267/distributed.md
@@ -365,4 +369,4 @@ extra:
     - icon: fontawesome/brands/google
       link: https://scholar.google.com/citations?user=e1Bif78AAAAJ
 
-copyright: Copyright &copy; 2017 - 2023 | Haoda Li
+copyright: Copyright &copy; 2017 - 2024 | Haoda Li
