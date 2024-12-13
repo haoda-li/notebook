@@ -3,15 +3,25 @@
 Based on [Stanford CS149 Assignment](https://github.com/stanford-cs149/asst4-trainium), [:simple-amazon: NKI kernel Docs](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/general/nki/index.html)
 
 ## [Trainium Hardware Architecture](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/general/nki/trainium_inferentia2_arch.html)
-![Neuron Core](assets/neuroncore.jpg)
+![Neuron Core](assets/neuroncore.jpg){ width=720 }
 
 - __HBM__: High bandwidth memory, device memory. Host to device should be managed by ML framework or external of NKI kernel. 
 - __SBUF__: State buffer. Software-managed on-chip SRAM. In NKI programming, on-chip SRAM is not a hardware managerd "cache", __HBM to SBUF needs explicit `load` and `store`.__ 
 - __PSUM__: Partial Sum Buffer, a small, dedicated memory designed for storing matrix multiplication results. 
-- __Tensor Engine__: for matmuls, or other operators that can be executed as matmuls. The engine symbolically has 128x128 processing elements, which streams input data from SBUF and write output to PSUM. 
+- __Tensor Engine__: for matmuls, or other operators that can be executed as matmuls. The engine has 128x128 systolic processing elements, which streams input data from SBUF and write output to PSUM. 
 - __Vector Engine__: for vector operations that depends on multiple elements from input tensors (vector reduction, element-wise binary operations). VectorE consists of 128 parallel vector lanes. 
 - __Scaler Engine__: for element-wise operations, where every element in the output tensor only depends on one element of the input tensor. Usually used for hardware-accelerated activation functions. ScalarE consists of 128 parallel vector lanes. 
 - __GpSimd Engine__: for general SIMD operations. Basically a 8-core CPU, with 512-bit vector machine. 
+
+### Systolic Arrays
+Trainium chips are operated in systolic arrays, hence all data movements and computations are tiled. From the hardware perspective, the on-chip memories, SBUF and PSUM, are arranged as 2D memory arrays. The first dimension is the partition dimension `P` with `nki.tile_size.pmax = 128` memory partitions that can be read and written in parallel by compute engines. The second dimension is the free dimension `F` where elements are read and written sequentially.
+
+![Partition Layout](./assets/pm-layout.jpeg){ width=560 }
+
+### `PSUM` Constraints
+Remind that `PSUM` is the small, dedicated on-chip memory for matmul reduction operations. Currently, its size is `2MiB`. The hardware design poses a constraint for tiles in PSUM, `nki.tile_size.psum_fmax == 512`, which comes from `2MiB / 128 / 32B`. 
+
+For matrix multiplicaion of size $(M, K) \times (K, N)$. The contraction dimension $K$  consider how matrix is mapped onto tensorE and PSUM. We define that input tiles F dimension size must not exceed `M_per_tile = nki.tile_size.gemm_stationary_fmax == 128` on the left-hand side (LHS), or `N_per_tile = nki.tile_size.gemm_moving_fmax == 512` on the right hand size (RHS). More explanation in [Tensor Engine: Matrix Multiplication](#tensor-engine-matrix-multiplication).
 
 
 ## NKI (Neuron Kernel Interface)
@@ -52,17 +62,17 @@ def vector_add(a_vec: Tensor, b_vec: Tensor) -> Tensor:
 NKI provides a `nki.baremetal` decorator function to directly run kernels from numpy arrays. 
 
 ```py
-vec_size = 128
+vec_size = nki.tile_size.pmax # 128
 a = np.random.rand(vec_size, dtype=np.float32)
 b = np.random.rand(vec_size, dtype=np.float32)
 out = nki.baremetal(vector_add)(a, b)
 ```
 
-### Data Tiling
+## Data Tiling
 
 The on-chip memories, SBUF and PSUM, store data that is arranged as 2D memory arrays. The first dimension of the 2D array is called the "partition dimension" P. The second dimension is referred to as the "free dimension" F (more details later). For vector add, we have `P = vec_size, F = 1`
 
-#### Partition Dimension
+### Partition Dimension
 Note that if we run the above code with `vec_size > 128`, we get 
 
 ```
@@ -79,7 +89,7 @@ NeuronCores loads 128 elements in parallel along the P-dim in each cycle, which 
 @nki.jit
 def vector_add_tiled(a_vec, b_vec):
 
-    CHUNK_SIZE = 128  # hardware specific
+    CHUNK_SIZE = nki.tile_size.pmax  # 128
 
     out = nl.ndarray(shape=a_vec.shape, dtype=a_vec.dtype, buffer=nl.hbm)
     M = a_vec.shape[0]
@@ -102,7 +112,7 @@ def vector_add_tiled(a_vec, b_vec):
     return out
 ```
 
-#### Free Dimension
+### Free Dimension
 The compiler is responsible the `store` and `load` are converted into direct memory access (DMA) instructions. Similar to how CUDA hides the data loading to threads, NeuronCore has 16 DMA engines to move multiple lanes of data in parallel / in pipeline. DMA are parallelized over the free dimension. In addition, the computation engines support pipelining over the free dimension. 
 
 ```py
@@ -110,7 +120,7 @@ The compiler is responsible the `store` and `load` are converted into direct mem
 def vector_add_stream(a_vec, b_vec):
 
     # The maximum size of our Partition Dimension
-    PARTITION_DIM = 128
+    PARTITION_DIM = nki.tile_size.pmax # 128
 
     # Free dim is a tunable parameter, and it depends on
     # compiler optimizations/hardware specifications
@@ -153,5 +163,21 @@ def vector_add_stream(a_vec, b_vec):
     return out
 ```
 
-#### Data Movement and Computation
+### Data Movement and Computation
 F-dim is a tunable parameter, each DMA transfer has an overhead. However, F-dim is not always a "bigger means better" thing. Choosing a smaller F-dim may allow a better pipelining. In this case, since `add` requires small computation cycles, smaller free-dim means more but quicker data movement, and allow for more overlapping between the engines. In practice, we need to profile and decide the dimension size to harness better performance. 
+
+## Tensor Engine: Matrix Multiplication 
+
+![Matmul](./assets/matrix-multiplication-views.jpeg)
+
+Consider the matmul, note that the hardware constrains that PSUM can only hold $128\times 512$ elements. Thus, `TILE_M = nki.tile_size.gemm_stationary_fmax == 128`, `TILE_N = nki.tile_size.gemm_moving_fmax == 512`. In addition, the contraction dimension $K$ has to be loaded in parallel and do element-wise multiplication, thus `TILE_K = nki.tile_size.pmax = 128`.
+
+Similar to any parallel programming architecture, data locality (reducing data loading) is a key optimization. Check [Matrix Multiplications notes](/csc367/matrix.html#blocked-tiled-matrix-multiplication). Reordering loop (`nkm` instead `mnk` to avoid reloading lhs elements) and blocked matmul apply to our case. 
+
+For trainium, `SBUF` is `24MiB`. Assuming that we know the dtype and the rough shape of matrices (so that we can better choose number of tiles per block), we can compute the number of blocks s.t. data movement is minimized. 
+
+??? quote "nki blocked matmul"
+    ```python
+    --8<-- "notes/scripts/nki_matmul.py"
+    ```
+

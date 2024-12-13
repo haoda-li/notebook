@@ -20,6 +20,7 @@ nav:
       - cs294173/3dgsmath.md
       - cs294173/rotations.md
     - notes/llama.md
+    - notes/trainium.md
   - CS - VCCG:
     - CS284A Computer Graphics and Imaging:
       - cs284/sampling.md
