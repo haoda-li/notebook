@@ -217,5 +217,5 @@ const google::protobuf::Map<int32, int32>& weight(); // Returns an immutable Map
 google::protobuf::Map<int32, int32>* mutable_weight(); // Returns a mutable Map
 ```
 
-## Appendix: Data Encoding 
-https://protobuf.dev/programming-guides/encoding/#structure
+## [Appendix: Data Encoding](https://protobuf.dev/programming-guides/encoding/#structure)
+## [Appendix: Field Presence](https://protobuf.dev/programming-guides/field_presence/)
