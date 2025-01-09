@@ -1,10 +1,7 @@
 # Protobuf Basics
-HLO files and debug_info files are stored in protocol buffer format.
-https://developers.google.com/protocol-buffers/docs/pythontutorial
 
-
-KaenaProto
-https://code.amazon.com/packages/KaenaProto/releases
+[Google Protobuf Official Documentation](https://protobuf.dev/programming-guides/proto3/)  
+[C++ API Documentation](https://protobuf.dev/reference/cpp/cpp-generated/)
 
 ## Message Definition in `.proto`
 The definition file for message type, will be compiled for specific programming language. 
@@ -13,7 +10,7 @@ The definition file for message type, will be compiled for specific programming 
 // c style comments 
 
 /** 
- *    preferred for multline comments
+ *    preferred for multiline comments
  */
 
 // syntax must be the first non-empty, non-comment line of the file
