@@ -64,7 +64,7 @@ layout = g.layout();
 
 ## Breadth-first Search
 
-In many applications, we need to traverse a graph (of states, relationships, etc.) from a starting vertex to search for some targeted vertices, or obtain some graph properties (for example, [search for AI states](../csc384/usearch.md)). 
+In many applications, we need to traverse a graph (of states, relationships, etc.) from a starting vertex to search for some targeted vertices, or obtain some graph properties (for example, [search for AI states](../../aiml/csc384/usearch.md)). 
 
 __BFS__ searches, from a starting vertex $s$, by visiting all of its neighbors, and then neighbors of neighbors. More formally, it searches all vertices with distance $1$ to $s$ first, and then $2, 3, 4,...$.
 

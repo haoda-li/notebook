@@ -1,7 +1,7 @@
 # Curvature
 
 ## Define Curvature
-(more interesting notes can be found in [MAT363](../mat363/curvature.md))
+(more interesting notes can be found in [MAT363](../../math/mat363/curvature.md))
 
 For a planar curve $\gamma:[0, 1]\rightarrow \mathbb R^2$, consider the following definitions
 

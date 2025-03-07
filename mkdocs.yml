@@ -10,7 +10,9 @@ nav:
   - Notes:
     - Research Notes:
       - notes/research/llama.md
+      - notes/research/moe.md
       - notes/research/trainium.md
+
     - Common Tool Cheatsheets:
       - notes/tools/proto.md
       - notes/tools/git.md

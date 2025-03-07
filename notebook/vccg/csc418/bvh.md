@@ -219,7 +219,7 @@ class AABBTree:
 
 ## Distancing Using BFS
 
-[BFS Notes](../csc265/bfs.md)
+[BFS Notes](../../csg/csc265/bfs.md)
 
 
 ```python

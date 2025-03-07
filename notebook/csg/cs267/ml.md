@@ -136,7 +136,7 @@ Possible prallelism involves a sparse matrix squaring (SpGEMM) and pruning all e
 For a dataset of $N\times D$, dimension reduction aims to find a smaller feature set $N\times K$ where $K << D$ while the information loss is minimized. 
 
 ### Principal Component Analysis
-PCA is the most classical algorithm for dimension reduction, and it is equivalent to a singular value decomposition ([proof of equivalence](./cs311/../../csc311/pca.md#equivalence-of-the-criteria)). 
+PCA is the most classical algorithm for dimension reduction, and it is equivalent to a singular value decomposition ([proof of equivalence](../../aiml/csc311/pca.md#equivalence-of-the-criteria)). 
 
 ### Non-negative matrix factorization (NMF)
 

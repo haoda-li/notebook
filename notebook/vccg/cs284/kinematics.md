@@ -12,7 +12,7 @@ Reconstruct meshes based on the scanning so that they have the same topology and
 
 $$\mathcal V \approx \bar{V} + \sum_{j=1}^m \beta_{j}\mathbf B_j$$
 
-In other words, a mean $\bar V$ and variance components $\mathbf B_j$. Using principal component analysis, we can find a set of eigenvectors $\mathbf B_1, \mathbf B_2, ...$ and corresponding eigenvalues $\beta_1, \beta_2, ...$ s.t. the variables successively inherit the maximum possible variance from $\mathcal V$, or equivalently minimize residual errors ([Proof of equivalence](../csc311/pca.md)). 
+In other words, a mean $\bar V$ and variance components $\mathbf B_j$. Using principal component analysis, we can find a set of eigenvectors $\mathbf B_1, \mathbf B_2, ...$ and corresponding eigenvalues $\beta_1, \beta_2, ...$ s.t. the variables successively inherit the maximum possible variance from $\mathcal V$, or equivalently minimize residual errors ([Proof of equivalence](../../aiml/csc311/pca.md)). 
 
 
 ## Forward Kinematics (Skeleton)

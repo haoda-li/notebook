@@ -163,7 +163,7 @@ $$\mathbf u_{i,j}^{k+1} = \mathbf u_{i,j}^k + w c^k_{i,j}$$
 
 ## Conjugate Gradient
 
-[More notes on deriving CG](../apm462/conjugate.md)
+[More notes on deriving CG](../../math/apm462/conjugate.md)
 
 For system of equations $Ax = b$, if $A$ is ==symmetric and positive definite==, then we can solve for $x$ using conjugate gradient. 
 

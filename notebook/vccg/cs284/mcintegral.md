@@ -2,7 +2,7 @@
 
 The idea behind Monte Carlo integration is to estimate integral based on random sampling of function. 
 
-[Notes on MC integration and importance sampling](../csc412/sampling.md)
+[Notes on MC integration and importance sampling](../../aiml/csc412/sampling.md)
 
 Here we provide some common examples for the applications on MC integration in graphics
 

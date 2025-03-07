@@ -57,7 +57,7 @@ A point $x^*$ is a fixed point of a function $g$ if $x^*=g(x^*)$
 ### Contraction Mapping Theorem
 A function $f:\mathbb R^n \rightarrow \mathbb R^n$ is a contraction if $\exists \gamma < 1, \|f(x)-f(y)\| < \gamma \|x-y\|$, then $\exists x^*, x^* = g(x^*)$, i.e. exists a fixed point. 
 
-[proof (MAT337 Banach Contraction Principle](../mat337/ODE.md)
+[proof (MAT337 Banach Contraction Principle](../../math/mat337/ODE.md)
 
 Therefore, fixed point method gives the algorithm
 
