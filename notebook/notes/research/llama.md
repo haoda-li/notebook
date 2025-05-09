@@ -286,6 +286,7 @@ If we partition $\mathbf{x}$ into $[\mathbf{x}_1, \mathbf{x}_2]$, then $m_1 = \m
 $$\text{softmax}(\mathbf x) = \frac{[\exp(\mathbf x_1 - m), \exp(\mathbf x_2 - m)]}{\sum \exp(\mathbf x_1 - m) + \sum \exp(\mathbf x_2 - m)}$$
 
 Also observe that
+
 $$\exp(\mathbf x_1 - m)= \exp(\mathbf x_1 - m_1 + m_1 - m) = \exp(\mathbf x_1 - m_1)\exp(m_1 - m)$$
 
 $$\sum \exp(\mathbf x_1 - m) = \sum  \exp(\mathbf x_1 - m_1)\exp(m_1 - m) = \exp(m_1 - m)\sum \exp(\mathbf x_1 - m_1)$$
