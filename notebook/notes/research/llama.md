@@ -83,7 +83,7 @@ An interesting discovery is that $k$ and $v$ can come from the same source, and 
 
 Therefore, we can introduce projections for the input $Q = W_Q X, K = W_K X, V=W_VX$ and bring it back to original dimension by $Y = W_{proj} A$, all the weight matrices are now trainable. In practice, we can stack $W_Q, W_K, W_V$ into one matrix to combine the multiplication for a better parallelism. 
 
-### Multi-head
+### Multi-head (MHA)
 To have a truly "large" language model, we want the projections to have more parameters. However, $QK^T$ part of the attention takes 
 
 $$\text{FLOP} = n_Q\times d_K \times d_K \times n_K$$
@@ -91,6 +91,20 @@ $$\text{FLOP} = n_Q\times d_K \times d_K \times n_K$$
 Multi-head is introduced to reduce computation, in which we split the $d_K, d_V$ into $h$ "heads", i.e. smaller, separated features vectors. We compute attention on each and stack them back, so that the computation is 
 
 $$h(n_q\times \frac{d_K}{h} \times\frac{d_K}{h} \times n_K) = \frac{1}{h}\text{FLOP}$$
+
+In implementation, MHA with $N$ heads looks like $A_i = \text{softmax}(\frac{(W_Q^iQ)\cdot (W_K^i K)^T}{\sqrt{d_k}}) W_V^iV$, $MHA = W_O\cdot \text{concat}(A_1, A_2, ..., A_{N})$, where $W_O$ is the weights for output projection. 
+
+###  Group Query (GQA) and Multi-query (MQA)
+
+Instead of using multi-head on all of $Q,K,V$, MQA only use the full multi heads on $Q$. 
+
+$$A_i = \text{softmax}(\frac{(W_Q^iQ)\cdot (W_K K)^T}{\sqrt{d_k}}) W_VV$$
+
+Note that we only have one weight for $W_K$ and $W_V$, instead of $n$ weights. 
+
+GQA uses the similar idea, instead of all $N$ heads of query share the same projected $K, V$, we have $N/d$ heads for $K,V$ and every $d$ Q-heads will share one KV head.   
+
+$$A_i = \text{softmax}(\frac{(W_Q^iQ)\cdot (W_K^{\lfloor i/d \rfloor} K)^T}{\sqrt{d_k}}) W_V^{\lfloor i/d\rfloor}V$$
 
 ### Causal Masking
 For a text generation model, all words should only see words before it. Otherwise, it will be biased towards the known answer. 
@@ -239,3 +253,41 @@ class FeedForward(nn.Module):
         return self.w2(F.silu(self.w1(x)) * self.w3(x))
 ```
 
+## Inference Acceleration and Performance Evaluation
+
+[All About Transformer Inference - How to Scale Your Model with TPU](https://jax-ml.github.io/scaling-book/inference/)
+
+During inference, we are optimizing for time to first token (TTFT) and tokens per second (TPS). Without changing the actual computations, we want fully use the hardware, i.e. better model FLOPS utilization (MFU) and model bandwidth utilization (MBU) __at the same time__. 
+
+On a typical hardware (CPU/GPU/TPU), we have a memory hierarchy, where data needs to be loaded from the large-sized memory (often HBM) to the much smaller cache/register (SBUF) for computation. The data movement can be seen as executed by DMA engines, and can be overlapped with computations. Therefore, the theoretical performance is `max(data_movement_time, computation_time)`. This is called the [roofline model](https://jax-ml.github.io/scaling-book/roofline/). 
+
+
+### Q, K, V projection
+Q, K, V projection $[Q_p, K_p, V_p] = [W_Q\cdot Q, W_K\cdot K, W_V\cdot V]$ where 
+
+- $Q,K,V: (1, H, S)$, $S$ is sequence length, $H$ is hidden dimension size
+- $W_Q, W_K, W_V: (N_{heads}, I, H)$, $N_{heads}$ is number of heads, $I$ is intermediate dimension size. 
+- $Q_p, K_p, V_p: (N_{heads}, I, S)$ are the projected multi-head values
+
+So total flop is $3N_{heads} \times 2IHS = 6N_{heads}IHS$, data movement is $N_{bytes}\times(HS+N_{heads}IH+BF)$, where $N_{bytes}$ depends on dtype.
+
+### Flash Attention 
+
+[Flash Attention](https://github.com/Dao-AILab/flash-attention)[@dao2022flashattention] is a widely-used method for optimizing attention computations. We will only talk about forward pass here. 
+
+In the attention computation, we are doing two large matmul, one division (which can be pre-applied) and one softmax. In which we have to write the result back to HBM for each operation. A natural way to improve is to use the fused operations, i.e. re-order/design the computations so that we do not write intermediate results back to HBM. Fusing matmuls is easy: assuming SBUF can fit at least 3 hidden vectors, we partition $QKV$ by the sequence dim. If we ignore the softmax part, we have two matmuls and fuse the computation of $S_P$ tokens:  $[(S_P , I) \times (I, S_P)]\times (S_P, I) = (S_P, S_P)\times (S_P, I) = (S_P, I)$
+
+Now, consider the softmax, for numerical stability we have to use standard normalized softmax
+
+$$m = \max(\mathbf x), \text{softmax}(\mathbf x) = \frac{\exp(\mathbf x-m)}{\sum_1^n \exp(x_i-m)}$$
+
+If we partition $\mathbf{x}$ into $[\mathbf{x}_1, \mathbf{x}_2]$, then $m_1 = \max(\mathbf{x}_1), m_2 = \max(\mathbf{x}_2), m = \max(m_1, m_2)$, then
+
+$$\text{softmax}(\mathbf x) = \frac{[\exp(\mathbf x_1 - m), \exp(\mathbf x_2 - m)]}{\sum \exp(\mathbf x_1 - m) + \sum \exp(\mathbf x_2 - m)}$$
+
+Also observe that
+$$\exp(\mathbf x_1 - m)= \exp(\mathbf x_1 - m_1 + m_1 - m) = \exp(\mathbf x_1 - m_1)\exp(m_1 - m)$$
+
+$$\sum \exp(\mathbf x_1 - m) = \sum  \exp(\mathbf x_1 - m_1)\exp(m_1 - m) = \exp(m_1 - m)\sum \exp(\mathbf x_1 - m_1)$$
+
+Which means that for each partition, we only need to keep $\exp(\mathbf x_1 - m_1), m_1$ and the denominator $l_1 := \exp(\mathbf x_1 - m_1)$. Also, since $m_1, l_1$ are scalar multiplication, we would postbone the reduction after the matmuls. 
