@@ -34,7 +34,7 @@ Each field needs a field number between $1$ and $536,870,911 = 2^{29} - 1$. The 
 - should never be reused 
 - `19000 - 19999` are reserved. 
 
-The rationale behind is simple: protobuf encode each message field as the field number. If we mutate the field number definition, already existing data will be corrupted. Check [Protobuf encoding](#appendix-encoding) for details. 
+The rationale behind is simple: protobuf encode each message field as the field number. If we mutate the field number definition, already existing data will be corrupted. Check [Protobuf encoding](#appendix-data-encoding) for details. 
 
 ### Field Cardinality
 For each field, if the field is not set, protobuf will return the default value based on the field type. 

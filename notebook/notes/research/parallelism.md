@@ -52,6 +52,7 @@ We need to store the following tensors on HBM
 - `KV_cache` $(B, S_p, n_{KV}, d)$
 
 For parallelism, we are sharding across some of these dimensions, with the considerations of
+
 - Reduce HBM pressure so that we can fit data onto each device.
 - Fully utilize computation cores of the devices.
 - Reduce latency for single prompt input.
@@ -73,28 +74,63 @@ Shard on batches. In general, data parallel is trivial and requires no communica
 One special case of data parallel is shard on the sequence length $S$. Typically we can only do this on prefill stage (context encoding) since the prefill sequence length $S = S_p$ is typically long, while at decoding stage (token generation), $S = 1$. 
 
 - HBM usage: does not help much. 
-- Throughput: linearly scales when sharded $S$ is long enough. If $S$ is too small, typically the projections will be memory bound. 
-- Latency: sub-linearly scales when sharded $S$ is long enough. 
+- Throughput: linearly scales when sharded $S$ is long enough. If $S$ is too small, typically the projections will be memory bound and SP does not work. 
+- Latency: linearly scales when sharded $S$ is long enough. 
 - CC overhead: reduction on self-attention matmul.
 
-## Tensor Parallel (TP): Shard on weights
+## Shard on weights: Tensor Parallel (TP) 
+Shard on the model weights. In general, this helps to reduce HBM usage and makes computations faster. 
+TP is often case by case.
 
-Shard on the model weights. In general, this helps to reduce HBM usage and makes computations faster. TP is often case by case.
-
-Some takeaways: 
+Some strategies for TP 
 
  - In general, shard on outer dimensions to avoid collectives.
  - For several successive matmuls, we way not need to gather outputs. 
  - Consider the balance between collective overhead (for inner dimensions) and shard on very small dimensions (not saturating compute). 
  - In some cases, replicate operations will be faster than collectives. 
 
-### Group Query Attention and Shard on Heads
+
+TP scaling characteristics
+
+- HBM usage: each device takes $1/\text{TP}$ model weights, with some possible overhead.
+- Throughput: linearly scales when TP is small. When TP is large, we typically see more overhead and device FLOP utilizations will drop. 
+- Latency: linearly scales when TP is small. 
+- CC overhead: case by case, overall cannot avoid CC overhead. 
+
+### Sharding Attention
 Consider the official llama3 modeling code for [attention module](https://github.com/meta-llama/llama3/blob/main/llama/model.py#L100-L127). 
 
-For `llama-3-70b`, we have $n_Q=64, n_K=8, n_V=8$. Consider TP8, each device gets $\underline{n}_{Q} = 8, \underline{n}_{K} = 1, \underline{n}_V=1$. 
+For multi-head attention (MHA) each Q,K,V head is computed in parallel. Each of $Q,K,V$ head are of the shape $(B, n, S, d)$ where $B$ is batch size, $n$ is number of heads, $S$ is sequence length, $d$ is head dim (which is often small). Therefore, we can directly shard the computations by the head, without many overhead. 
+
+For group query attention (GQA), each K and V heads will be shared for multiple Q heads by broadcasting the same K and V head to the same number of Q heads. For `llama-3-70b`, we have $n_Q=64, n_K=8, n_V=8$, thus 8 Q heads share 1 K and 1 V head. Consider TP8, each device gets $\underline{n}_{Q} = 8, \underline{n}_{K} = 1, \underline{n}_V=1$. However, if we go TP16, we still need K and V head exist on each device to do the computation, i.e. each device gets $\underline{n}_{Q} = 4, \underline{n}_{K} = 1, \underline{n}_V=1$. Therefore, we have to replicate K and V head and introduces overhead. 
+
+### Expert Parallel (EP)
+For [Mixture of Expert (MoE) architecture](https://huggingface.co/blog/moe), the big feed forward network is replaced with many small MLPs (experts) . Given the input to FFN $(B, S, H)$, each token $s\in S$ goes to a small number of experts. Because the experts are small, TP sharding on the already small dimensions will cause more overhead. Instead, each device will get a few unsharded experts. Since each device gets the full $(B, S, H)$ input, each device can compute the router and only keeps tokens that will go through its experts. After the computations, we will do a partial sum on the full $S$ to gather all results. 
+
+For EP, we need to consider capacity factor, i.e. how imbalance the tokens are distributed to the experts. If the routing is imbalanced, some devices will get much more tokens to process, hence synchronization overhead. 
 
 
+## Pipeline Parallel (PP)
+Shard on the number of layers. Each device will only compute a few layers of the model. At each time step, the device will receive the input data from previous pipeline stage (device), compute the layers, and then send the result to the next stage. However, PP requires the stages get balanced amount of work, otherwise all devices have to wait on the slowest stage and introduce huge overhead. 
 
+For LLMs, the majority of the workload are decoder layers, where input and output shapes are both $(B, S, H)$. For token generation, $S = 1$ so that we that the send/recv communication is typically small. Also, token generation is auto-regressive, as illustrated below:
 
-### SwiFT
- [MLP projection](https://github.com/meta-llama/llama3/blob/main/llama/model.py#L208-L217). 
+![Pipeline parallel](assets/pipeline.jpg)
+
+The overhead for pipelines are
+
+- The idle time at the beginning and the end. For token generation, since the number of generated tokens are typically very large. This overhead is really small. 
+- Any load imbalance among stages where all other stages are idle. 
+- Send/recv communications in between stage. However, note that send buffer (input) and recv buffer (output) are different, so we can hide this overhead if send and recv are async. 
+- The number of batches have to be greater or equal to the number of stages.
+
+PP scaling characteristics
+- HBM usage: each device takes $1/\text{PP}$ model weights and $1/\text{PP}$ KV cache. 
+- Throughput: linearly scales. However, with more PP stages, we need larger batch size, and hence large KV cache. Also, keeping a balanced workload will be harder for too many PP stages.
+- Latency: does not help.  
+- CC overhead: send/recv. 
+
+### Sequence Pipeline Parallel (SPP)
+For prefill, similar to SP, partition the input tokens into chunks and do pipeline parallel on the chunks. Compared to token generation, typically the idling time at the beginning and the end will be larger. Since the number of chunks can be partitioned is typically way smaller than the number of generated tokens. 
+
+## Case Study: `llama-3-70b` 
