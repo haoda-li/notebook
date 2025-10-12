@@ -12,6 +12,7 @@ nav:
       - notes/research/llama.md
       - notes/research/moe.md
       - notes/research/trainium.md
+      - notes/research/parallelism.md
 
     - Common Tool Cheatsheets:
       - notes/tools/proto.md

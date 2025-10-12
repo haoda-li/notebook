@@ -3,6 +3,7 @@
 We assume that the accelerators uses the conventional memory hierarchy model. Where CPU - accelerator data movement is slow, so that the accelerator needs to load all data at the beginning onto its dedicated high bandwidth memory (HBM). Then, for computations, data will be loaded from HBM to some small cache/registers. 
 
 We consider the following metrics of an accelerator 
+
 - HBM size measured in GiB. 
 - HBM throughput measured in GiB/s. 
 - Computational capacity measured in FLOP/s.  
@@ -44,12 +45,21 @@ In a nutshell, LLM workloads can be considered as $N$ decoder layers. For each d
 - `up_proj` and `gate_proj` $(B, S, \underline{H}) \times (\underline{H}, I) \rightarrow (B, S, I)$
 - `down_proj` $(B, S, \underline{I}) \times (\underline{I}, H) \rightarrow (B, S, H)$
 
-We need to store the following tensors on HBM
+At the beginning and ending, we will also have the text embedding layer and output sampling layer. Which maps the input tokens from vocabulary to hidden dimension, and verse versa. Note that the vocabulary size $vocab$, in the input and output, is an index to its one-hot vector.
 
-- `QKV_w` $(\underline{H}, (n_Q+ n_K + n_V)\cdot d)$
-- `up_w` and `gate_w` $(\underline{H}, I)$
-- `down_w` $(\underline{I}, H)$
-- `KV_cache` $(B, S_p, n_{KV}, d)$
+- `embed` $(B, S, \underline{vocab})\rightarrow (\underline{vocab}, H)$
+- `lm_head` $(B, S, \underline{H})\rightarrow (\underline{H}, vocab)$ 
+
+We need to store the following tensors on HBM (omit some smaller normalizations)
+
+- `inputs/outputs` $(B, S)$
+- `embedding_w` $(\underline{vocab}, H)$ 
+- `QKV_w` $(\underline{H}, (n_Q+ n_K + n_V)\cdot d) \times \text{n\_layers}$
+- `out_w` $(\underline{(n_Q+ n_K + n_V)\cdot d} \times H) \times \text{n\_layers}$
+- `up_w` and `gate_w` $(\underline{H}, I)\times \text{n\_layers}$
+- `down_w` $(\underline{I}, H)\times \text{n\_layers}$
+- `KV_cache` $(B, S_p, n_{KV}, d)\times \text{n\_layers}$
+- `lm_head_w` $(\underline{H}, vocab)$
 
 For parallelism, we are sharding across some of these dimensions, with the considerations of
 
@@ -58,6 +68,7 @@ For parallelism, we are sharding across some of these dimensions, with the consi
 - Reduce latency for single prompt input.
 - Minimize possible overhead from communication collectives or replicated computations. 
 
+Any specific consideration is that the majority of computations are matmuls of shape $(B, S, H)\times (H, I) \rightarrow (B, S, I)$ (without considering bias, activation, normalization, etc.). The computational intensity is $\frac{2BSHI}{2HI} \approx BS$. For prefill stage, $BS$ are typically larger than arithmetic intensity. Thus, we are compute bound. However, for decode stage, $S_d = 1$, so that to fully use the device, we want to increase batch size to be closer be the arithmetic intensity. 
 
 ## Shard on inputs
 Shard on the batch size $B$ or sequence length $S$. In general, each device will get a copy of model weight. So shard on inputs does not help much for reducing HBM pressure. 
@@ -104,6 +115,7 @@ For multi-head attention (MHA) each Q,K,V head is computed in parallel. Each of 
 
 For group query attention (GQA), each K and V heads will be shared for multiple Q heads by broadcasting the same K and V head to the same number of Q heads. For `llama-3-70b`, we have $n_Q=64, n_K=8, n_V=8$, thus 8 Q heads share 1 K and 1 V head. Consider TP8, each device gets $\underline{n}_{Q} = 8, \underline{n}_{K} = 1, \underline{n}_V=1$. However, if we go TP16, we still need K and V head exist on each device to do the computation, i.e. each device gets $\underline{n}_{Q} = 4, \underline{n}_{K} = 1, \underline{n}_V=1$. Therefore, we have to replicate K and V head and introduces overhead. 
 
+
 ### Expert Parallel (EP)
 For [Mixture of Expert (MoE) architecture](https://huggingface.co/blog/moe), the big feed forward network is replaced with many small MLPs (experts) . Given the input to FFN $(B, S, H)$, each token $s\in S$ goes to a small number of experts. Because the experts are small, TP sharding on the already small dimensions will cause more overhead. Instead, each device will get a few unsharded experts. Since each device gets the full $(B, S, H)$ input, each device can compute the router and only keeps tokens that will go through its experts. After the computations, we will do a partial sum on the full $S$ to gather all results. 
 
@@ -133,4 +145,56 @@ PP scaling characteristics
 ### Sequence Pipeline Parallel (SPP)
 For prefill, similar to SP, partition the input tokens into chunks and do pipeline parallel on the chunks. Compared to token generation, typically the idling time at the beginning and the end will be larger. Since the number of chunks can be partitioned is typically way smaller than the number of generated tokens. 
 
-## Case Study: `llama-3-70b` 
+## Mixing Parallelism
+In general, we can mix shard on inputs (DP), shard on weights (TP), and shard on layers (PP), such that $TP\times DP\times PP$ equals the number of devices. 
+
+Let $\text{HBM}$ be the total HBM pressure if we run it on a single device, then the minimal per-device HBM pressure (assume no dominated replication) will be $\text{HBM} / TP / PP$. 
+
+Let $T$ be the latency for computing one prompt on a single device, then the minimal per prompt latency (assume 0 overhead in parallelism) will be $T / TP$.
+
+## Case Study: `llama3-70b`
+`llama3-70b`'s parameters are
+
+```json
+{
+  "hidden_size": 8192,
+  "intermediate_size": 28672,
+  "num_attention_heads": 64,
+  "num_key_value_heads": 8,
+  "head_dim": 128,
+  "num_hidden_layers": 80,
+  "torch_dtype": "bfloat16",
+  "vocab_size": 128256
+}
+```
+
+So the HBM usage is 
+
+```python
+--8<-- "notes/research/scripts/llama3_modeling.py"
+```
+
+Consider the following accelerator server setup on AWS EC2: `p5.48xlarge` ([NVIDIA DGX H100 System](https://docs.nvidia.com/dgx/dgxh100-user-guide/introduction-to-dgxh100.html)) vs `trn2.48xlarge` ([Trainium2 server](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/general/arch/neuron-hardware/trn2-arch.html#aws-trn2-arch)). They offer similar level of FLOPS, but the device configurations are different:
+
+
+| | `p5.48xlarge` | `trn2.48xlarge`|
+| --- | --- | --- |
+| Number of devices | 8x `H100`   | 64x `trn2 core` |
+| HBM size  | 80Gb | 24Gb |
+| HBM-cache bandwidth | 3350Gbs  | 720 Gbs | 
+| bf16 FLOPS | * 989T | 153.6T | 
+| arithmetic intensity (FLOP/byte) | 295.2 | 213.3 |
+
+ \* For sparse compute, `H100` can deliver 1900T FLOPS
+
+
+
+|   | `p5.48xlarge` |  | `trn2.48xlarge`| |
+| --- | --- | --- | --- | --- |
+| Config |  TP8 | TP4 DP2 | TP64 | TP8 DP8 | 
+| weight size (Gb)  |16.74 | 33.48 | 2.64Gb | 16.74 | 
+| per token KV cache (Mb)  | 0.039 | 0.078 |0.039 | 0.039 |
+| max cached tokens (k)  | 1600 | 590 | 545 | 185 |
+| max B for 2.5k context | 640 | 236 | 218 | 74 |
+
+From the table, we can observe a main limitation of `trn2.48xl` setup. For TP64, without considering the much larger communication overhead, we have to replicate 8 times for the weights loading and computations for K, V head projection, while for TP8 DP8, the maximum batch size is too small to get close to compute bound. 

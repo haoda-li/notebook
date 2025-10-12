@@ -178,6 +178,6 @@ For trainium, `SBUF` is `24MiB`. Assuming that we know the dtype and the rough s
 
 ??? quote "nki blocked matmul"
     ```python
-    --8<-- "notes/scripts/nki_matmul.py"
+    --8<-- "notes/research/scripts/nki_matmul.py"
     ```
 
