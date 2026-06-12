@@ -172,7 +172,7 @@ F-dim is a tunable parameter, each DMA transfer has an overhead. However, F-dim 
 
 Consider the matmul, note that the hardware constrains that PSUM can only hold $128\times 512$ elements. Thus, `TILE_M = nki.tile_size.gemm_stationary_fmax == 128`, `TILE_N = nki.tile_size.gemm_moving_fmax == 512`. In addition, the contraction dimension $K$ has to be loaded in parallel and do element-wise multiplication, thus `TILE_K = nki.tile_size.pmax = 128`.
 
-Similar to any parallel programming architecture, data locality (reducing data loading) is a key optimization. Check [Matrix Multiplications notes](/csc367/matrix.html#blocked-tiled-matrix-multiplication). Reordering loop (`nkm` instead `mnk` to avoid reloading lhs elements) and blocked matmul apply to our case. 
+Similar to any parallel programming architecture, data locality (reducing data loading) is a key optimization. Check [Matrix Multiplications notes](/csg/csc367/matrix.html#blocked-tiled-matrix-multiplication). Reordering loop (`nkm` instead `mnk` to avoid reloading lhs elements) and blocked matmul apply to our case. 
 
 For trainium, `SBUF` is `24MiB`. Assuming that we know the dtype and the rough shape of matrices (so that we can better choose number of tiles per block), we can compute the number of blocks s.t. data movement is minimized. 
 

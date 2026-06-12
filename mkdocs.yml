@@ -13,6 +13,7 @@ nav:
       - notes/research/moe.md
       - notes/research/trainium.md
       - notes/research/parallelism.md
+      - notes/research/vllm_apc.md
 
     - Common Tool Cheatsheets:
       - notes/tools/proto.md
