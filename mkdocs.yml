@@ -310,6 +310,7 @@ theme:
 
 
 plugins:
+  - typeset
   - search
   - glightbox
   - plotly
