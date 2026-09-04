@@ -12,6 +12,7 @@ nav:
       - notes/research/llama.md
       - notes/research/moe.md
       - notes/research/trainium.md
+      - notes/research/vllm_serve.md
       - notes/research/parallelism.md
       - notes/research/vllm_apc.md
 
