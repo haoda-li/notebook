@@ -167,7 +167,7 @@ By Lagrange multiplier, take some $\lambda\in\mathbb R$, and we have
 
 ??? quote "Source code"
     ```python
-    --8<-- "apm462/scripts/ecfdoq.py"
+    --8<-- "math/apm462/scripts/ecfdoq.py"
     ```
 
 

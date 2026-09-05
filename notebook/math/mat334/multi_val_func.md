@@ -23,7 +23,7 @@ If we look at another example (fig.2), consider a path traverse through the circ
 
 ??? quote "Source code"
     ```py 
-    --8<-- "mat334/scripts/multi_val_func.py"
+    --8<-- "math/mat334/scripts/multi_val_func.py"
     ```
 
 ​<figure markdown>

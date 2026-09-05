@@ -13,7 +13,7 @@ Definition of conformal on $\infty$
 
 ??? quote "Source code"
     ```py 
-    --8<-- "mat334/scripts/conformal.py"
+    --8<-- "math/mat334/scripts/conformal.py"
     ```
 
 ​<figure markdown>

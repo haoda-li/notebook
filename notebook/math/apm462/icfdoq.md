@@ -174,7 +174,7 @@ solve to be $\theta = \frac{\pi}{4}$ on $0 < \theta < \pi/2$ and is a maximizer.
 
 ??? quote "Source code"
     ```python
-    --8<-- "apm462/scripts/icfdoq.py"
+    --8<-- "math/apm462/scripts/icfdoq.py"
     ```
 
 

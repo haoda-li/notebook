@@ -1,0 +1,391 @@
+[project]
+site_url = "https://haoda-li.github.io/notebook/"
+site_name = "Notebook"
+site_description = "Notes for courses taken UofT (Undergrad), UC Berkeley (Master), and some additional things."
+site_author = "Yukikaze!"
+docs_dir = "notebook"
+
+copyright = "Copyright &copy; 2026 Yukikaze!"
+
+repo_url = "https://github.com/haoda-li/notebook"
+
+nav = [
+  { "Index" = "index.md" },
+  { "Research Notes" = [
+    { "LLM Models and Inference Systems" = [
+      "llm/llama.md",
+      "llm/moe.md",
+      "llm/vllm_serve.md",
+      "llm/parallelism.md",
+      "llm/vllm_apc.md",
+    ] },
+    { "Applications of Parallel Computers" = [
+      "parallel/communication.md",
+      "parallel/distributed.md",
+      "parallel/dataparallel.md",
+      "parallel/la.md",
+      "parallel/random.md",
+      "parallel/upcxx.md",
+      "parallel/ml.md",
+      "parallel/grid.md",
+      "parallel/sparse_matrix.md",
+      "parallel/fft.md",
+      "parallel/sort.md"
+    ] },
+    { "Parallel Computing Implementations" = [
+      "parallel/hie.md",
+      "parallel/matrix.md",
+      "parallel/simd.md",
+      "parallel/parallel.md",
+      "parallel/pthread.md",
+      "parallel/omp.md",
+      "parallel/omp_for.md",
+      "parallel/omp_sync.md",
+      "parallel/mpi.md",
+      "parallel/mpi_comm.md",
+      "parallel/cuda.md",
+      "parallel/cuda_opt.md",
+      "parallel/slurm.md"
+    ] },
+  ] },
+  { "Graphics & Vision" = [
+    "vccg.md",
+    { "3D Vision Learning and Reconstruction" = [
+      "vision3d/intro.md",
+      "vision3d/optical_flow.md",
+      "vision3d/supervised3d.md",
+      "vision3d/pointcloud.md",
+      "vision3d/nerf.md",
+      "vision3d/shl.md",
+      "vision3d/sdf_nerf.md",
+      "vision3d/3dgaussian.md",
+      "vision3d/3dgsmath.md",
+      "vision3d/rotations.md"
+    ] },
+    { "Computer Graphics and Imaging" = [
+      "graphics/sampling.md",
+      "graphics/transforms.md",
+      "graphics/texture.md",
+      "graphics/splines.md",
+      "graphics/mesh.md",
+      "graphics/mesh_impl.md",
+      "graphics/shader_pipeline.md",
+      "graphics/raytracing.md",
+      "graphics/bvh.md",
+      "graphics/mcintegral.md",
+      "graphics/pathtracing.md",
+      "graphics/camera.md",
+      "graphics/kinematics.md",
+      "graphics/kinematics_impl.md",
+      "graphics/mass_spring_system.md",
+      "graphics/simulation.md",
+      "graphics/fluids.md",
+      "graphics/color.md",
+    ] }, 
+    { "Physics-based Animation" = [
+      "animation/introduction.md",
+      "animation/1d_mass_spring.md",
+      "animation/3d_mass_spring_system.md",
+      "animation/fem.md",
+      "animation/cloth.md",
+      "animation/rigid_bodies.md",
+      "animation/rotations.md",
+      "animation/collision.md",
+      "animation/fluids.md"
+    ] }, 
+    { "Geometry Processing" = [
+      "geometry/introduction.md",
+      "geometry/surface_reconstruction.md",
+      "geometry/registration.md",
+      "geometry/sparse_icp.md",
+      "geometry/smoothing.md",
+      "geometry/deformation.md",
+      "geometry/parameterization.md",
+      "geometry/curvature.md"
+    ] }, 
+    { "Geometry of Curves and Surfaces" = [
+      "math_geometry/intro_curves.md",
+      "math_geometry/arc_length.md",
+      "math_geometry/reparam.md",
+      "math_geometry/curvature.md",
+      "math_geometry/plane_curve.md",
+      "math_geometry/space_curves.md",
+      "math_geometry/fvt.md",
+      "math_geometry/iso_ineq.md",
+      "math_geometry/intro_surface.md",
+      "math_geometry/surface_tangent.md",
+      "math_geometry/surface_normals.md",
+      "math_geometry/surface_examples.md",
+      "math_geometry/examples_smooth.md",
+      "math_geometry/fff.md",
+      "math_geometry/isometry.md",
+      "math_geometry/sff.md",
+      "math_geometry/gaussian_curvature.md",
+      "math_geometry/parallel_transport.md",
+      "math_geometry/geodesics.md",
+      "math_geometry/gcme.md",
+      "math_geometry/minimal_surface.md",
+      "math_geometry/gbt.md"
+    ] }, 
+    { "Image Understanding & Visual Computing" = [
+      "vision/linear_filters.md",
+      "vision/edge_detection.md",
+      "vision/image_pyramids.md",
+      "vision/harris_corner_detector.md",
+      "vision/blob_detection.md",
+      "vision/sift.md",
+      "vision/camera_model.md",
+      "vision/stereo.md",
+      "vision/indexing.md"
+    ] },
+  ] },
+  { "CS Courses" = [
+    "cs.md",
+    { "Probabilistic Learning and Reasoning" = [
+      "cs/csc412/models.md",
+      "cs/csc412/dag.md",
+      "cs/csc412/inference.md",
+      "cs/csc412/mc.md",
+      "cs/csc412/sampling.md",
+      "cs/csc412/vi.md",
+      "cs/csc412/vae.md"
+    ] },
+    { "Intro. Machine Learning" = [
+      "cs/csc311/knn.md",
+      "cs/csc311/bvd.md",
+      "cs/csc311/decision_trees.md",
+      "cs/csc311/linear_regression.md",
+      "cs/csc311/svm.md",
+      "cs/csc311/neural_nets.md",
+      "cs/csc311/gradient_descent.md",
+      "cs/csc311/classification.md",
+      "cs/csc311/probabilistic_models.md",
+      "cs/csc311/pca.md",
+      "cs/csc311/kM_EM.md",
+      "cs/csc311/matrix_factorization.md",
+      "cs/csc311/reinforce_learning.md"
+    ] },
+    { "Algorithms Design, Analysis and Complexity" = [
+      "cs/csc373/greedy_algorithm.md",
+      "cs/csc373/dp.md",
+      "cs/csc373/network_flow.md",
+      "cs/csc373/lp.md",
+      "cs/csc373/p_np.md",
+      "cs/csc373/npc.md",
+      "cs/csc373/self_reducibility.md",
+      "cs/csc373/optimization_approximation.md",
+    ] },
+    { "Data Structures and Analysis" = [
+      "cs/csc265/pq.md",
+      "cs/csc265/mq.md",
+      "cs/csc265/avl.md",
+      "cs/csc265/avl_app.md",
+      "cs/csc265/hashset.md",
+      "cs/csc265/random.md",
+      "cs/csc265/amortized.md",
+      "cs/csc265/disjoint_set.md",
+      "cs/csc265/bfs.md",
+      "cs/csc265/dfs.md",
+    ] },
+    { "Numerical Methods" = [
+      "cs/csc336/approx_error.md",
+      "cs/csc336/arithmetic.md",
+      "cs/csc336/arithmetic_examples.md",
+      "cs/csc336/norm.md",
+      "cs/csc336/matrix_conditioning.md",
+      "cs/csc336/lu_decomposition.md",
+      "cs/csc336/pivoting.md",
+      "cs/csc336/interpolations.md",
+      "cs/csc336/non_linear_equations.md",
+    ] },
+  ] },
+  { "Math & Stats Courses" = [
+    "mat_sta.md",
+    { "Intro. Real Analysis" = [
+      "math/mat337/real_number_construction.md",
+      "math/mat337/extremum.md",
+      "math/mat337/mct_bwt.md",
+      "math/mat337/topology_reals.md",
+      "math/mat337/normed_space.md",
+      "math/mat337/inner_product_and_fourier.md",
+      "math/mat337/function_convergence.md",
+      "math/mat337/series.md",
+      "math/mat337/AAT.md",
+      "math/mat337/approximations.md",
+      "math/mat337/ODE.md",
+      "math/mat337/swt.md",
+    ] },
+    { "Complex Variables" = [
+      "math/mat334/intro.md",
+      "math/mat334/functions.md",
+      "math/mat334/cont_diff.md",
+      "math/mat334/multi_val_func.md",
+      "math/mat334/integration.md",
+      "math/mat334/ct.md",
+      "math/mat334/cie.md",
+      "math/mat334/power_series.md",
+      "math/mat334/residue.md",
+      "math/mat334/jl.md",
+      "math/mat334/pvt.md",
+      "math/mat334/arg.md",
+      "math/mat334/conformal.md"
+    ] },
+    { "Nonlinear Optimization" = [
+      "math/apm462/calculus_review.md",
+      "math/apm462/ufdo.md",
+      "math/apm462/ufdoq.md",
+      "math/apm462/ecfdo.md",
+      "math/apm462/ecfdoq.md",
+      "math/apm462/icfdo.md",
+      "math/apm462/icfdoq.md",
+      "math/apm462/newtons_method_and_steepest_descent.md",
+      "math/apm462/conjugate.md",
+      "math/apm462/conjugateq.md",
+      "math/apm462/uo_functional.md",
+      "math/apm462/uo_functional_q.md",
+      "math/apm462/co_functional.md",
+      "math/apm462/co_functional_q.md",
+    ] },
+    { "Probability" = [
+      "stats/sta347/probability.md",
+      "stats/sta347/distribution.md",
+      "stats/sta347/mv_distribution.md",
+      "stats/sta347/function_rv.md",
+      "stats/sta347/expectations.md",
+      "stats/sta347/var.md",
+      "stats/sta347/ineq.md"
+    ] },
+    { "Theory of Statistical Practice" = [
+      "stats/sta355/statistical_models.md",
+      "stats/sta355/order_statistics.md",
+      "stats/sta355/spacings.md",
+      "stats/sta355/density_estimation.md",
+      "stats/sta355/methods_of_estimation.md",
+      "stats/sta355/bayes_inference.md"
+    ] },
+  ] },
+  { "Main" = "https://haoda-li.github.io/" },
+]
+
+extra_css = ["assets/extra.css"]
+extra_javascript = [
+  "assets/mathjax.js",
+  "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js",
+]
+
+[project.theme]
+# variant = "classic"
+# custom_dir = "overrides"
+logo = "assets/logo.png"
+favicon = "assets/logo.png"
+language = "en"
+features = [
+  "announce.dismiss",
+  # "content.action.edit",
+  # "content.action.view",
+  "content.code.annotate",
+  "content.code.copy",
+  "content.code.select",
+  "content.footnote.tooltips",
+  "content.tabs.link",
+  "content.tooltips",
+  # "header.autohide",
+  # "navigation.expand",
+  "navigation.footer",
+  "navigation.indexes",
+  "navigation.instant",
+  "navigation.instant.prefetch",
+  "navigation.instant.progress",
+  "navigation.path",
+  # "navigation.prune",
+  "navigation.sections",
+  "navigation.tabs",
+  # "navigation.tabs.sticky",
+  "navigation.top",
+  "navigation.tracking",
+  "search.highlight",
+  "toc.follow",
+  # "toc.integrate",
+]
+
+[project.theme.icon]
+logo = "assets/logo.png"
+
+[project.theme.font]
+text = "Inter"
+code = "Jetbrains Mono"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme)"
+toggle.icon = "lucide/sun-moon"
+toggle.name = "Switch to light mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+primary = "green"
+accent = "deep purple"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to system preference"
+accent = "green"
+primary = "deep purple"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/haoda-li"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/google-scholar"
+link = "https://scholar.google.com/citations?&user=e1Bif78AAAAJ"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/linkedin"
+link = "https://www.linkedin.com/in/haoda-li-515b26165/"
+
+[project.extra]
+generator = false
+
+[project.plugins.markdown-exec]
+
+[project.markdown_extensions]
+abbr = {}
+admonition = {}
+attr_list = {}
+def_list = {}
+footnotes = {}
+md_in_html = {}
+toc.permalink = true
+pymdownx.arithmatex.generic = true
+pymdownx.snippets = { base_path = "notebook"}
+pymdownx.betterem = {}
+pymdownx.caret = {}
+pymdownx.details = {}
+pymdownx.emoji.emoji_generator = "zensical.extensions.emoji.to_svg"
+pymdownx.emoji.emoji_index = "zensical.extensions.emoji.twemoji"
+pymdownx.highlight.anchor_linenums = true
+pymdownx.highlight.line_spans = "__span"
+pymdownx.highlight.pygments_lang_class = true
+pymdownx.inlinehilite = {}
+pymdownx.keys = {}
+pymdownx.magiclink = {}
+pymdownx.mark = {}
+pymdownx.smartsymbols = {}
+# pymdownx.snippets.base_path = "includes"
+pymdownx.superfences.custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+]
+pymdownx.tabbed.alternate_style = true
+pymdownx.tabbed.combine_header_slug = true
+pymdownx.tasklist.custom_checkbox = true
+pymdownx.tilde = {}
+
+[project.extra.tags]
+HTML5 = "html"
+JavaScript = "js"
+CSS = "cs"
