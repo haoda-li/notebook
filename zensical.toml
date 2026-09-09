@@ -15,6 +15,7 @@ nav = [
     { "LLM Models and Inference Systems" = [
       "llm/llama.md",
       "llm/moe.md",
+      "llm/attn_opt.md",
       "llm/vllm_serve.md",
       "llm/parallelism.md",
       "llm/vllm_apc.md",
@@ -352,6 +353,7 @@ link = "https://www.linkedin.com/in/haoda-li-515b26165/"
 generator = false
 
 [project.plugins.markdown-exec]
+[project.plugins.glightbox]
 
 [project.markdown_extensions]
 abbr = {}
