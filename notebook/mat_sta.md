@@ -6,40 +6,40 @@ hide:
 # Relevant Courses
 <div class="grid cards" markdown>
 
-- __Geometry of Curves and Surfaces__  
+- __[Geometry of Curves and Surfaces](math_geometry/intro_curves.md)__  
     MAT363 _(2022W)_
 
     ---
 
     :fontawesome-solid-user-tie: [Alexander Nabutovsky](http://www.math.toronto.edu/nabutovsky/)
 
-- __Complex Variables__    
-    MAT334 _(2021F)_
+- __[Theory of Statistical Practice](stats/sta355/statistical_models.md)__   
+    STA355 _(2020W)_
 
     ---
 
-    :fontawesome-solid-user-tie: Daniel Johnstone
+    :fontawesome-solid-user-tie: [Keith Knight](https://www.utstat.utoronto.ca/keith/home.html)
 
-- __Intro. Real Analysis__  
-    MAT337 _(2019S)_
-
-    ---
-
-    :fontawesome-solid-user-tie: Tomas Kojar
-
-- __Nonlinear Optimization__    
+- __[Nonlinear Optimization](math/apm462/calculus_review.md)__    
     APM462 _(2020S)_
 
     ---
 
     :fontawesome-solid-user-tie: Jonathan Korman
 
-- __Theory of Statistical Practice__   
-    STA355 _(2020W)_
+- __[Complex Variables](math/mat334/intro.md)__    
+    MAT334 _(2021F)_
 
     ---
 
-    :fontawesome-solid-user-tie: [Keith Knight](https://www.utstat.utoronto.ca/keith/home.html)
+    :fontawesome-solid-user-tie: Daniel Johnstone
+
+- __[Intro. Real Analysis](math/mat337/real_number_construction.md)__  
+    MAT337 _(2019S)_
+
+    ---
+
+    :fontawesome-solid-user-tie: Tomas Kojar
 
 - __Time Series Analysis__    
     STA457/2202 _(2019S)_
@@ -55,7 +55,7 @@ hide:
 
     :fontawesome-solid-user-tie: Shivon Sue-Chee
 
-- __Probability__     
+- __[Probability](stats/sta347/probability.md)__     
     STA347 _(2018F)_
 
     ---
